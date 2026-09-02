@@ -21,6 +21,7 @@ skills/<name>/
 templates/                       # scaffolds for a new skill — copied, not imported
 bin/validate-skills.mjs          # the validator that guards the contract
 bin/sync-readme.mjs              # regenerates the README Skills table + structure tree
+test/validate-skills.test.mjs    # the validator's own tests (node:test, no dependencies)
 ```
 
 `references/` is exactly one level deep. No subfolders.
@@ -198,8 +199,13 @@ move detail into a reference file.
 Run the validator before opening a pull request and paste the output into the PR:
 
 ```bash
-npm test          # validate-skills.mjs + sync-readme.mjs --check + markdownlint-cli2
+npm test          # validate-skills.mjs + its tests + sync-readme.mjs --check + markdownlint-cli2
 ```
+
+[`test/validate-skills.test.mjs`](test/validate-skills.test.mjs) runs the
+validator against throwaway skill directories, one case per check. A change to
+a check comes with a case that fails without it; run
+`node --test test/*.test.mjs` on its own while editing the validator.
 
 `bin/validate-skills.mjs` enforces the whole contract above — frontmatter keys,
 the name regex, the description limit, the 500-line body cap, every
@@ -257,6 +263,11 @@ Ruleset changes in a way a consumer would notice:
 
 Run `node bin/bump-version.mjs <skill> <version>` — it rewrites only the
 `version:` line. Then add a line to the changelog.
+
+Before the first tagged release no per-pull-request bump is required: rule
+changes are listed in the changelog as they land, and every skill's version is
+set once, at release time, from that list. The table applies from the first
+release on.
 
 ### The repository
 

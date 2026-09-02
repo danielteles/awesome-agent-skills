@@ -58,6 +58,8 @@ move independently; this file tracks the repository as a whole.
 - `bin/sync-readme.mjs` — regenerates the README Skills table and structure tree;
   `--check` runs in `npm test`.
 - `bin/bump-version.mjs` — bump a skill's `metadata.version`.
+- `test/validate-skills.test.mjs` — a `node:test` suite that runs the validator
+  against fixture skill directories, one case per check; part of `npm test`.
 - `npm test` runs the validator, the README check, and `markdownlint-cli2`
   (a 160-character ceiling on prose and list-item lines).
 - CI (`pull_request` only): Node 22, action commit SHAs pinned with Dependabot

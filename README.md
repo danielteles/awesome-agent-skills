@@ -91,7 +91,8 @@ One validator guards this — `node bin/validate-skills.mjs` (aliased as
 checks the frontmatter (`name`, `description` length, `license`, `metadata`),
 the 500-line body cap, every `references/` pointer, the topic slugs and
 sibling-skill names named in prose, the reference-file header, the worked
-example, and the per-file token budgets.
+example, and the per-file token budgets. The validator has its own tests under
+[`test/`](test/).
 
 ---
 
@@ -266,6 +267,8 @@ awesome-agent-skills/
 │   ├── bump-version.mjs
 │   ├── sync-readme.mjs
 │   └── validate-skills.mjs
+├── test/
+│   └── validate-skills.test.mjs
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
 ├── LICENSE

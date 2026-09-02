@@ -118,6 +118,11 @@ const binFiles = readdirSync(join(repoRoot, 'bin')).filter((f) => f.endsWith('.m
 binFiles.forEach((f, i) => {
   treeLines.push(`│   ${i === binFiles.length - 1 ? '└──' : '├──'} ${f}`);
 });
+treeLines.push('├── test/');
+const testFiles = readdirSync(join(repoRoot, 'test')).filter((f) => f.endsWith('.test.mjs')).sort();
+testFiles.forEach((f, i) => {
+  treeLines.push(`│   ${i === testFiles.length - 1 ? '└──' : '├──'} ${f}`);
+});
 treeLines.push(...TREE_TAIL, '```');
 const structureBlock = treeLines.join('\n');
 
