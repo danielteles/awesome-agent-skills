@@ -11,6 +11,10 @@ description: >-
   architecture", "SOLID", "design pattern", "DDD", "bounded context",
   "micro-frontend", "data fetching", "form validation", or "how should I
   structure this".
+license: CC-BY-4.0
+metadata:
+  author: danielteles
+  version: "1.0"
 ---
 
 # Architecture and Design — Frontend Engineering Skill

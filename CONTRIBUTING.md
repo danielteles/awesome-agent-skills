@@ -51,6 +51,20 @@ YAML, at the top of `SKILL.md`, with exactly these keys:
 |---|---|
 | `name` | Equals the directory name. Lowercase, hyphen-separated. |
 | `description` | <= 1024 characters. Says what the skill does and when to use it. Ends with the trigger keywords a user is likely to type. |
+| `license` | `CC-BY-4.0` — the license covering the skill content in this repository. |
+| `metadata` | A map with `author` (your handle) and `version` (a quoted semver-ish string, `"1.0"` for a new skill). |
+
+Example:
+
+```yaml
+name: web-performance
+description: >-
+  …ends with the trigger keywords.
+license: CC-BY-4.0
+metadata:
+  author: your-handle
+  version: "1.0"
+```
 
 ### Body sections
 
@@ -184,9 +198,8 @@ both on every pull request. A red check blocks merge.
 ## Review process
 
 1. One skill or one change per pull request.
-2. The PR description has: a two-line summary, a **Changes** bullet list, a
-   **Verification** section quoting the check output, and the generated-with
-   footer.
+2. The PR description has: a two-line summary, a **Changes** bullet list, and a
+   **Verification** section quoting the check output.
 3. A reviewer checks the mechanical contract (the checks cover most of it) and
    then the judgment calls: is every Ruleset rule enforceable from the sentence
    alone? Does each reference file explain rather than restate? Does the
@@ -201,17 +214,7 @@ both on every pull request. A red check blocks merge.
 - Imperative mood, sentence case, no `type:` prefix
   (`Add web-performance skill`, not `feat: add web-performance skill`).
 - One logical change per commit.
-- End every commit message with:
-
-  ```
-  Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
-  ```
-
-- End every pull request description with:
-
-  ```
-  🤖 Generated with [Claude Code](https://claude.com/claude-code)
-  ```
+- Reference the issue or backlog item the change belongs to, when there is one.
 
 ---
 

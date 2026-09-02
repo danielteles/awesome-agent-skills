@@ -23,11 +23,11 @@ skills that build on one another instead of repeating the same baseline rules.
 
 Each skill is a directory: a lean `SKILL.md` plus a `references/` folder.
 
-- **`SKILL.md`** — YAML frontmatter (`name`, `description`), a mode-based **How to
-  Use** section, and a **Ruleset**: the complete, enforceable rule list as
-  grouped checkboxes, read top-to-bottom to generate and ticked against a diff to
-  review. `SKILL.md` is self-sufficient — an agent can enforce every rule from it
-  alone.
+- **`SKILL.md`** — YAML frontmatter (`name`, `description`, `license: CC-BY-4.0`,
+  and `metadata` with `author` and `version`), a mode-based **How to Use**
+  section, and a **Ruleset**: the complete, enforceable rule list as grouped
+  checkboxes, read top-to-bottom to generate and ticked against a diff to review.
+  `SKILL.md` is self-sufficient — an agent can enforce every rule from it alone.
 - **`references/<topic>.md`** — one file per Ruleset group, holding the
   *reasoning*, the finer detail, and `❌ / ✅` code for that topic. An agent with
   file access reads only the one or two that the current diff touches; the rule

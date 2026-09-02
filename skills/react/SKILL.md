@@ -8,6 +8,10 @@ description: >-
   `core-typescript` and `architecture-and-design`. Use it when the user mentions
   React, hooks, useEffect, useState, re-renders, Server Components, "use client",
   Suspense, the React Compiler, useActionState, context, or forwardRef.
+license: CC-BY-4.0
+metadata:
+  author: danielteles
+  version: "1.0"
 ---
 
 # React Conventions — Framework Skill
