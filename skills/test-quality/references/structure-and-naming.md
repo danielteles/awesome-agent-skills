@@ -1,6 +1,6 @@
 # Test Quality — Structure and Naming: why, and examples
 
-The rules are in the `testing` Ruleset (`structure-and-naming` group). This file is the reasoning
+The rules are in the `test-quality` Ruleset (`structure-and-naming` group). This file is the reasoning
 and code.
 
 ## Name the scenario and the outcome

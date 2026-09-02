@@ -40,7 +40,7 @@ Pick the mode that matches the task. Do the steps in order.
 |---|---|
 | **Generate** — write a new component or hook | 1. Keep render pure; type the props (`purity`). 2. Before you write a `useEffect`, check `effects` — most do not need one. 3. Derive state during render; reset with `key` (`state`). 4. Run the Ruleset as a checklist. Fix each fail before you hand off. |
 | **Review** — check a pull request or a diff | 1. Run the Ruleset against the diff. 2. Write one finding per fail, in the Output Format below. 3. Order the findings: `must-fix` first, then `consider`. 4. If nothing fails, say so in one line. Do not invent findings. |
-| **Migrate** — modernize legacy React | 1. Run the codemods: `npx types-react-codemod@latest preset-19` for React 19 types, plus the `forwardRef` and `<Context.Provider>` codemods. 2. Turn on `eslint-plugin-react-hooks` (v5) and fix every warning. 3. Adopt the React Compiler; then delete hand-written `useMemo` / `useCallback` that only guarded referential identity. 4. One change kind per commit. Keep the tests green. |
+| **Migrate** — modernize legacy React | 1. Run the React 19 types codemod, then the `forwardRef` and `<Context.Provider>` codemods. 2. Turn on `eslint-plugin-react-hooks` (v5) and fix every warning. 3. Adopt the React Compiler; then delete hand-written `useMemo` / `useCallback` that only guarded referential identity. 4. One change kind per commit. Keep the tests green. |
 
 ### Output Format
 

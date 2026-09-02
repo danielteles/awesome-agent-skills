@@ -42,7 +42,7 @@ Pick the mode that matches the task. Do the steps in order.
 |---|---|
 | **Generate** — write a new component, service, or route | 1. Standalone, `OnPush`, `inject()`, signals (`bootstrap`, `components`, `signals`, `inputs-outputs`). 2. Block control flow in the template (`templates`). 3. Give every subscription a teardown (`rxjs`). 4. Run the Ruleset as a checklist. Fix each fail before you hand off. |
 | **Review** — check a pull request or a diff | 1. Run the Ruleset against the diff. 2. Write one finding per fail, in the Output Format below. 3. Order the findings: `must-fix` first, then `consider`. 4. If nothing fails, say so in one line. Do not invent findings. |
-| **Migrate** — modernize legacy Angular | 1. Run the official schematics first: `ng generate @angular/core:standalone`, `control-flow`, `inject`, `signal-input-migration`, `output-migration`, `signal-queries-migration`, `route-lazy-loading`. 2. Apply the Ruleset by hand for what a schematic left behind. 3. One migration per commit. Keep the tests green. |
+| **Migrate** — modernize legacy Angular | 1. Run the official migration schematics first: standalone, control flow, `inject`, signal inputs, `output`, signal queries, lazy route loading. 2. Apply the Ruleset by hand for what a schematic left behind. 3. One migration per commit. Keep the tests green. |
 
 ### Output Format
 

@@ -204,7 +204,8 @@ ceiling on prose and list-item lines; wrap a long Ruleset line, do not let it
 run off.
 
 [`.github/workflows/check-skills.yml`](.github/workflows/check-skills.yml) runs
-`npm test` on every pull request. A red check blocks merge.
+`npm test` on every pull request, then a second step validating each skill
+against the Agent Skills spec (`skills-ref validate`). A red check blocks merge.
 
 ---
 

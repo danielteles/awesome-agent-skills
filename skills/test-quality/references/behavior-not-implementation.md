@@ -1,6 +1,6 @@
 # Test Quality — Behavior, Not Implementation: why, and examples
 
-The rules are in the `testing` Ruleset (`behavior-not-implementation` group). This file is the
+The rules are in the `test-quality` Ruleset (`behavior-not-implementation` group). This file is the
 reasoning and code; if it ever disagrees with the Ruleset, the Ruleset wins.
 
 ## Why

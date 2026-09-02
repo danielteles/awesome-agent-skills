@@ -10,11 +10,12 @@
 //   - every `references/<file>.md` pointer in SKILL.md resolves to a real file;
 //   - every topic slug listed in the Output Format ("Ruleset topic slug (`a`, `b`, …)")
 //     is a real `### <slug> → …` Ruleset group;
-//   - every backticked sibling-skill name in the Builds-on note and the References
-//     bullets exists as a directory under skills/;
+//   - every sibling-skill name in the "## References" bullet leads exists as a
+//     directory under skills/;
 //   - references/worked-example.md exists;
 //   - every other references/<topic>.md opens with a `# … why…` heading and the
-//     "The rules are in the `<skill>` Ruleset (`<topic>` group)…" line near the top;
+//     "The rules are in the `<skill>` Ruleset (`<topic>` group)…" line near the top,
+//     naming this skill;
 //   - a SKILL.md is <= 4300 estimated tokens; a references/*.md is <= 2000.
 //
 // Warnings (do not fail): a reference file no SKILL.md points to; a SKILL.md with no
@@ -139,15 +140,14 @@ for (const skill of [...skillSet].sort()) {
     }
   }
 
-  // Sibling skill names: the Builds-on blockquote + the "## References" bullet leads
+  // Sibling skill names: the "## References" bullet leads are the authoritative
+  // list. (The Builds-on note is prose and may backtick non-skill tokens.)
   const siblingCites = new Set();
-  const buildsOn = body.match(/^>\s+\*\*Builds on\.\*\*[\s\S]*?(?=\n\n)/m);
-  if (buildsOn) for (const m of buildsOn[0].matchAll(/`([a-z0-9-]+)`/g)) siblingCites.add(m[1]);
   const refsSection = body.match(/^##\s+References\b[\s\S]*$/m);
   if (refsSection) for (const m of refsSection[0].matchAll(/^-\s+\*\*`([a-z0-9-]+)`\*\*/gm)) siblingCites.add(m[1]);
   for (const cite of [...siblingCites].sort()) {
     if (cite !== skill && !skillSet.has(cite)) {
-      errors.push(`${rel}/SKILL.md: names sibling skill \`${cite}\`, which does not exist under skills/`);
+      errors.push(`${rel}/SKILL.md: References names sibling skill \`${cite}\`, which does not exist under skills/`);
     }
   }
 
@@ -188,8 +188,11 @@ for (const skill of [...skillSet].sort()) {
       errors.push(`${rel}/references/${file}: first heading must be \`# <Group> — why…\``);
     }
     const head = text.split('\n').slice(0, 12).join('\n');
-    if (!/The rules are in the `[^`]+` Ruleset \(`[^`]+` group\)/.test(head)) {
+    const marker = head.match(/The rules are in the `([^`]+)` Ruleset \(`[^`]+` group\)/);
+    if (!marker) {
       errors.push(`${rel}/references/${file}: missing the "The rules are in the \`<skill>\` Ruleset (\`<topic>\` group)…" line near the top`);
+    } else if (marker[1] !== skill) {
+      errors.push(`${rel}/references/${file}: header says the \`${marker[1]}\` Ruleset, but this reference belongs to \`${skill}\``);
     }
   }
 }
