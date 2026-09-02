@@ -161,8 +161,8 @@ routes.home; // type is '/'
 | Use a union of string literals, not a TypeScript `enum`. `const enum` is not the fix. | `enum` adds runtime code and has surprising nominal rules. `const enum` breaks under `isolatedModules`. |
 | Freeze a runtime lookup with `as const`. | It keeps the literal types and blocks mutation. |
 | Mark unchanging data `readonly`. Use `readonly T[]` for a list. | The compiler then rejects a mutation. |
-| Model mutually exclusive states as a discriminated union. Design rationale: architecture-and-design Section 7.2. | A shared discriminant field lets the compiler narrow and check every case. |
-| Give each domain id its own branded type. Mint it with one sanctioned cast at the boundary. Design rationale: architecture-and-design Section 4. | Two `string` ids are interchangeable to the compiler; a brand makes passing an `OrderId` for a `UserId` a compile error. |
+| Model mutually exclusive states as a discriminated union. Design rationale: architecture-and-design, patterns. | A shared discriminant field lets the compiler narrow and check every case. |
+| Give each domain id its own branded type. Mint it with one sanctioned cast at the boundary. Design rationale: architecture-and-design, type-safety. | Two `string` ids are interchangeable to the compiler; a brand makes passing an `OrderId` for a `UserId` a compile error. |
 
 ```ts
 // ❌ Runtime code, nominal typing, no plain string assignment
@@ -390,7 +390,7 @@ class PaymentError extends Error {
 | Use `import type` and `export type`, or an inline `type` on the name. | It keeps types out of the build. Under `verbatimModuleSyntax`, an unmarked type import runs at runtime. |
 | Prefer a named export. | A default export has no fixed name and refactors badly. |
 | No circular import between two modules. | It resolves to `undefined` at module load. |
-| A feature `index.ts` barrel is fine. No project-wide barrel. | A wide barrel breaks tree-shaking and invites cycles (architecture-and-design Section 6.2). |
+| A feature `index.ts` barrel is fine. No project-wide barrel. | A wide barrel breaks tree-shaking and invites cycles (architecture-and-design, structure). |
 
 ```ts
 // ❌ Pulls a type through the value graph
@@ -471,7 +471,7 @@ Output, in the format from How to Use This Skill:
 ```
 must-fix · Section 2 · money.ts:3 — `amount` has an implicit `any`. Annotate it `number`.
 must-fix · Section 10 · money.ts:9 — the `fetch` chain floats and swallows errors. Return `await fetch(...)` and its parsed value.
-must-fix · Section 2 · money.ts:11 — `data as Rate` asserts an unproven shape. Parse it with a schema (architecture-and-design Section 4).
+must-fix · Section 2 · money.ts:11 — `data as Rate` asserts an unproven shape. Parse it with a schema (architecture-and-design, type-safety).
 must-fix · Section 13 · money.ts:4 — `==` used. Change to `===`.
 consider · Section 4 · money.ts:1 — `enum Currency` adds runtime code. Use `type Currency = 'USD' | 'EUR'`.
 consider · Section 9 · money.ts:3 — `format` has no return type. Add `: string`.

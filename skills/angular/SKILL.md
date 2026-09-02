@@ -176,7 +176,7 @@ export class UserCard {
 | Keep `computed()` pure. It is lazy and memoized and may not run when you expect. | A side effect inside it fires unpredictably. |
 | Do not call `cdr.detectChanges()` or `markForCheck()` after a signal write. | A signal write schedules the view update itself. The call is a no-op and hides the fact that the state is already reactive. |
 | Use `cdr.detectChanges()` only for an imperative non-signal change Angular cannot observe: a third-party widget's imperative method, or a plain class field read in the template. Prefer converting the field to a signal. | That is the only case left once state is signals. |
-| Share state across components with a `providedIn: 'root'` service that exposes `signal` and `computed` members. Reach for a store library (`@ngrx/signals` SignalStore) only when that service grows entities, effects, and derived collections. | A signal service covers most apps. Classic NgRx boilerplate rarely pays off on the frontend (architecture-and-design Section 8). |
+| Share state across components with a `providedIn: 'root'` service that exposes `signal` and `computed` members. Reach for a store library (`@ngrx/signals` SignalStore) only when that service grows entities, effects, and derived collections. | A signal service covers most apps. Classic NgRx boilerplate rarely pays off on the frontend (architecture-and-design, state-and-data). |
 
 ```ts
 readonly query = signal('');
@@ -229,7 +229,7 @@ Replace the decorator with its function form.
 | Wrap a heavy or below-the-fold section in `@defer` with a trigger (`on viewport`, `on idle`, `on interaction`). | It stays out of the initial bundle. |
 | Bind with `[class.active]` and `[style.width.px]`, not `NgClass` or `NgStyle`. | Clearer syntax, better performance. |
 | Show an Observable with the `async` pipe or `toSignal()`. Never `.subscribe()` in the class for display data. | The pipe unsubscribes for you. |
-| Take content with `<ng-content>` and named slots (`select=`). Take a caller-supplied template with an `input<TemplateRef>()` rendered by `*ngTemplateOutlet`. Render a caller-supplied component with `NgComponentOutlet`. | This is how a reusable component stays open for extension (architecture-and-design Section 1, OCP). |
+| Take content with `<ng-content>` and named slots (`select=`). Take a caller-supplied template with an `input<TemplateRef>()` rendered by `*ngTemplateOutlet`. Render a caller-supplied component with `NgComponentOutlet`. | This is how a reusable component stays open for extension (architecture-and-design, solid — OCP). |
 | Keep a custom pipe pure and standalone. Type its `transform`. Do no I/O or heavy work in it. | An impure pipe runs on every change-detection pass. |
 
 ```html
@@ -258,7 +258,7 @@ Replace the decorator with its function form.
 | Register a service with `@Injectable({ providedIn: 'root' })`. | Tree-shakable singleton, no provider array. |
 | Provide a narrower scope only when the instance must be per-route or per-component. | Root is the default; a scoped instance is the exception. |
 | Use a functional route guard (`CanActivateFn`) and a functional HTTP interceptor (`HttpInterceptorFn` with `withInterceptors`). | The class-based guard interfaces are deprecated; functional interceptors are the current default. |
-| At a system boundary, inject an `InjectionToken<T>` for an abstraction, not a concrete class. | Matches architecture-and-design Section 1 (DIP) and Section 7. |
+| At a system boundary, inject an `InjectionToken<T>` for an abstraction, not a concrete class. | Matches architecture-and-design, solid (DIP) and patterns. |
 | Get `DestroyRef` with `inject(DestroyRef)` for manual teardown. | It ties cleanup to the component lifetime. |
 | Call `inject()` only in an injection context: a constructor, a field initializer, or a `provide*` factory. Wrap a later call in `runInInjectionContext`. | Outside that context `inject()` throws. This is the one constraint the pattern carries. |
 
@@ -280,11 +280,11 @@ export const authGuard: CanActivateFn = () => {
 | Convert a stream to a signal at the edge with `toSignal()`. Render the signal. | The component holds a value, not a subscription. |
 | Never leave a manual `.subscribe()` without teardown. Add `takeUntilDestroyed()` or use the `async` pipe. | A live subscription after destroy is a leak. |
 | Call `takeUntilDestroyed()` in an injection context, or pass it a `DestroyRef`. | It reads the current lifetime from the context. |
-| Call `HttpClient` from a repository, not from a component (architecture-and-design Section 7). | The component depends on a domain interface, not the transport. |
-| Cache server state with a cache library, not a hand-rolled `BehaviorSubject` store (architecture-and-design Section 8). | Caching, refetch, and staleness are solved elsewhere. |
+| Call `HttpClient` from a repository, not from a component (architecture-and-design, patterns). | The component depends on a domain interface, not the transport. |
+| Cache server state with a cache library, not a hand-rolled `BehaviorSubject` store (architecture-and-design, state-and-data). | Caching, refetch, and staleness are solved elsewhere. |
 | `resource()`, `rxResource()`, and `httpResource()` are experimental. Prefer `toSignal()` or a cache library until they stabilize. | Building on an experimental API costs a rewrite later. |
 | Handle transport errors in a functional HTTP interceptor: map status codes to domain errors, retry an idempotent call with backoff. | One place for the policy, not a `catchError` in every call. |
-| Register one `ErrorHandler` for anything that reaches the top. Report it, then show a fallback (architecture-and-design Section 9). | An unhandled error otherwise dies in the console. |
+| Register one `ErrorHandler` for anything that reaches the top. Report it, then show a fallback (architecture-and-design, frontend-practices). | An unhandled error otherwise dies in the console. |
 
 ```ts
 private readonly route = inject(ActivatedRoute);
@@ -301,7 +301,7 @@ readonly id = toSignal(this.route.paramMap.pipe(map((p) => p.get('id'))));
 |---|---|
 | Use reactive forms (`FormGroup`, `FormControl`) for anything past a single field. | A template-driven form hides its model and is hard to test. |
 | Type every control: `new FormControl<string>('', { nonNullable: true })`. | An untyped form loses every guarantee. |
-| Build the validators from the same schema as the domain model (architecture-and-design Section 14). | One source of truth for the rules, client and server. |
+| Build the validators from the same schema as the domain model (architecture-and-design, forms). | One source of truth for the rules, client and server. |
 | Derive `invalid`, `dirty`, and error text from the form state. Do not copy them into signals. | A copy goes stale against the control. |
 | `disable({ emitEvent: false })` a control a mode does not render. Do not just hide it with `@if`. | A hidden control keeps its validators and its patched value, keeps `form.invalid` true, and has no element to show the error — the save button then silently does nothing. A disabled control is excluded from both `form.value` and validity. |
 | When a save is blocked, show the user why (a toast or an inline message), not only a disabled button. | A blocked save with no message reads as a broken button. |
@@ -314,11 +314,11 @@ readonly id = toSignal(this.route.paramMap.pipe(map((p) => p.get('id'))));
 | Rule | Why |
 |---|---|
 | Define routes with `provideRouter(routes)`. Lazy-load a feature with `loadComponent` or `loadChildren`. | Each feature ships in its own chunk. |
-| A route maps to a feature folder (architecture-and-design Section 6). | The route tree and the source tree stay parallel. |
+| A route maps to a feature folder (architecture-and-design, structure). | The route tree and the source tree stay parallel. |
 | Scope a feature-only service with the route's `providers` array, not `providedIn: 'root'`. | It loads and unloads with the lazy chunk instead of living for the whole session. |
 | Bind route params, query params, and data to inputs with `withComponentInputBinding()`. | The component reads an `input()`, not `ActivatedRoute`. |
 | Guard a route with a functional `CanActivateFn` that uses `inject()`. | No guard class, no module. |
-| Keep filters, the current tab, and pagination in the URL (architecture-and-design Section 8). | Shareable, and it survives a reload. |
+| Keep filters, the current tab, and pagination in the URL (architecture-and-design, state-and-data). | Shareable, and it survives a reload. |
 
 ```ts
 export const routes: Routes = [
@@ -342,7 +342,7 @@ export const routes: Routes = [
 | Add `provideClientHydration()` for a server-rendered app. | It reuses the server DOM instead of re-rendering. |
 | Use `NgOptimizedImage` (`ngSrc`) with explicit `width` and `height`, or `fill`. | It lazy-loads, sets fetch priority, and prevents layout shift. |
 | Change the DOM through `Renderer2` or a binding, not `ElementRef.nativeElement` and `document`. | Direct DOM access breaks under SSR and Web Workers. |
-| Interpolation and `[innerHTML]` are sanitized. Do not call `bypassSecurityTrust*` on anything a user or an API supplied. | A bypass on untrusted input is an XSS hole (architecture-and-design Section 10). |
+| Interpolation and `[innerHTML]` are sanitized. Do not call `bypassSecurityTrust*` on anything a user or an API supplied. | A bypass on untrusted input is an XSS hole (architecture-and-design, security). |
 | Manage focus and announce a live change with the CDK a11y tools: `FocusTrap`, `FocusMonitor`, `LiveAnnouncer`. | A route change or a dialog that does not move focus is unusable with a keyboard or a screen reader. |
 | Until the app is zoneless, run a high-frequency listener (`scroll`, `mousemove`, `requestAnimationFrame`) inside `NgZone.runOutsideAngular`. | Each event otherwise triggers a full change-detection pass. |
 
@@ -350,7 +350,7 @@ export const routes: Routes = [
 
 ## 11. Testing
 
-Test each layer the way architecture-and-design Section 11 describes. The Angular specifics:
+Test each layer the way architecture-and-design, testing describes. The Angular specifics:
 
 | Rule | Why |
 |---|---|
@@ -460,7 +460,7 @@ consider · Section 2 · user-menu.component.ts — the file is `user-menu.compo
 This skill is Angular framework rules. It does not cover:
 
 - Language rules (see core-typescript) or framework-neutral architecture (see architecture-and-design).
-- Deep RxJS operator design, and store libraries (NgRx, NGXS) — use the state tiers in architecture-and-design Section 8 and reach for a store only when they call for one.
+- Deep RxJS operator design, and store libraries (NgRx, NGXS) — use the state tiers in architecture-and-design, state-and-data and reach for a store only when they call for one.
 - Nx or monorepo setup, Angular Material theming, `@angular/animations`, and i18n.
 - Accessibility depth — CDK a11y usage is noted where it fits, but focus management, ARIA, and a11y testing live in `accessibility`.
 - Angular versions before standalone components and block control flow. For a legacy app, migrate first (the Migrate mode above).
