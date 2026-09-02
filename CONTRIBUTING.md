@@ -20,6 +20,7 @@ skills/<name>/
   references/worked-example.md   # one review pass in the Output Format — always present
 templates/                       # scaffolds for a new skill — copied, not imported
 bin/validate-skills.mjs          # the validator that guards the contract
+bin/sync-readme.mjs              # regenerates the README Skills table + structure tree
 ```
 
 `references/` is exactly one level deep. No subfolders.
@@ -35,8 +36,10 @@ bin/validate-skills.mjs          # the validator that guards the contract
    Ruleset group and `templates/worked-example.md` to
    `skills/<slug>/references/worked-example.md`.
 3. Fill every `<placeholder>` and delete every HTML comment.
-4. Run the validator (below). Fix every failure.
-5. Open a pull request — see [Review process](#review-process).
+4. Run `node bin/sync-readme.mjs` to add your skill to the README table and tree
+   (both are generated from `skills/*/SKILL.md` — do not hand-edit them).
+5. Run the validator (below). Fix every failure.
+6. Open a pull request — see [Review process](#review-process).
 
 Copy the templates as they are. Do not restructure the sections.
 
@@ -187,13 +190,15 @@ move detail into a reference file.
 Run the validator before opening a pull request and paste the output into the PR:
 
 ```bash
-npm test          # runs node bin/validate-skills.mjs
+npm test          # node bin/validate-skills.mjs && node bin/sync-readme.mjs --check
 ```
 
 `bin/validate-skills.mjs` enforces the whole contract above — frontmatter keys,
 the name regex, the description limit, the 500-line body cap, every
 `references/` pointer, topic slugs, sibling-skill names, the reference-file
-header, the worked example, and the token budgets.
+header, the worked example, and the token budgets. `bin/sync-readme.mjs --check`
+fails if the README Skills table or structure tree is out of date; run
+`node bin/sync-readme.mjs` (no flag) to regenerate them.
 
 [`.github/workflows/check-skills.yml`](.github/workflows/check-skills.yml) runs
 `npm test` on every pull request. A red check blocks merge.
