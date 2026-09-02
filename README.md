@@ -1,12 +1,92 @@
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+# awesome-agent-skills
 
-## License
+A collection of composable AI agent **skills / rules** for tools such as
+**Claude Code**, **Cursor**, **Windsurf**, and **MCP servers**.
 
-This work is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+The goal is a single source of truth for reusable coding guidance: composable
+skills that build on one another instead of repeating the same baseline rules.
 
-You are free to:
-- **Share** — copy and redistribute the material in any medium or format
-- **Adapt** — remix, transform, and build upon the material for any purpose, even commercially.
+---
 
-Under the following terms:
-- **Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made.
+## Skills
+
+| Skill | Role |
+| --- | --- |
+| [`rules/core-typescript.md`](rules/core-typescript.md) | **Base.** Language-level TypeScript rules: compiler strictness, safe typing, inference and `satisfies`, discriminated unions, narrowing, generics, utility types, nullability, async, error handling, module hygiene, lint. |
+| [`rules/architecture-and-design.md`](rules/architecture-and-design.md) | **Base.** Framework-neutral design and architecture: SOLID, clean code, expressive logic, type safety as design, clean architecture, feature boundaries, design patterns, state management and data fetching, security, testing strategy, DDD tactical patterns, micro-frontends, forms and validation. |
+| [`rules/react.md`](rules/react.md) | React, on the two base skills: components and purity, the Rules of Hooks, effects, state, refs, context, data fetching and Suspense, forms and Actions, Server and Client Components, the React Compiler. |
+| [`rules/angular.md`](rules/angular.md) | Angular, on the two base skills: standalone components, signals, block control flow, `inject()`, functional providers, typed reactive forms, zoneless-ready change detection. |
+
+Each skill is a single Markdown file with YAML frontmatter (`name`,
+`description`) and a fixed layout: a mode-based **How to Use** section, a
+**Rules at a Glance** index, a rule catalog as `rule → why` tables with
+`❌ / ✅` examples, a **Code Review Checklist**, and a **Worked Example**.
+
+---
+
+## How the skills compose
+
+Two base skills, extended by the framework skills:
+
+```
+   ┌─────────────────────┐   ┌───────────────────────────┐
+   │   core-typescript   │   │  architecture-and-design  │
+   │   language rules    │   │   design & architecture   │
+   └──────────┬──────────┘   └─────────────┬─────────────┘
+              │                            │
+              └─────────────┬──────────────┘
+                            │   extend / compose
+               ┌────────────┴────────────┐
+               ▼                         ▼
+         ┌───────────┐             ┌───────────┐
+         │   react   │             │  angular  │
+         └───────────┘             └───────────┘
+```
+
+- **`core-typescript`** holds the language rules every TypeScript project should
+  follow, framework or not.
+- **`architecture-and-design`** holds framework-neutral design and architecture
+  rules. It composes with `core-typescript`: on a shared topic it decides the
+  design, and `core-typescript` decides the syntax.
+- **`react`** and **`angular`** extend `core-typescript` and compose with
+  `architecture-and-design`, adding their framework's specifics on top. On a
+  conflict, `architecture-and-design` decides the design and the framework skill
+  decides the framework API.
+
+A change to a base skill propagates to every skill that builds on it.
+
+---
+
+## Usage
+
+Copy or reference the files under [`rules/`](rules/) into wherever your agent
+loads skills or rules — a Claude Code skills directory, a Cursor rules folder,
+an MCP server's context. Load a framework skill together with the two base
+skills it builds on.
+
+---
+
+## Project structure
+
+```
+awesome-agent-skills/
+├── rules/
+│   ├── core-typescript.md         # Base: TypeScript language rules
+│   ├── architecture-and-design.md # Base: framework-neutral design & architecture
+│   ├── react.md                   # React, on the two base skills
+│   └── angular.md                 # Angular, on the two base skills
+├── LICENSE
+└── README.md
+```
+
+---
+
+## Licensing
+
+The skill content in this repository (`rules/**` and all Markdown) is licensed
+under the **Creative Commons Attribution 4.0 International (CC BY 4.0)** license.
+You may share and adapt it for any purpose, including commercially, as long as
+you give appropriate credit, link to the license, and indicate any changes.
+
+See [`LICENSE`](./LICENSE) for the full text. CC BY 4.0 reference:
+<https://creativecommons.org/licenses/by/4.0/>.
