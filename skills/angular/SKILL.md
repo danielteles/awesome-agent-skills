@@ -1,16 +1,15 @@
 ---
 name: angular
 description: >-
-  Modern Angular conventions — standalone components, `OnPush` and signals,
-  `input()` / `output()` / `model()`, the `@if` / `@for` / `@switch` block
-  control flow, `inject()` and functional providers, functional guards and
-  interceptors, typed reactive forms, lazy routing, zoneless-ready change
-  detection and SSR, and testing by role. Gives the Angular form of rules that
-  `core-typescript` and `architecture-and-design` set in general terms. Use it
-  when writing, reviewing, refactoring, or migrating Angular, or when the user
-  mentions Angular, signals, `computed`, `effect`, standalone, `OnPush`, control
-  flow, `inject`, RxJS, reactive forms, change detection, zoneless, `NgModule`,
-  or `ng generate`.
+  Modern Angular conventions for writing, reviewing, refactoring, or migrating
+  Angular: standalone components, `OnPush` and signals, `input()` / `output()` /
+  `model()`, `@if` / `@for` / `@switch` control flow, `inject()` and functional
+  providers, functional guards and interceptors, typed reactive forms, lazy
+  routing, zoneless-ready change detection and SSR, testing by role. Builds on
+  `core-typescript` and `architecture-and-design`. Use it when the user mentions
+  Angular, signals, `computed`, `effect`, standalone, `OnPush`, control flow,
+  `inject`, RxJS, reactive forms, change detection, zoneless, `NgModule`, or
+  `ng generate`.
 ---
 
 # Angular Conventions — Framework Skill
@@ -19,14 +18,14 @@ Angular-specific rules for modern Angular: standalone, signals, block control fl
 providers. It gives the Angular form of rules that `core-typescript` and `architecture-and-design`
 set in general terms.
 
-> **Prerequisites.** Load `core-typescript` and `architecture-and-design` alongside this skill, and
-> `accessibility` for any UI work. `npx skills add …@angular` installs this file alone and does not
-> pull them in.
+> **Builds on.** `core-typescript` (language rules) and `architecture-and-design` (design), plus
+> `accessibility` for UI work. The Ruleset below is complete on its own; load one of these when the
+> task turns on its layer, not by default. `npx skills add …@angular` installs this file alone.
 
-This SKILL.md is self-sufficient: the **Ruleset** below is the complete, enforceable list. Each
-`references/` file holds the *reasoning* and code for one Ruleset topic (`references/signals.md`,
-`references/rxjs.md`, …), plus `references/worked-example.md`. Open them for depth if your runtime
-allows it — the Ruleset stays authoritative, and nothing here depends on them being read.
+This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, and
+nothing here depends on a `references/` file being read. Each `references/<topic>.md` holds the
+*reasoning* and code for one Ruleset group (`references/signals.md`, `references/rxjs.md`, …), plus
+`references/worked-example.md` for a full review pass. Open them for depth when your runtime allows.
 
 ---
 
@@ -175,12 +174,10 @@ Zoneless change detection is stabilizing. The rules here keep code zoneless-read
 
 ## References
 
-This skill extends the base skills. It composes with:
+This skill composes with:
 
-- **`core-typescript`** — the language base: `strict`, safe typing, narrowing, `unknown`, utility types. Angular templates and DI do not exempt code from these.
-- **`architecture-and-design`** — layering, feature boundaries, the adapter / repository pattern, state tiers, forms validation, security. This skill gives the Angular form of those rules; `architecture-and-design` decides the design.
-- **`accessibility`** — the accessibility review lens. Angular's tools for it are the CDK a11y package and `LiveAnnouncer`.
-- **`test-quality`** — the quality of the individual test this skill's `testing` mechanics produce: what it asserts, how it is named, what it fakes, whether it is deterministic.
+- **`core-typescript`** — the language base; Angular templates and DI do not exempt code from it.
+- **`architecture-and-design`** — the design layer. On a conflict it decides the design, this skill decides the Angular API.
+- **`accessibility`** — the review lens for UI; Angular's tools are the CDK `a11y` package and `LiveAnnouncer`.
+- **`test-quality`** — judges the individual test this skill's `testing` group produces.
 - **`react`** — the sibling framework skill.
-
-On a conflict between this skill and `architecture-and-design`, architecture-and-design decides the design and this skill decides the Angular API.

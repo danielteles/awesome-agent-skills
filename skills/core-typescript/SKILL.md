@@ -1,16 +1,15 @@
 ---
 name: core-typescript
 description: >-
-  Language-level TypeScript conventions for every project, framework or not:
+  Language-level TypeScript conventions for every project, framework or not —
   compiler strictness, banning unsafe types, inference and `satisfies`,
-  discriminated unions and branded ids, narrowing with type guards and assertion
-  functions, generics with restraint, utility and type-level tools, nullability,
-  async rules, errors as `unknown`, module hygiene, and language hygiene. The
-  base skill that `react`, `angular`, and `architecture-and-design` build on.
-  Use it when writing, reviewing, or refactoring TypeScript, or setting up
-  `tsconfig.json`, or when the user says "TypeScript", "tsconfig", "strict mode",
-  "type error", "any", "generics", "type safety", "utility types",
-  "discriminated union", or "narrowing".
+  discriminated unions and branded ids, narrowing, generics, utility types,
+  nullability, async, errors as `unknown`, module and language hygiene. The base
+  skill that `react`, `angular`, and `architecture-and-design` build on. Use it
+  when writing, reviewing, or refactoring TypeScript, setting up `tsconfig.json`,
+  or when the user says "TypeScript", "tsconfig", "strict mode", "type error",
+  "any", "generics", "type safety", "utility types", "discriminated union", or
+  "narrowing".
 ---
 
 # Core TypeScript Conventions — Base Engineering Skill
@@ -19,12 +18,12 @@ The language-level TypeScript rules for every project, framework or not. `react`
 extend it; `architecture-and-design` composes with it. Every rule assumes the compiler runs in
 `strict` mode (`compiler-config`). Examples are plain TypeScript, no framework.
 
-> **Prerequisites.** None — this is the base skill.
+> **Builds on.** Nothing — this is the base skill.
 
-This SKILL.md is self-sufficient: the **Ruleset** below is the complete, enforceable list. Each
-`references/` file holds the *reasoning* and code for one Ruleset topic (`references/narrowing.md`,
-`references/async.md`, …), plus `references/worked-example.md`. Open them for depth if your runtime
-allows it — the Ruleset stays authoritative, and nothing here depends on them being read.
+This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, and
+nothing here depends on a `references/` file being read. Each `references/<topic>.md` holds the
+*reasoning* and code for one Ruleset group (`references/narrowing.md`, `references/async.md`, …),
+plus `references/worked-example.md`. Open them for depth when your runtime allows.
 
 ---
 
@@ -157,10 +156,7 @@ This skill decides the syntax. It does not replace reading the code and understa
 
 ## References
 
-This skill is the language base. It composes with:
+This skill composes with:
 
-- **`architecture-and-design`** — the design layer: SOLID, clean architecture, feature boundaries, state management, security, testing. On a shared topic such as discriminated unions or branded ids, `architecture-and-design` decides the design and this skill decides the syntax.
-- **`react`** — extends this skill with React: hooks, effects, memoization, TSX conventions.
-- **`angular`** — extends this skill with Angular: standalone components, signals, `OnPush`, dependency injection, RxJS.
-
-When a framework skill and this skill conflict on a language point, this skill wins.
+- **`architecture-and-design`** — the design layer. On a shared topic (discriminated unions, branded ids) it decides the design and this skill decides the syntax.
+- **`react`** / **`angular`** — extend this skill with their framework's specifics. On a language-point conflict, this skill wins.

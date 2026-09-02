@@ -1,15 +1,15 @@
 ---
 name: accessibility
 description: >-
-  Web accessibility as a review lens, grounded in the W3C Web Accessibility
-  Initiative: WCAG 2.2 level AA, WAI-ARIA, and the ARIA Authoring Practices
-  Guide. Framework-neutral. Covers semantic HTML and structure, accessible names
-  and ARIA, keyboard and focus, forms, perceivable content (text alternatives,
-  color, contrast, motion, zoom), live regions and SPA route announcements, and
-  a11y testing. Composes with `react` and `angular` for the framework mechanism.
-  Use it when building or reviewing UI, or when the user says "accessibility",
-  "a11y", "WCAG", "ARIA", "screen reader", "keyboard navigation", "focus",
-  "contrast", "axe", "landmark", or "WAI".
+  Web accessibility as a framework-neutral review lens for building or reviewing
+  UI, grounded in the W3C WAI: WCAG 2.2 level AA, WAI-ARIA, and the ARIA
+  Authoring Practices Guide. Semantic HTML and structure, accessible names and
+  ARIA, keyboard and focus, forms, perceivable content (text alternatives,
+  contrast, motion, zoom), live regions and SPA route announcements, a11y
+  testing. Composes with `react` and `angular` for the framework mechanism. Use
+  it when the user says "accessibility", "a11y", "WCAG", "ARIA", "screen
+  reader", "keyboard navigation", "focus", "contrast", "axe", "landmark", or
+  "WAI".
 ---
 
 # Accessibility — Review Skill
@@ -18,15 +18,16 @@ The accessibility review lens for web UI, grounded in the W3C Web Accessibility 
 The target is **WCAG 2.2, conformance level AA** — the technical bar behind EN 301 549, the ADA,
 Section 508, and the European Accessibility Act.
 
-> **Prerequisites.** Load `architecture-and-design` alongside this skill, and `react` or `angular`
-> for the framework mechanism behind each rule. `npx skills add …@accessibility` installs this file
-> alone.
+> **Builds on.** `architecture-and-design`, and `react` or `angular` for the framework mechanism
+> behind each rule. The Ruleset below is complete on its own; load these when you need the design
+> rationale or the framework API, not by default. `npx skills add …@accessibility` installs this
+> file alone.
 
-This SKILL.md is self-sufficient: the **Ruleset** below is the complete, enforceable list, with the
-key WCAG criteria inline. Each `references/` file holds the *reasoning*, the finer criteria, and
-code for one Ruleset topic (`references/keyboard-focus.md`, `references/forms.md`, …), plus
-`references/worked-example.md`. Open them for depth if your runtime allows it — the Ruleset stays
-authoritative, and nothing here depends on them being read.
+This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, with the
+key WCAG criteria inline, and nothing here depends on a `references/` file being read. Each
+`references/<topic>.md` holds the *reasoning*, the finer criteria, and code for one Ruleset group
+(`references/keyboard-focus.md`, `references/forms.md`, …), plus `references/worked-example.md`.
+Open them for depth when your runtime allows.
 
 WCAG is organized by four principles — **POUR**:
 
@@ -167,10 +168,10 @@ This skill covers the accessibility of a web UI. It does not cover:
 
 ## References
 
-This skill is the accessibility review lens. It composes with:
+This skill composes with:
 
-- **`architecture-and-design`** — its `frontend-practices` rules check only that a semantic element and a label are present, and defer focus management, ARIA, live regions, and a11y testing to this skill.
-- **`react`** — the React mechanism: `useId` for label association, ref-based focus moves, `createPortal` for dialogs, and primitive libraries (Radix, React Aria).
+- **`architecture-and-design`** — its `frontend-practices` rules check only for a semantic element and a label, and defer focus, ARIA, live regions, and a11y testing to this skill.
+- **`react`** — the React mechanism: `useId`, ref-based focus, `createPortal`, primitive libraries (Radix, React Aria).
 - **`angular`** — the Angular mechanism: the CDK `a11y` package (`cdkTrapFocus`, `FocusMonitor`, `LiveAnnouncer`) and the `template/accessibility` lint rules.
 
 **Normative:**

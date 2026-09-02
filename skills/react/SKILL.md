@@ -1,14 +1,13 @@
 ---
 name: react
 description: >-
-  Modern React conventions — function components and render purity, the Rules of
-  Hooks, "you might not need an Effect", state placement, refs without
-  forwardRef, context, data fetching with Suspense, Actions and form state,
-  Server and Client Components, the React Compiler, and testing by role. Extends
-  core-typescript and architecture-and-design. Use it when writing, reviewing,
-  refactoring, or migrating React, or when the user mentions React, hooks,
-  useEffect, useState, re-renders, Server Components, "use client", Suspense,
-  the React Compiler, useActionState, context, or forwardRef.
+  Modern React conventions for writing, reviewing, refactoring, or migrating
+  React: render purity, the Rules of Hooks, "you might not need an Effect", state
+  placement, refs, context, Suspense data fetching, Actions and form state,
+  Server and Client Components, the React Compiler, testing by role. Builds on
+  `core-typescript` and `architecture-and-design`. Use it when the user mentions
+  React, hooks, useEffect, useState, re-renders, Server Components, "use client",
+  Suspense, the React Compiler, useActionState, context, or forwardRef.
 ---
 
 # React Conventions — Framework Skill
@@ -17,14 +16,15 @@ React-specific rules for modern React: function components, hooks, Server Compon
 React Compiler. It gives the React form of rules that `core-typescript` and `architecture-and-design`
 set in general terms.
 
-> **Prerequisites.** Load `core-typescript` and `architecture-and-design` alongside this skill.
-> `npx skills add …@react` installs this file alone and does not pull them in.
+> **Builds on.** `core-typescript` (language rules) and `architecture-and-design` (design). The
+> Ruleset below is complete on its own; load a base skill when the task turns on its layer — a
+> type-modeling question, an architecture decision — not by default. `npx skills add …@react`
+> installs this file alone.
 
-This SKILL.md is self-sufficient: the **Ruleset** below is the complete, enforceable list. Each
-`references/` file holds the *reasoning* and code examples for one Ruleset topic
-(`references/effects.md`, `references/state.md`, …), plus `references/worked-example.md` for a full
-review pass. Open them for depth if your runtime allows it — the Ruleset stays authoritative, and
-nothing here depends on them being read.
+This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, and
+nothing here depends on a `references/` file being read. Each `references/<topic>.md` holds the
+*reasoning* and code for one Ruleset group (`references/effects.md`, `references/state.md`, …), plus
+`references/worked-example.md` for a full review pass. Open them for depth when your runtime allows.
 
 ---
 
@@ -182,12 +182,10 @@ The React Compiler is on a release track. The rules here assume you adopt it; wh
 
 ## References
 
-This skill extends the base skills. It composes with:
+This skill composes with:
 
-- **`core-typescript`** — the language base: `strict`, safe typing, narrowing, `unknown`, utility types. JSX and hooks do not exempt code from these.
-- **`architecture-and-design`** — layering, feature boundaries, the adapter / repository pattern, state tiers, forms validation, security. This skill gives the React form of those rules; architecture-and-design decides the design.
-- **`accessibility`** — the accessibility review lens. React's tools for it are `useId`, ref-based focus management, and accessible primitive libraries (Radix, React Aria).
-- **`test-quality`** — the quality of the individual test this skill's `testing` mechanics produce: what it asserts, how it is named, what it fakes, whether it is deterministic.
+- **`core-typescript`** — the language base; JSX and hooks do not exempt code from it.
+- **`architecture-and-design`** — the design layer. On a conflict it decides the design, this skill decides the React API.
+- **`accessibility`** — the review lens for UI; React's tools are `useId`, ref-based focus, and primitive libraries (Radix, React Aria).
+- **`test-quality`** — judges the individual test this skill's `testing` group produces.
 - **`angular`** — the sibling framework skill.
-
-On a conflict between this skill and `architecture-and-design`, architecture-and-design decides the design and this skill decides the React API.

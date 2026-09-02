@@ -3,14 +3,13 @@ name: test-quality
 description: >-
   Framework-neutral standards for the quality of an individual automated test in
   TypeScript: assert on behavior not implementation, meaningful assertions, one
-  scenario per test with a name that states the outcome, builders over shared
-  fixtures, test doubles only where they earn their place, deterministic and
-  order-independent tests, and coverage read as a map of what is unverified. Use
-  it when writing tests for new or changed code, reviewing the tests in a pull
-  request, or fixing a weak, brittle, or flaky test — or when the user says
-  "test quality", "unit test review", "these tests are brittle", "flaky test",
-  "over-mocking", "testing implementation details", "AAA", "arrange act assert",
-  or "assert on behavior".
+  outcome-named scenario per test, builders over shared fixtures, test doubles
+  that earn their place, deterministic order-independent tests, coverage read as
+  a map of the unverified. Use it when writing tests for new or changed code,
+  reviewing the tests in a pull request, or fixing a weak, brittle, or flaky
+  test — or when the user says "test quality", "unit test review", "these tests
+  are brittle", "flaky test", "over-mocking", "testing implementation details",
+  "AAA", "arrange act assert", or "assert on behavior".
 ---
 
 # Test Quality — Engineering Skill
@@ -19,16 +18,16 @@ Framework-neutral standards for whether a single automated test is worth having:
 how it is named and structured, what it fakes, and whether it runs the same way every time. The
 rules hold for any runner (Vitest, Jest, `node:test`) and any framework; examples use TypeScript.
 
-> **Prerequisites.** Load `core-typescript` alongside this skill — test code is code. Load
-> `architecture-and-design` for suite *strategy* (the pyramid, what to unit- vs integration-test),
-> and `react` or `angular` for the framework mechanics of rendering and querying a component.
-> `npx skills add …@test-quality` installs this file alone.
+> **Builds on.** `core-typescript` (test code is code), `architecture-and-design` for suite
+> *strategy* (the pyramid, unit vs integration), and `react` / `angular` for the mechanics of
+> rendering and querying a component. The Ruleset below is complete on its own; load these when the
+> task turns on their layer. `npx skills add …@test-quality` installs this file alone.
 
-This SKILL.md is self-sufficient: the **Ruleset** below is the complete, enforceable list. Each
-`references/` file holds the *reasoning* and `❌ / ✅` code for one Ruleset topic
-(`references/assertions.md`, `references/test-doubles.md`, …), plus `references/worked-example.md`
-for a full review pass. Open them for depth if your runtime allows it — the Ruleset stays
-authoritative, and nothing here depends on them being read.
+This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, and
+nothing here depends on a `references/` file being read. Each `references/<topic>.md` holds the
+*reasoning* and `❌ / ✅` code for one Ruleset group (`references/assertions.md`,
+`references/test-doubles.md`, …), plus `references/worked-example.md` for a full review pass. Open
+them for depth when your runtime allows.
 
 ---
 
@@ -173,9 +172,9 @@ This skill states what makes a test worth keeping. It is not a substitute for ru
 
 ## References
 
-This skill is the test-quality layer. It composes with:
+This skill composes with:
 
-- **`architecture-and-design`** — decides the suite shape and what to test at each layer; this skill judges the individual test that strategy calls for. On a conflict, architecture-and-design decides strategy and this skill decides the test.
-- **`react`** / **`angular`** — the framework mechanics for rendering, querying, and driving a component under test. This skill's rules about what to assert apply on top.
+- **`architecture-and-design`** — decides the suite shape and what to test at each layer. On a conflict it decides strategy, this skill decides the individual test.
+- **`react`** / **`angular`** — the framework mechanics for rendering, querying, and driving a component; this skill's rules about what to assert apply on top.
 - **`core-typescript`** — test code is code: `strict`, no `any` in fixtures, typed builders, narrowed error assertions.
 - **`accessibility`** — querying by role and accessible name is both a behavior assertion and an a11y signal; the full lens lives there.
