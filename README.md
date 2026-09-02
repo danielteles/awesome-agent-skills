@@ -91,22 +91,22 @@ no clone needed.
 
 ```bash
 # Pick from the list interactively (all five skills offered)
-npx skills add danieelteles/awesome-agent-skills
+npx skills add danielteles/awesome-agent-skills
 
 # Everything, no prompts
-npx skills add danieelteles/awesome-agent-skills --all
+npx skills add danielteles/awesome-agent-skills --all
 
 # Specific skills (repeat --skill, or pass several after one flag)
-npx skills add danieelteles/awesome-agent-skills --skill react --skill core-typescript --skill architecture-and-design
+npx skills add danielteles/awesome-agent-skills --skill react --skill core-typescript --skill architecture-and-design
 
 # Into one assistant, user-wide instead of the current project
-npx skills add danieelteles/awesome-agent-skills --skill react -a claude-code -g
+npx skills add danielteles/awesome-agent-skills --skill react -a claude-code -g
 
 # List what the repo offers without installing
-npx skills add danieelteles/awesome-agent-skills --list
+npx skills add danielteles/awesome-agent-skills --list
 
 # Try one without installing
-npx skills use danieelteles/awesome-agent-skills@react | claude
+npx skills use danielteles/awesome-agent-skills@react | claude
 ```
 
 Project scope (default) writes to `./.claude/skills/`; `-g` writes to
