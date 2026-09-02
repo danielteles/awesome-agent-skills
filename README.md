@@ -17,6 +17,7 @@ skills that build on one another instead of repeating the same baseline rules.
 | [`skills/react/SKILL.md`](skills/react/SKILL.md) | React, on the two base skills: components and purity, the Rules of Hooks, effects, state, refs, context, data fetching and Suspense, forms and Actions, Server and Client Components, the React Compiler. |
 | [`skills/angular/SKILL.md`](skills/angular/SKILL.md) | Angular, on the two base skills: standalone components, signals, block control flow, `inject()`, functional providers, typed reactive forms, zoneless-ready change detection. |
 | [`skills/accessibility/SKILL.md`](skills/accessibility/SKILL.md) | **Lens.** A cross-cutting accessibility review, grounded in W3C WAI: WCAG 2.2 AA, WAI-ARIA, and the ARIA Authoring Practices Guide. Semantic HTML, accessible names, keyboard and focus, forms, contrast and motion, live regions, a11y testing. |
+| [`skills/test-quality/SKILL.md`](skills/test-quality/SKILL.md) | **Lens.** Framework-neutral quality of an individual automated test: assert on behavior not implementation, meaningful assertions, one outcome-named scenario per test, builders over fixtures, test doubles that earn their place, deterministic and order-independent tests, coverage read as a map of the unverified. |
 
 ### How a skill is structured
 
@@ -43,7 +44,7 @@ single-file size) while a review pulls in depth only where it is needed.
 
 ## How the skills compose
 
-Two base skills, extended by the framework skills, with accessibility as a lens across all UI work:
+Two base skills, extended by the framework skills, with two cross-cutting lenses — accessibility over UI work, test-quality over test code:
 
 ```
    ┌─────────────────────┐   ┌───────────────────────────┐
@@ -60,7 +61,9 @@ Two base skills, extended by the framework skills, with accessibility as a lens 
          └───────────┘             └───────────┘
 
    ┌───────────────────────────────────────────────────┐
-   │  accessibility  —  review lens across all UI work │
+   │  accessibility  —  review lens over all UI work   │
+   ├───────────────────────────────────────────────────┤
+   │  test-quality   —  review lens over all test code │
    └───────────────────────────────────────────────────┘
 ```
 
@@ -77,6 +80,11 @@ Two base skills, extended by the framework skills, with accessibility as a lens 
   composes with `architecture-and-design`, which defers focus management, ARIA,
   and a11y testing to it, and with the framework skills, which supply the API
   that satisfies each rule.
+- **`test-quality`** is a cross-cutting lens over test code. It judges the
+  individual test — what it asserts, how it is named, what it fakes, whether it
+  is deterministic. Suite strategy (the pyramid, unit vs integration) stays in
+  `architecture-and-design`; framework test mechanics (RTL queries, `TestBed`)
+  stay in `react` / `angular`; this skill applies on top of both.
 
 A change to a base skill propagates to every skill that builds on it.
 
@@ -115,7 +123,8 @@ Project scope (default) writes to `./.claude/skills/`; `-g` writes to
 
 **Dependencies are not resolved automatically.** The `skills` CLI installs only
 what you name, so when you add `react` or `angular`, also add `core-typescript`
-and `architecture-and-design`; add `accessibility` for any UI work.
+and `architecture-and-design`; add `accessibility` for any UI work, and
+`test-quality` when writing or reviewing tests.
 
 Prefer to wire it up by hand? Copy or reference the `SKILL.md` files under
 [`skills/`](skills/) into wherever your agent loads skills or rules.
@@ -144,7 +153,10 @@ awesome-agent-skills/
 │   ├── angular/                         # Angular, on the two base skills
 │   │   ├── SKILL.md
 │   │   └── references/
-│   └── accessibility/                   # Lens: WCAG 2.2 AA review, across all UI work
+│   ├── accessibility/                   # Lens: WCAG 2.2 AA review, across all UI work
+│   │   ├── SKILL.md
+│   │   └── references/
+│   └── test-quality/                    # Lens: quality of an individual automated test
 │       ├── SKILL.md
 │       └── references/
 ├── bin/

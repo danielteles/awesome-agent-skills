@@ -1,7 +1,9 @@
 # Testing Strategy by Layer — why, and an example
 
 The rules are in the `architecture-and-design` Ruleset (`testing` group). This file is the
-reasoning and an example.
+reasoning and an example. It decides the *shape* of the suite — how much to unit- vs
+integration- vs end-to-end-test, where coverage pays off. The quality of each individual test it
+calls for — what to assert, naming, doubles, determinism — is the `test-quality` skill.
 
 Weight the suite toward integration: a thick layer of component-plus-collaborator tests with the
 network mocked at the edge, a base of static analysis (types and lint), unit tests for pure logic,
