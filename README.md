@@ -1,10 +1,36 @@
 # awesome-agent-skills
 
-A collection of composable AI agent **skills / rules** for tools such as
-**Claude Code**, **Cursor**, **Windsurf**, and **MCP servers**.
+> Composable, model-agnostic AI agent skills for frontend engineering —
+> TypeScript, React, Angular, architecture, accessibility, and test quality.
 
-The goal is a single source of truth for reusable coding guidance: composable
-skills that build on one another instead of repeating the same baseline rules.
+[![check-skills](https://github.com/danielteles/awesome-agent-skills/actions/workflows/check-skills.yml/badge.svg)](https://github.com/danielteles/awesome-agent-skills/actions/workflows/check-skills.yml)
+[![License: CC BY 4.0](https://img.shields.io/badge/license-CC%20BY%204.0-blue.svg)](https://creativecommons.org/licenses/by/4.0/)
+
+Drop-in **skills / rules** for Claude Code, Cursor, Windsurf, Codex, and any
+MCP-capable agent. Six skills that compose — each builds on the others instead of
+repeating the same baseline rules.
+
+## Quick start
+
+```bash
+npx skills add danielteles/awesome-agent-skills --all                       # all six
+npx skills add danielteles/awesome-agent-skills                             # pick interactively
+npx skills add danielteles/awesome-agent-skills --skill react --skill core-typescript --skill architecture-and-design
+```
+
+## Which skills for which task
+
+| Working on… | Install |
+| --- | --- |
+| Any TypeScript | `core-typescript` |
+| Architecture decision, code review, module design | `core-typescript` + `architecture-and-design` |
+| A React component or hook | `core-typescript` + `architecture-and-design` + `react` |
+| An Angular component | `core-typescript` + `architecture-and-design` + `angular` |
+| Any UI — markup, components, styling | the row above **+ `accessibility`** |
+| Writing or reviewing tests | the row above **+ `test-quality`** |
+
+Dependencies are not auto-resolved — install every skill a row names. Full
+options are under [Install](#install).
 
 ---
 
@@ -33,12 +59,11 @@ Each skill is a directory: a lean `SKILL.md` plus a `references/` folder.
   file access reads only the one or two that the current diff touches; the rule
   text lives in the Ruleset, so nothing is duplicated.
 
-This keeps the always-loaded cost of a skill small (roughly a third of the old
-single-file size) while a review pulls in depth only where it is needed. A
-skill's **Builds on** note names the skills it composes with but does not tell
-the agent to load them up front — a base skill is pulled in when the task
-actually turns on its layer, so a focused React task costs one `SKILL.md`, not
-three.
+This keeps the always-loaded cost of a skill small while a review pulls in depth
+only where it is needed. A skill's **Builds on** note names the skills it
+composes with but does not tell the agent to load them up front — a base skill is
+pulled in when the task actually turns on its layer, so a focused React task
+costs one `SKILL.md`, not three.
 
 Two checks guard this, run on every PR by
 [`.github/workflows/check-skills.yml`](.github/workflows/check-skills.yml):
