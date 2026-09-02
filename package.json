@@ -8,6 +8,6 @@
     "node": ">=22"
   },
   "scripts": {
-    "test": "node bin/check-references.mjs && node bin/check-token-budget.mjs"
+    "test": "node bin/validate-skills.mjs"
   }
 }

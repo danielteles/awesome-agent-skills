@@ -2,8 +2,9 @@
 
 This repository is a set of composable, model-agnostic agent skills for frontend
 engineering. Each skill is a lean `SKILL.md` plus a `references/` folder of
-on-demand depth. Everything below is the contract a skill must meet; the checks
-in [`bin/`](bin/) enforce the mechanical parts and a reviewer enforces the rest.
+on-demand depth. Everything below is the contract a skill must meet;
+[`bin/validate-skills.mjs`](bin/validate-skills.mjs) enforces the mechanical
+parts and a reviewer enforces the rest.
 
 New here? Read this file and copy [`templates/`](templates/). You should not need
 to open an existing skill to add one.
@@ -18,7 +19,7 @@ skills/<name>/
   references/<topic>.md          # one file per Ruleset group — reasoning and ❌ / ✅ code, loaded on demand
   references/worked-example.md   # one review pass in the Output Format — always present
 templates/                       # scaffolds for a new skill — copied, not imported
-bin/                             # the checks that guard the contract
+bin/validate-skills.mjs          # the validator that guards the contract
 ```
 
 `references/` is exactly one level deep. No subfolders.
@@ -34,7 +35,7 @@ bin/                             # the checks that guard the contract
    Ruleset group and `templates/worked-example.md` to
    `skills/<slug>/references/worked-example.md`.
 3. Fill every `<placeholder>` and delete every HTML comment.
-4. Run the checks (below). Fix every failure.
+4. Run the validator (below). Fix every failure.
 5. Open a pull request — see [Review process](#review-process).
 
 Copy the templates as they are. Do not restructure the sections.
@@ -166,7 +167,7 @@ in the [README](README.md) only.
 
 ## Budgets and size limits
 
-The token estimate is `characters / 4`. [`bin/check-token-budget.mjs`](bin/check-token-budget.mjs)
+The token estimate is `characters / 4`. [`bin/validate-skills.mjs`](bin/validate-skills.mjs)
 enforces it.
 
 | File | Soft (warn) | Hard (fail) |
@@ -183,15 +184,19 @@ move detail into a reference file.
 
 ## Checks
 
-Run both before opening a pull request and paste the output into the PR:
+Run the validator before opening a pull request and paste the output into the PR:
 
 ```bash
-node bin/check-references.mjs      # frontmatter name matches dir; every references/ pointer resolves; no orphans; worked-example present
-node bin/check-token-budget.mjs    # every SKILL.md and references/*.md within budget
+npm test          # runs node bin/validate-skills.mjs
 ```
 
+`bin/validate-skills.mjs` enforces the whole contract above — frontmatter keys,
+the name regex, the description limit, the 500-line body cap, every
+`references/` pointer, topic slugs, sibling-skill names, the reference-file
+header, the worked example, and the token budgets.
+
 [`.github/workflows/check-skills.yml`](.github/workflows/check-skills.yml) runs
-both on every pull request. A red check blocks merge.
+`npm test` on every pull request. A red check blocks merge.
 
 ---
 
@@ -200,7 +205,7 @@ both on every pull request. A red check blocks merge.
 1. One skill or one change per pull request.
 2. The PR description has: a two-line summary, a **Changes** bullet list, and a
    **Verification** section quoting the check output.
-3. A reviewer checks the mechanical contract (the checks cover most of it) and
+3. A reviewer checks the mechanical contract (the validator covers most of it) and
    then the judgment calls: is every Ruleset rule enforceable from the sentence
    alone? Does each reference file explain rather than restate? Does the
    worked example read like a real review?
