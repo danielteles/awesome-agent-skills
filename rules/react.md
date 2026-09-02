@@ -267,6 +267,7 @@ Test each layer the way architecture-and-design Section 11 describes. The React 
 | Assert on rendered output, not on state, props, or a call count. | A behavior test survives a refactor. |
 | For an async result, assert with `findBy*` or `await waitFor(...)`. `await` every `user-event` call. | It removes `act()` warnings and the flakiness they mark. |
 | Test a custom hook through a component that uses it. Use `renderHook` only when there is no such component. | A hook exists to serve a component; test it the way it is consumed. |
+| `createPortal` content renders outside the render container. Query it through `screen` (document-wide), not the `render()` return value. | The portal node is on `document.body`, not inside `container`. |
 | No shallow rendering, no Enzyme, no broad snapshot. | They couple the test to the implementation. |
 
 ```tsx
@@ -354,6 +355,7 @@ This skill is React framework rules. It does not cover:
 - Language rules (see core-typescript) or framework-neutral architecture (see architecture-and-design).
 - A specific framework's router, loaders, or metadata API (Next.js, React Router, TanStack Start) — the RSC and data-fetching rules here apply, the framework's own conventions do not.
 - Store libraries (Redux Toolkit, Zustand, Jotai) — use the state tiers in architecture-and-design Section 8 and reach for a store only when they call for one.
+- Accessibility depth — `useId` and focus management are noted where they fit; the full lens lives in `accessibility.md`.
 - React Native, styling systems, animation libraries, and i18n.
 
 The React Compiler is on a release track. The rules here assume you adopt it; where you have not, the manual-memoization rules in Section 10 apply.
@@ -366,6 +368,7 @@ This skill extends the base skills. It composes with:
 
 - **`core-typescript.md`** — the language base: `strict`, safe typing, narrowing, `unknown`, utility types. JSX and hooks do not exempt code from these.
 - **`architecture-and-design.md`** — layering, feature boundaries, the adapter / repository pattern, state tiers, forms validation, security. This skill gives the React form of those rules; architecture-and-design decides the design.
+- **`accessibility.md`** — the accessibility review lens. React's tools for it are `useId`, ref-based focus management, and accessible primitive libraries (Radix, React Aria).
 - **`angular.md`** — the sibling framework skill.
 
 On a conflict between this skill and architecture-and-design, architecture-and-design decides the design and this skill decides the React API.

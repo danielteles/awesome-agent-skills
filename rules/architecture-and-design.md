@@ -61,13 +61,13 @@ Write one finding per line:
 | 1 | Apply SOLID: one reason to change, compose instead of adding flags, depend on abstractions. |
 | 2 | Clean code: intent-revealing names, small functions, no dead code, immutable data, loud failures. |
 | 3 | Expressive logic: no redundant booleans, guard clauses over nesting, name a complex condition, a dispatch table over an `if/else` ladder. |
-| 4 | Type safety: no `any`, discriminated unions over optional bags, illegal states unrepresentable, validate external data at the boundary. |
+| 4 | Type safety: no `any`, discriminated unions over optional bags, illegal states unrepresentable, validate external data and config at the boundary, generate API types from the contract. |
 | 5 | Clean architecture: the domain core has zero framework imports. Dependencies point inward. |
 | 6 | Structure: feature-first folders. `features` import `shared`, never the reverse. Cross-feature only through `index.ts`. |
 | 7 | Patterns: hide an external contract behind an adapter. Model async state as a discriminated union. |
 | 8 | State and data fetching: colocate, derive instead of store, use a cache library keyed by input, fetch at the point of use. |
-| 9 | Frontend: computation out of the template, model every async state, stable keys, narrow effects, error boundaries, cancel stale async, accessibility. |
-| 10 | Security: no unsanitized HTML, no secrets in the bundle, guard external links and redirects, deliberate token storage. |
+| 9 | Frontend: computation out of the template, model every async state, stable keys, narrow effects, error boundaries, cancel stale async, ship errors to a tracker, field RUM. |
+| 10 | Security: no unsanitized HTML, no secrets in the bundle, CSP and Trusted Types, CSRF token with cookie auth, guard links, redirects, and user URLs, deliberate token storage. |
 | 11 | Testing: unit-test the domain, test components by role and behavior, mock at the network boundary. |
 | 12 | DDD tactical: one ubiquitous language, value objects immutable, reach an aggregate through its root, domain events in the past tense. |
 | 13 | Micro-frontends: default to a modular monolith; split only for team deploy autonomy, behind a versioned shell/remote contract. |
@@ -452,6 +452,8 @@ A type is a design tool, not paperwork. A precise type stops a class of bugs bef
 | Model mutually exclusive states as a discriminated union, not an object of optional fields. | An optional-field bag allows states that cannot exist. |
 | Make illegal values unrepresentable: `readonly`, `as const`, a branded id type. | The compiler then rejects the bad value. |
 | Validate external data with a schema at the adapter, then map to the domain model. | A type on a network response is a promise, not a fact. |
+| Generate the API types from the contract (OpenAPI, GraphQL codegen, tRPC), do not hand-write them. | A hand-written type drifts from the server the moment the server changes. |
+| Validate environment and runtime configuration against a schema at startup. | Fail at boot with a clear message, not mid-session with an undefined read. |
 
 ### Narrow from `unknown`
 
@@ -736,6 +738,10 @@ const { data: user, isPending, error } = useQuery({
 | Use a semantic element before a `div` with a handler. Label every input and icon-only control. | Assistive tech and the keyboard depend on semantics. |
 | Wrap each independent region in an error handler with its own fallback. | One handler at the root turns a small failure into a blank page. React boundary, Angular `ErrorHandler`, Vue `onErrorCaptured`. |
 | Cancel or ignore a stale async result with an `AbortController` or an ignore flag. | A late response overwrites newer data. |
+| Send a caught error to a tracker (Sentry, Datadog) with the source map, the release tag, and session context. | An error with no stack and no version is not actionable. |
+| Measure Core Web Vitals (LCP, INP, CLS) in the field with RUM, not only in Lighthouse. | Lab numbers hide what real devices and networks see. |
+| Remove `console.log`. Lint it out. Log structured events through one logger. | Console noise buries the signal and ships to production. |
+| For accessibility, see `accessibility.md`. This skill checks only that a semantic element and a label are present. | Focus management, ARIA, live regions, and testing are a separate review lens. |
 
 ### Computation out of the template
 
@@ -778,18 +784,33 @@ The browser runs your code next to the user's session. A small gap becomes accou
 | Validate a redirect URL from a query param against an allowlist. | An open redirect helps phishing. |
 | Choose token storage on purpose. Write down the trade-off. | `localStorage` is readable by any XSS. An httpOnly cookie is not. |
 | Keep the framework's default text escaping. Any bypass needs a review. | React, Angular, and Vue escape interpolated text. |
+| Serve a Content Security Policy in enforcing mode, nonce-based for scripts. Turn on Trusted Types where the browser supports it. | CSP blocks an injected script even after an escaping mistake. Trusted Types make a DOM-XSS sink a build-time-style error. |
+| With cookie auth, add an anti-CSRF token to every state-changing request, and set `SameSite`. | A cookie is sent automatically; the token proves the request came from your app. |
+| Validate a URL from user data before you navigate to it or render it as a link. Reject `javascript:` and `data:`. | A `javascript:` href is script execution. |
+| Give a third-party `<iframe>` a `sandbox` attribute with only the capabilities it needs. | It contains the embed if the embed is compromised. |
+| Review a dependency before you add it: maintenance, transitive weight, provenance. Prefer fewer, larger, well-kept packages. | A supply-chain compromise ships straight to every user. |
 
 ---
 
 ## 11. Testing Strategy by Layer
+
+Weight the suite toward integration: a thick layer of component-plus-collaborator tests with the network mocked at the edge, a base of static analysis (types and lint), unit tests for pure logic, and a thin top of end-to-end tests for critical paths.
 
 | Layer | Test it by | Why |
 |---|---|---|
 | Domain and use cases | Fast unit tests on plain functions, no DOM or network. | This is where edge-case coverage pays off most. |
 | Components | Querying by role and label; asserting on what the user sees. | A behavior test survives a refactor. |
 | Network | Mocking HTTP at the boundary (MSW), not by replacing modules. | The test then exercises the real adapter and mapping code. |
+| Critical paths | A few end-to-end tests (Playwright or Cypress) against a production build, with isolated data per worker. | It proves the whole path once; it is too slow to carry broad coverage. |
 
-Use a snapshot only for small, stable output. A large snapshot breaks on every change and no one reads the diff.
+| Rule | Why |
+|---|---|
+| Query by role and label first. Fall back to a test id only when no accessible name fits — a last resort for a unit test, a stability choice for an end-to-end one. Spell it `data-testid`, the attribute the tooling defaults to. | A unit test that cannot find an element by role is often flagging a real accessibility gap; an E2E selector that breaks on a copy edit is its own cost. |
+| Enforce coverage on the lines a change touches, not a global percentage. | A global number rewards testing the easy code and hides the gap in the changed code. |
+| Every bug fix ships with a test that fails before the fix. | It proves the fix and stops the regression from returning. |
+| Contract-test the API boundary, or generate types from the contract and validate the payload. | It catches front-end and back-end drift before production does. |
+| Quarantine a flaky test on the first flake and fix it within the sprint. A CI retry is a stopgap while it is quarantined, not a permanent setting. | A retried flaky test that is never fixed hides a real race or timing bug. |
+| Use a snapshot only for small, stable output. | A large snapshot breaks on every change and no one reads the diff. |
 
 ### Test behavior, not internals
 
@@ -930,13 +951,14 @@ Make sure that:
 - [ ] **Named values:** magic numbers and magic strings have a named constant.
 - [ ] **Immutability:** no code mutates a prop, a parameter, or state in place.
 - [ ] **No `any`:** an unknown input is typed `unknown` and narrowed. Every `as` cast has a clear reason.
-- [ ] **Runtime validation:** data from the network is parsed against a schema at the adapter, not trusted by type alone.
+- [ ] **Runtime validation:** data from the network is parsed against a schema at the adapter, not trusted by type alone; API types are generated from the contract; env and config are schema-checked at startup.
 - [ ] **Derived state:** no state holds a value that can be computed from props or other state.
 - [ ] **State placement:** server data, URL state, global state, and local UI state each sit in the right tier.
 - [ ] **Error boundaries:** an independent region has its own boundary and fallback, not only the app root.
 - [ ] **Stale async:** an effect that fetches cancels or ignores an out-of-date response.
-- [ ] **Security:** no unsanitized HTML injection, no secrets in the bundle, `rel="noopener"` on new-tab links, redirect targets validated.
-- [ ] **Tests match the layer:** domain logic in unit tests, components tested by role and visible behavior, network mocked at the boundary.
+- [ ] **Security:** no unsanitized HTML injection, no secrets in the bundle, `rel="noopener"` on new-tab links, redirect and user URLs validated, CSP in enforcing mode, anti-CSRF token with cookie auth.
+- [ ] **Observability:** a caught error goes to a tracker with source map and session context; no `console.log` ships.
+- [ ] **Tests match the layer:** domain logic in unit tests, components tested by role and visible behavior, network mocked at the boundary; coverage enforced on changed lines; each bug fix has a failing-first test.
 - [ ] **Server state:** data is fetched through a cache library keyed by its inputs, not fetched in an effect into local state; independent requests do not run as a waterfall.
 - [ ] **Forms:** one validation schema shared by client and server; validity and errors derived, not stored; entered values survive a failed submit.
 - [ ] **Domain language:** one name per concept across UI, state, and API layers; an aggregate's inner parts are reached only through its root.
@@ -992,7 +1014,9 @@ This skill covers frontend architecture and design. It does not cover:
 - Backend, database, or infrastructure design.
 - Distributed system architecture: microservices, service decomposition, event-driven backends, message brokers, sagas, distributed consistency. Section 12 covers DDD tactical patterns inside one app; strategic and cross-service concerns belong in a system-architecture skill. Section 13 covers micro-frontends only.
 - Styling systems, design tokens, and CSS architecture beyond the note in Section 9.
-- Deep performance profiling, bundle analysis, and Core Web Vitals tuning.
+- Accessibility beyond "use a semantic element and a label". Focus management, ARIA, live regions, keyboard operability, and a11y testing live in `accessibility.md`.
+- Deep performance profiling and bundle analysis. Section 9 covers only the field-monitoring habit.
+- CI pipeline configuration, dependency-update bots, release tooling, and monorepo setup.
 - Framework-specific rules: Rules of Hooks, `useMemo` and `useCallback` policy, Angular change detection and signals, Vue reactivity caveats. These live in the framework skills (see References).
 
 This skill states principles. It is not a substitute for reading the code and understanding the domain.
@@ -1006,5 +1030,6 @@ This skill is the framework-neutral architecture layer. It composes with:
 - **`core-typescript.md`** — the base skill. Language-level TypeScript conventions: compiler strictness, safe typing, narrowing, utility types, `assertNever`. On a shared topic such as discriminated unions or branded ids, this skill decides the design and core-typescript decides the syntax.
 - **`react.md`** — extends this skill with React specifics: Rules of Hooks, effect dependencies, memoization policy, `Suspense` and error boundaries, TSX conventions.
 - **`angular.md`** — extends this skill with Angular specifics: standalone components, signals, `OnPush`, dependency injection, RxJS patterns.
+- **`accessibility.md`** — the accessibility review lens: semantic HTML, ARIA discipline, keyboard and focus, forms, live regions, SPA route announcements, a11y testing.
 
 When you work in a React or Angular codebase, apply this skill together with the matching framework skill. The framework skill wins on a direct conflict.

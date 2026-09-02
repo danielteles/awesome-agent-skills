@@ -54,8 +54,8 @@ Write one finding per line:
 | Section | Rule |
 |---|---|
 | 1 | No `NgModule`. Standalone everything. Bootstrap and configure with functional providers. |
-| 2 | Every component is `OnPush`. Dependencies come from `inject()`. Angular-owned members are `readonly`. |
-| 3 | State in `signal`, derived in `computed`. Never write a signal inside `effect()`. |
+| 2 | Every component is `OnPush`. Dependencies come from `inject()`. Angular-owned members are `readonly`. No `::ng-deep`; keep `ViewEncapsulation.None` in named global files. |
+| 3 | State in `signal`, derived in `computed`. Never write a signal inside `effect()`, never `detectChanges()` after one. |
 | 4 | Inputs, outputs, and queries use `input()`, `output()`, `model()`, `viewChild()` — not decorators. |
 | 5 | `@if` / `@for` / `@switch`. Every `@for` has `track`. No method calls in bindings. |
 | 6 | Services are `providedIn: 'root'`. Guards and interceptors are functional. |
@@ -138,6 +138,8 @@ Turn on the Angular compiler's own checks, next to the TypeScript `strict` flags
 | Put host bindings and listeners in the `host` object, not `@HostBinding` or `@HostListener`. | One place, fewer decorators. |
 | Name an event handler for the action, not the event: `saveDraft()`, not `onClick()`. | The name says what happens. |
 | Reuse cross-cutting behavior with `hostDirectives`, not a base class or copy-paste. | It composes: a component can apply several, each with its own inputs and outputs. |
+| Default to emulated view encapsulation. If you need `ViewEncapsulation.None` for a theme or a library override, put it in a file whose name says it is global. | Every selector in a `None` component is app-wide; a component-shaped filename hides that. |
+| Do not use `::ng-deep`. It is deprecated and leaks past the component. To reach a child's internals, use a named global stylesheet and scope each rule with `:has(your-selector)`. | `::ng-deep` becomes an unscoped global selector at runtime and breaks across Angular upgrades. |
 
 ```ts
 @Component({
@@ -169,6 +171,8 @@ export class UserCard {
 | Release an effect's resource in its `onCleanup` callback. | A leaked timer or listener outlives the component. |
 | Wrap a read you do not want to depend on in `untracked()`. | Otherwise the read becomes a dependency and re-runs the effect. |
 | Keep `computed()` pure. It is lazy and memoized and may not run when you expect. | A side effect inside it fires unpredictably. |
+| Do not call `cdr.detectChanges()` or `markForCheck()` after a signal write. | A signal write schedules the view update itself. The call is a no-op and hides the fact that the state is already reactive. |
+| Use `cdr.detectChanges()` only for an imperative non-signal change Angular cannot observe: a third-party widget's imperative method, or a plain class field read in the template. Prefer converting the field to a signal. | That is the only case left once state is signals. |
 | Share state across components with a `providedIn: 'root'` service that exposes `signal` and `computed` members. Reach for a store library (`@ngrx/signals` SignalStore) only when that service grows entities, effects, and derived collections. | A signal service covers most apps. Classic NgRx boilerplate rarely pays off on the frontend (architecture-and-design Section 8). |
 
 ```ts
@@ -296,6 +300,8 @@ readonly id = toSignal(this.route.paramMap.pipe(map((p) => p.get('id'))));
 | Type every control: `new FormControl<string>('', { nonNullable: true })`. | An untyped form loses every guarantee. |
 | Build the validators from the same schema as the domain model (architecture-and-design Section 14). | One source of truth for the rules, client and server. |
 | Derive `invalid`, `dirty`, and error text from the form state. Do not copy them into signals. | A copy goes stale against the control. |
+| `disable({ emitEvent: false })` a control a mode does not render. Do not just hide it with `@if`. | A hidden control keeps its validators and its patched value, keeps `form.invalid` true, and has no element to show the error — the save button then silently does nothing. A disabled control is excluded from both `form.value` and validity. |
+| When a save is blocked, show the user why (a toast or an inline message), not only a disabled button. | A blocked save with no message reads as a broken button. |
 | Keep a template-driven form only for a trivial single input. | Below that line the reactive setup is not worth it. |
 
 ---
@@ -352,6 +358,8 @@ Test each layer the way architecture-and-design Section 11 describes. The Angula
 | Read a `signal` or `computed` after `fixture.detectChanges()`. Assert on its value. | The value is the observable behavior. |
 | Use real providers. Mock only at the network boundary and at a true external service. | A test built on deep mocks passes while the app breaks. |
 | Reach for `fakeAsync` and `tick` only when a test cannot use `await fixture.whenStable()`. | `fakeAsync` hides timing bugs as often as it exposes them. |
+| Dialog and dropdown content renders through a CDK overlay on `document.body`, not the host element. Assert on the controlling signal (`component.dialogOpen()`), or query `document`, not `fixture.nativeElement`. | The rendered panel is not inside the component under test. |
+| For an assertion that depends on a resolved promise chain, `await` the chain (or an `expectAsync`) before asserting. Do not rely on `fixture.whenStable()` alone to flush it. | A chained `.then()` may not have run when a synchronous assertion fires. |
 
 ```ts
 TestBed.configureTestingModule({
@@ -376,19 +384,20 @@ Make sure that:
 - [ ] **Standalone:** no `NgModule`; the component or service is standalone; configuration uses functional providers.
 - [ ] **OnPush:** every component sets `ChangeDetectionStrategy.OnPush`.
 - [ ] **inject():** dependencies come from `inject()`, not constructor parameters.
-- [ ] **Signals:** state is in `signal` / `computed`; no signal write inside `effect()`; an effect only syncs to a non-reactive API and cleans up.
+- [ ] **Signals:** state is in `signal` / `computed`; no signal write inside `effect()`; no `cdr.detectChanges()` after a signal write; an effect only syncs to a non-reactive API and cleans up.
 - [ ] **Inputs and outputs:** `input()`, `output()`, `model()`, and signal queries; all marked `readonly`; no `@Input()` / `@Output()` decorators.
 - [ ] **Control flow:** `@if` / `@for` / `@switch`; every `@for` has a `track` on a stable id.
 - [ ] **Template:** no method call in a binding; a complex expression is a `computed()`; `[class.x]` over `NgClass`; a custom pipe is pure.
+- [ ] **Styles:** no `::ng-deep`; any `ViewEncapsulation.None` lives in a clearly-named global file; a child-piercing override is scoped with `:has()`.
 - [ ] **Reuse:** cross-cutting behavior is a `hostDirective`; a reusable component takes content through `<ng-content>` or a `TemplateRef` input.
 - [ ] **Accessibility:** an interactive component moves focus and announces a live change (CDK a11y); the template passes `template/accessibility` lint.
 - [ ] **Subscriptions:** no manual `.subscribe()` without `takeUntilDestroyed()` or the `async` pipe.
 - [ ] **HTTP:** calls sit behind a repository; `provideHttpClient`; responses are typed.
-- [ ] **Forms:** reactive and typed; validity and errors derived, not stored.
+- [ ] **Forms:** reactive and typed; validity and errors derived, not stored; a control a mode does not render is `disable()`d, not `@if`-hidden; a blocked save shows a message.
 - [ ] **Routing:** a feature is lazy-loaded with `loadComponent`; guards are functional.
 - [ ] **SSR:** no `window` or `document` at construction; DOM work is in `afterNextRender`.
 - [ ] **Strict templates:** `angularCompilerOptions.strictTemplates` is on; no `bypassSecurityTrust*` on untrusted input.
-- [ ] **Tests:** a standalone component is tested through `TestBed` imports and real providers; the network is mocked at `HttpTestingController`; assertions read signals and query by role.
+- [ ] **Tests:** a standalone component is tested through `TestBed` imports and real providers; the network is mocked at `HttpTestingController`; assertions read signals and query by role; overlay content is asserted via its controlling signal, not `fixture.nativeElement`.
 
 ---
 
@@ -451,6 +460,7 @@ This skill is Angular framework rules. It does not cover:
 - Language rules (see core-typescript) or framework-neutral architecture (see architecture-and-design).
 - Deep RxJS operator design, and store libraries (NgRx, NGXS) — use the state tiers in architecture-and-design Section 8 and reach for a store only when they call for one.
 - Nx or monorepo setup, Angular Material theming, `@angular/animations`, and i18n.
+- Accessibility depth — CDK a11y usage is noted where it fits, but focus management, ARIA, and a11y testing live in `accessibility.md`.
 - Angular versions before standalone components and block control flow. For a legacy app, migrate first (the Migrate mode above).
 
 Zoneless change detection is stabilizing. The rules here keep code zoneless-ready without requiring the provider.
@@ -463,6 +473,7 @@ This skill extends the base skills. It composes with:
 
 - **`core-typescript.md`** — the language base: `strict`, safe typing, narrowing, `unknown`, utility types. Angular templates and DI do not exempt code from these.
 - **`architecture-and-design.md`** — layering, feature boundaries, the adapter / repository pattern, state tiers, forms validation, security. This skill gives the Angular form of those rules; architecture-and-design decides the design.
+- **`accessibility.md`** — the accessibility review lens. Angular's tools for it are the CDK a11y package and `LiveAnnouncer`.
 - **`react.md`** — the sibling framework skill.
 
 On a conflict between this skill and architecture-and-design, architecture-and-design decides the design and this skill decides the Angular API.

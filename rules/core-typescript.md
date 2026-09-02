@@ -85,6 +85,8 @@ Type safety starts in `tsconfig.json`. A loose configuration makes every later r
     "noImplicitOverride": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "forceConsistentCasingInFileNames": true,
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
@@ -102,6 +104,7 @@ Type safety starts in `tsconfig.json`. A loose configuration makes every later r
 | `noUncheckedIndexedAccess` | Adds `undefined` to `array[i]` and `record[key]`. Not part of `strict`. Catches a class of runtime errors. |
 | `exactOptionalPropertyTypes` | Keeps `{ x?: number }` and `{ x: number \| undefined }` apart. Not part of `strict`. Some libraries need work-arounds. |
 | `noImplicitOverride`, `noFallthroughCasesInSwitch`, `noImplicitReturns` | Separate flags, not part of `strict`. Turn each on. |
+| `noUnusedLocals`, `noUnusedParameters` | Fail the build on dead bindings. Prefix a deliberately unused parameter with `_`. |
 | `verbatimModuleSyntax` | Emits imports and exports as written. An unmarked type import stays in the output (Section 12). |
 | `skipLibCheck` | Skips the type check of every `.d.ts`, including your own, not only `node_modules`. Faster build. A fault in a hand-written `.d.ts` can pass unseen. |
 
