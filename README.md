@@ -18,10 +18,26 @@ skills that build on one another instead of repeating the same baseline rules.
 | [`skills/angular/SKILL.md`](skills/angular/SKILL.md) | Angular, on the two base skills: standalone components, signals, block control flow, `inject()`, functional providers, typed reactive forms, zoneless-ready change detection. |
 | [`skills/accessibility/SKILL.md`](skills/accessibility/SKILL.md) | **Lens.** A cross-cutting accessibility review, grounded in W3C WAI: WCAG 2.2 AA, WAI-ARIA, and the ARIA Authoring Practices Guide. Semantic HTML, accessible names, keyboard and focus, forms, contrast and motion, live regions, a11y testing. |
 
-Each skill is a `skills/<name>/SKILL.md` file with YAML frontmatter (`name`,
-`description`) and a fixed layout: a mode-based **How to Use** section, a
-**Rules at a Glance** index, a rule catalog as `rule → why` tables with
-`❌ / ✅` examples, a **Code Review Checklist**, and a **Worked Example**.
+### How a skill is structured
+
+Each skill is a directory: a lean `SKILL.md` plus a `references/` folder.
+
+- **`SKILL.md`** — YAML frontmatter (`name`, `description`), a mode-based **How to
+  Use** section, and a **Ruleset**: the complete, enforceable rule list as
+  grouped checkboxes, read top-to-bottom to generate and ticked against a diff to
+  review. `SKILL.md` is self-sufficient — an agent can enforce every rule from it
+  alone.
+- **`references/<topic>.md`** — one file per Ruleset group, holding the
+  *reasoning*, the finer detail, and `❌ / ✅` code for that topic. An agent with
+  file access reads only the one or two that the current diff touches; the rule
+  text lives in the Ruleset, so nothing is duplicated.
+
+This keeps the always-loaded cost of a skill small (roughly a third of the old
+single-file size) while a review pulls in depth only where it is needed.
+
+`node bin/check-references.mjs` verifies that every `references/` pointer in every
+`SKILL.md` resolves, that no reference file is orphaned, and that the frontmatter
+`name` matches the directory.
 
 ---
 
@@ -104,6 +120,11 @@ and `architecture-and-design`; add `accessibility` for any UI work.
 Prefer to wire it up by hand? Copy or reference the `SKILL.md` files under
 [`skills/`](skills/) into wherever your agent loads skills or rules.
 
+**On a rule-injection runtime** (`.cursorrules`, `.windsurfrules`, a raw system
+prompt — anything with no file-read step), point it at the `SKILL.md` files
+**only**. Each one is a complete ruleset on its own; concatenating the whole
+`skills/` tree would pull in every `references/` file and undo the size saving.
+
 ---
 
 ## Project structure
@@ -111,11 +132,23 @@ Prefer to wire it up by hand? Copy or reference the `SKILL.md` files under
 ```
 awesome-agent-skills/
 ├── skills/
-│   ├── core-typescript/SKILL.md         # Base: TypeScript language rules
-│   ├── architecture-and-design/SKILL.md # Base: framework-neutral design & architecture
-│   ├── react/SKILL.md                   # React, on the two base skills
-│   ├── angular/SKILL.md                 # Angular, on the two base skills
-│   └── accessibility/SKILL.md           # Lens: WCAG 2.2 AA review, across all UI work
+│   ├── core-typescript/
+│   │   ├── SKILL.md                     # Base: TypeScript language rules + Ruleset
+│   │   └── references/                  # one <topic>.md per Ruleset group
+│   ├── architecture-and-design/         # Base: framework-neutral design & architecture
+│   │   ├── SKILL.md
+│   │   └── references/
+│   ├── react/                           # React, on the two base skills
+│   │   ├── SKILL.md
+│   │   └── references/
+│   ├── angular/                         # Angular, on the two base skills
+│   │   ├── SKILL.md
+│   │   └── references/
+│   └── accessibility/                   # Lens: WCAG 2.2 AA review, across all UI work
+│       ├── SKILL.md
+│       └── references/
+├── bin/
+│   └── check-references.mjs             # verifies every references/ pointer resolves
 ├── LICENSE
 └── README.md
 ```
