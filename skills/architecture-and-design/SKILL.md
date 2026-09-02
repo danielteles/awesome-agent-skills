@@ -63,7 +63,7 @@ Write one finding per line:
 - Name the Ruleset topic when you enforce a rule.
 - State the reason, not only the rule. "This re-renders the whole tree" beats "move state down".
 - A principle serves the code. When two principles conflict, pick the one that makes the code simpler to read and change, and say why.
-- When the task is a decision, not a diff, weigh the options against `solid`, `clean-architecture`, `structure`, `state-and-data`, and `micro-frontends`, and record the choice as an ADR in the repo (context, options, decision, consequences).
+- When the task is a decision, not a diff, weigh the options against `solid`, `clean-architecture`, `structure`, `state-and-data`, and `micro-frontends`, and record the choice as an ADR in the repo using `assets/adr-template.md` (context, options, decision, consequences).
 
 ---
 
