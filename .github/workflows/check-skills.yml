@@ -12,3 +12,8 @@ jobs:
         with:
           node-version: 22
       - run: npm test
+      - name: Validate every skill against the Agent Skills spec
+        run: |
+          for dir in skills/*/; do
+            npx --yes skills-ref@0.1.5 validate "$dir"
+          done
