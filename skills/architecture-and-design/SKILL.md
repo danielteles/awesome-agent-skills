@@ -2,16 +2,15 @@
 name: architecture-and-design
 description: >-
   Framework-neutral architecture and design standards for frontend engineering in
-  TypeScript (React, Angular, Vue, or any component framework): SOLID, clean
-  code, expressive logic, type safety as design, clean architecture and layer
-  boundaries, feature-first structure, the adapter/repository pattern,
-  discriminated async state, state tiers and data fetching, security, testing
-  strategy, DDD tactical patterns, micro-frontends, and forms. Use it when
-  generating a component or module, refactoring frontend code, reviewing a pull
-  request, or making an architecture decision, or when the user says "code
-  review", "clean architecture", "SOLID", "design pattern", "DDD", "bounded
-  context", "micro-frontend", "data fetching", "form validation", or "how should
-  I structure this".
+  TypeScript (React, Angular, Vue, or any component framework): SOLID and clean
+  code, clean architecture and layer boundaries, feature-first structure, the
+  adapter/repository pattern, state tiers and data fetching, security, testing
+  strategy, DDD tactical patterns, micro-frontends, forms. Use it when generating
+  a component or module, refactoring frontend code, reviewing a pull request, or
+  making an architecture decision, or when the user says "code review", "clean
+  architecture", "SOLID", "design pattern", "DDD", "bounded context",
+  "micro-frontend", "data fetching", "form validation", or "how should I
+  structure this".
 ---
 
 # Architecture and Design — Frontend Engineering Skill
@@ -21,15 +20,16 @@ applications in TypeScript. The principles hold for React, Angular, Vue, and any
 framework. Code examples use React/TSX for one concrete syntax; each principle has an equivalent in
 an Angular template or a Vue SFC.
 
-> **Prerequisites.** Load `core-typescript` alongside this skill. In a React or Angular codebase,
-> also load `react` or `angular`, and `accessibility` for any UI work. `npx skills add …@architecture-and-design`
-> installs this file alone.
+> **Builds on.** `core-typescript` (language syntax). In a React or Angular codebase, `react` or
+> `angular` give the framework form and `accessibility` the UI lens. The Ruleset below is complete
+> on its own; load a companion skill when the task turns on its layer, not by default.
+> `npx skills add …@architecture-and-design` installs this file alone.
 
-This SKILL.md is self-sufficient: the **Ruleset** below is the complete, enforceable list. Each
-`references/` file holds the *reasoning*, diagrams, and code for one Ruleset topic
-(`references/state-and-data.md`, `references/security.md`, …), plus `references/worked-example.md`.
-Open them for depth if your runtime allows it — the Ruleset stays authoritative, and nothing here
-depends on them being read.
+This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, and
+nothing here depends on a `references/` file being read. Each `references/<topic>.md` holds the
+*reasoning*, diagrams, and code for one Ruleset group (`references/state-and-data.md`,
+`references/security.md`, …), plus `references/worked-example.md`. Open them for depth when your
+runtime allows.
 
 ---
 
@@ -219,12 +219,9 @@ This skill states principles. It is not a substitute for reading the code and un
 
 ## References
 
-This skill is the framework-neutral architecture layer. It composes with:
+This skill composes with:
 
-- **`core-typescript`** — the base skill. Language-level TypeScript: compiler strictness, safe typing, narrowing, utility types, `assertNever`, branded ids. On a shared topic this skill decides the design and `core-typescript` decides the syntax.
-- **`react`** — the React form of these rules: Rules of Hooks, effect dependencies, memoization policy, `Suspense` and error boundaries, TSX conventions.
-- **`angular`** — the Angular form: standalone components, signals, `OnPush`, dependency injection, RxJS patterns.
-- **`accessibility`** — the accessibility review lens: semantic HTML, ARIA discipline, keyboard and focus, forms, live regions, SPA route announcements, a11y testing.
-- **`test-quality`** — the cross-cutting lens over test code. This skill's `testing` group sets the suite shape; `test-quality` judges each individual test that shape calls for.
-
-When you work in a React or Angular codebase, apply this skill together with the matching framework skill. The framework skill wins on a direct conflict.
+- **`core-typescript`** — the language base. On a shared topic this skill decides the design and `core-typescript` decides the syntax.
+- **`react`** / **`angular`** — the framework form of these rules. Apply the matching one in a React or Angular codebase; it wins on a direct conflict.
+- **`accessibility`** — the review lens for UI: ARIA, keyboard and focus, live regions, a11y testing.
+- **`test-quality`** — this skill's `testing` group sets the suite shape; `test-quality` judges each individual test.

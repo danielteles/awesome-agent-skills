@@ -34,11 +34,20 @@ Each skill is a directory: a lean `SKILL.md` plus a `references/` folder.
   text lives in the Ruleset, so nothing is duplicated.
 
 This keeps the always-loaded cost of a skill small (roughly a third of the old
-single-file size) while a review pulls in depth only where it is needed.
+single-file size) while a review pulls in depth only where it is needed. A
+skill's **Builds on** note names the skills it composes with but does not tell
+the agent to load them up front — a base skill is pulled in when the task
+actually turns on its layer, so a focused React task costs one `SKILL.md`, not
+three.
 
-`node bin/check-references.mjs` verifies that every `references/` pointer in every
-`SKILL.md` resolves, that no reference file is orphaned, and that the frontmatter
-`name` matches the directory.
+Two checks guard this, run on every PR by
+[`.github/workflows/check-skills.yml`](.github/workflows/check-skills.yml):
+
+- `node bin/check-references.mjs` — every `references/` pointer in every
+  `SKILL.md` resolves, no reference file is orphaned, and the frontmatter `name`
+  matches the directory.
+- `node bin/check-token-budget.mjs` — estimates the token cost of each file and
+  fails if a `SKILL.md` or a `references/` file grows past its budget.
 
 ---
 
@@ -98,7 +107,7 @@ Code, Cursor, Windsurf, Codex, and ~70 other assistants — straight from GitHub
 no clone needed.
 
 ```bash
-# Pick from the list interactively (all five skills offered)
+# Pick from the list interactively (all six skills offered)
 npx skills add danielteles/awesome-agent-skills
 
 # Everything, no prompts
@@ -160,7 +169,8 @@ awesome-agent-skills/
 │       ├── SKILL.md
 │       └── references/
 ├── bin/
-│   └── check-references.mjs             # verifies every references/ pointer resolves
+│   ├── check-references.mjs             # verifies every references/ pointer resolves
+│   └── check-token-budget.mjs           # flags a SKILL.md or reference that grows past budget
 ├── LICENSE
 └── README.md
 ```
