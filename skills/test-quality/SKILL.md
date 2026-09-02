@@ -87,27 +87,37 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 ### behavior-not-implementation → `references/behavior-not-implementation.md`
 
-- [ ] The test asserts on observable output — a return value, rendered result, a message published, a persisted record — never on a private field or an internal step.
-- [ ] No assertion on how many times a collaborator was called, or with what, *as a stand-in* for checking the effect those calls produced — unless the call itself is the contract (an analytics event, an email sent).
+- [ ] The test asserts on observable output — a return value, rendered result, a message published, a persisted record — never on a private field or an internal
+      step.
+- [ ] No assertion on how many times a collaborator was called, or with what, *as a stand-in* for checking the effect those calls produced — unless the call
+      itself is the contract (an analytics event, an email sent).
 - [ ] The test refers only to the unit's public API; renaming a private helper or reordering internal steps does not break it.
 - [ ] The system under test is not spied on or partially mocked — its real code runs.
 - [ ] Arrange sets up state through public constructors, factories, or API — not by reaching into internals.
 - [ ] The test would survive a behavior-preserving refactor and would fail if the behavior changed.
-- [ ] No test that only exercises a framework, library, or language feature you do not own — test *your* use of it, at your boundary, not that React renders or that `Array.map` maps.
-- [ ] The unit under test is a unit of *behavior*, not a single class — a collaborator is not replaced with a double merely because it lives in another file. Real code runs unless `test-doubles` gives a reason to fake it.
-- [ ] A private method is exercised through the public API. If it is complex enough to want its own test, it is extracted into its own unit — not tested through the back door.
+- [ ] No test that only exercises a framework, library, or language feature you do not own — test *your* use of it, at your boundary, not that React renders or
+      that `Array.map` maps.
+- [ ] The unit under test is a unit of *behavior*, not a single class — a collaborator is not replaced with a double merely because it lives in another file.
+      Real code runs unless `test-doubles` gives a reason to fake it.
+- [ ] A private method is exercised through the public API. If it is complex enough to want its own test, it is extracted into its own unit — not tested through
+      the back door.
 
 ### assertions → `references/assertions.md`
 
 - [ ] Every test has at least one assertion; a "does not throw" test states that explicitly (`expect(fn).not.toThrow()`).
 - [ ] One behavior per test — several `expect`s are fine when they describe one outcome, not unrelated ones.
-- [ ] Specific matchers: `toEqual(3)` over `toBeTruthy()`; `toThrow(SpecificError)` over `toThrow()`; assert the contents when the contents matter, not just the length.
+- [ ] Specific matchers: `toEqual(3)` over `toBeTruthy()`; `toThrow(SpecificError)` over `toThrow()`; assert the contents when the contents matter, not just the
+      length.
 - [ ] The assertion checks the whole relevant result, not one convenient field of it.
-- [ ] A collection is compared as an ordered list only when order is part of the contract; otherwise it is sorted first, compared as a set, or checked with `arrayContaining`.
+- [ ] A collection is compared as an ordered list only when order is part of the contract; otherwise it is sorted first, compared as a set, or checked with
+      `arrayContaining`.
 - [ ] No assertion against a value the test computed with the same logic as the code under test — use a hand-worked literal.
-- [ ] Error paths assert on the error type or message, not merely that *an* error occurred — via `toThrow(SpecificError)` / `.rejects`, never a `try/catch` that also passes when nothing is thrown.
-- [ ] Async tests `await` the result and assert after it settles; a rejection is checked with `await expect(...).rejects`. No assertion can run before the promise resolves.
-- [ ] A snapshot is small, stable, and reviewed on every change — never a large auto-generated blob accepted unread. An inline snapshot for a short value is fine; a serialized component tree is not an assertion.
+- [ ] Error paths assert on the error type or message, not merely that *an* error occurred — via `toThrow(SpecificError)` / `.rejects`, never a `try/catch` that
+      also passes when nothing is thrown.
+- [ ] Async tests `await` the result and assert after it settles; a rejection is checked with `await expect(...).rejects`. No assertion can run before the
+      promise resolves.
+- [ ] A snapshot is small, stable, and reviewed on every change — never a large auto-generated blob accepted unread. An inline snapshot for a short value is
+      fine; a serialized component tree is not an assertion.
 - [ ] The test has been seen to fail — run it red against the unfixed code (or a deliberately broken line) before trusting the green.
 
 ### structure-and-naming → `references/structure-and-naming.md`
@@ -133,7 +143,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] A double replaces a real collaborator only for a reason: it is slow, non-deterministic, has side effects, or does not exist yet.
 - [ ] The network is stubbed at the boundary (MSW, a fake server), not by mocking your own modules.
 - [ ] A fake (a working in-memory implementation) is preferred over a mock with scripted expectations for a collaborator used by many tests.
-- [ ] A hand-written fake is covered by a contract test that runs against both the fake and the real implementation — otherwise it drifts and the suite passes while production breaks.
+- [ ] A hand-written fake is covered by a contract test that runs against both the fake and the real implementation — otherwise it drifts and the suite passes
+      while production breaks.
 - [ ] The type under test is never mocked.
 - [ ] A stub returns a realistic value that satisfies the collaborator's contract — not an `undefined` that happens to work.
 - [ ] Mocks are reset between tests; no stub leaks into the next test or file.
@@ -141,7 +152,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 ### determinism → `references/determinism.md`
 
-- [ ] A unit test does no real I/O — no live network, database, disk, or wall clock. If a behavior genuinely needs one, it is an integration test and belongs in that layer.
+- [ ] A unit test does no real I/O — no live network, database, disk, or wall clock. If a behavior genuinely needs one, it is an integration test and belongs in
+      that layer.
 - [ ] No real `sleep` or arbitrary timeout — fake timers or an awaited condition instead.
 - [ ] Clock and randomness are controlled (fake timers, a seeded RNG, an injected `now()`).
 - [ ] No dependence on real network, wall-clock date, locale, or timezone; the timezone is pinned in test config.
@@ -164,8 +176,10 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 This skill judges the individual test. It does not cover:
 
-- Suite strategy and the test pyramid — how much to unit- vs integration- vs end-to-end-test, contract testing, where coverage pays off most. That is the `testing` group in `architecture-and-design`.
-- Framework mechanics — React Testing Library queries and `user-event`, Angular `TestBed` and `HttpTestingController`, Vue Testing Library and `@vue/test-utils`, component harnesses. Those live in the `testing` group of `react`, `angular`, and `vue`.
+- Suite strategy and the test pyramid — how much to unit- vs integration- vs end-to-end-test, contract testing, where coverage pays off most. That is the
+  `testing` group in `architecture-and-design`.
+- Framework mechanics — React Testing Library queries and `user-event`, Angular `TestBed` and `HttpTestingController`, Vue Testing Library and
+  `@vue/test-utils`, component harnesses. Those live in the `testing` group of `react`, `angular`, and `vue`.
 - End-to-end test design (Playwright, Cypress): selectors, per-worker data, retries, sharding.
 - Performance and load testing.
 - Accessibility testing — a component test that queries by role doubles as an a11y check, but the full lens is in `accessibility`.
@@ -179,7 +193,9 @@ This skill states what makes a test worth keeping. It is not a substitute for ru
 
 This skill composes with:
 
-- **`architecture-and-design`** — decides the suite shape and what to test at each layer. On a conflict it decides strategy, this skill decides the individual test.
-- **`react`** / **`angular`** / **`vue`** — the framework mechanics for rendering, querying, and driving a component; this skill's rules about what to assert apply on top.
+- **`architecture-and-design`** — decides the suite shape and what to test at each layer. On a conflict it decides strategy, this skill decides the individual
+  test.
+- **`react`** / **`angular`** / **`vue`** — the framework mechanics for rendering, querying, and driving a component; this skill's rules about what to assert
+  apply on top.
 - **`core-typescript`** — test code is code: `strict`, no `any` in fixtures, typed builders, narrowed error assertions.
 - **`accessibility`** — querying by role and accessible name is both a behavior assertion and an a11y signal; the full lens lives there.

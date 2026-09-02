@@ -56,8 +56,10 @@ Write one finding per line:
 ### Rules for Every Mode
 
 - Name the Ruleset topic when you enforce a rule.
-- Prefer the current API over its predecessor: `ref` as a prop over `forwardRef`, `<Context>` over `<Context.Provider>`, an Action over a manual submit `useEffect`.
-- Before you reach for `useEffect`, ask why the code runs. If the answer is not "because the component is on screen and must sync with an external system", it does not belong in an Effect.
+- Prefer the current API over its predecessor: `ref` as a prop over `forwardRef`, `<Context>` over `<Context.Provider>`, an Action over a manual submit
+  `useEffect`.
+- Before you reach for `useEffect`, ask why the code runs. If the answer is not "because the component is on screen and must sync with an external system", it
+  does not belong in an Effect.
 
 ---
 
@@ -73,12 +75,14 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] Props are a `type` or `interface`, not `React.FC`; children typed as `ReactNode`; event handlers typed with their React event type.
 - [ ] `ref` is accepted as a plain prop — no `forwardRef` on a new component.
 - [ ] One component per file, file name matching the component; no `import React` just for JSX (`"jsx": "react-jsx"`).
-- [ ] A semantic element (`button`, `nav`, `label`) over a `div` with a handler; every control has an accessible name; `useId()` for label / `aria-*` ids, never as a list key.
+- [ ] A semantic element (`button`, `nav`, `label`) over a `div` with a handler; every control has an accessible name; `useId()` for label / `aria-*` ids, never
+      as a list key.
 - [ ] `eslint-plugin-react` and `eslint-plugin-react-hooks` (v5) are on and every warning fixed, not disabled.
 
 ### hooks → `references/hooks.md`
 
-- [ ] Every hook is called at the top level of a component or another hook, before any early `return` — never in a condition, loop, nested function, event handler, `try`/`catch`, or a function passed to `useMemo` / `useReducer` / `useEffect`.
+- [ ] Every hook is called at the top level of a component or another hook, before any early `return` — never in a condition, loop, nested function, event
+      handler, `try`/`catch`, or a function passed to `useMemo` / `useReducer` / `useEffect`.
 - [ ] Hooks are called only from a function component or a custom hook.
 - [ ] Shared stateful logic is a custom hook named `useX` returning a stable, typed value.
 - [ ] `useEffect` / `useMemo` / `useCallback` dependency arrays are complete and not suppressed.
@@ -96,7 +100,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 ### effects → `references/effects.md`
 
-- [ ] No Effect for: transforming data for render, an expensive calc (`useMemo`), resetting state on a prop change (`key`), a user event, a POST, a chain of state updates, notifying the parent, or one-time app init.
+- [ ] No Effect for: transforming data for render, an expensive calc (`useMemo`), resetting state on a prop change (`key`), a user event, a POST, a chain of
+      state updates, notifying the parent, or one-time app init.
 - [ ] An Effect exists only to synchronize with an external system (widget, socket, subscription, document title).
 - [ ] Every Effect has a cleanup that undoes its setup; one Effect per synchronization.
 - [ ] An Effect that fetches guards against a stale response (`AbortController` / ignore flag) — or, better, uses a cache library (see `data-fetching`).
@@ -143,9 +148,11 @@ reviewing. Each group links to its `references/` file for rationale and examples
 ### server-client → `references/server-client.md`
 
 - [ ] Components are Server Components by default (no directive); no state, Effects, browser APIs, or handlers in them.
-- [ ] A Server Component that needs data is `async` and `await`s it in render (reads the database or a file directly) — no client round-trip built for its own data.
+- [ ] A Server Component that needs data is `async` and `await`s it in render (reads the database or a file directly) — no client round-trip built for its own
+      data.
 - [ ] `'use client'` sits on the smallest interactive leaf, not a page or layout.
-- [ ] A server function is marked `'use server'` and called as an Action; props across the boundary are serializable (no functions except Server Actions, no class instances).
+- [ ] A server function is marked `'use server'` and called as an Action; props across the boundary are serializable (no functions except Server Actions, no
+      class instances).
 - [ ] No server-only module (db client, secret, `fs`) is reachable from a `'use client'` file; `server-only` enforces it.
 - [ ] Data fetching happens in the Server Component or loader, and the result is passed down.
 
@@ -166,7 +173,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] A custom hook is tested through a component that uses it; `renderHook` only when there is none.
 - [ ] `createPortal` content is queried through `screen` (document-wide), not the `render()` return value.
 - [ ] No shallow rendering, no Enzyme, no broad snapshot.
-- [ ] Each test also passes the `test-quality` Ruleset — asserts on rendered behavior not internals, has a meaningful assertion, is deterministic. This group is the React mechanics; `test-quality` judges the test itself.
+- [ ] Each test also passes the `test-quality` Ruleset — asserts on rendered behavior not internals, has a meaningful assertion, is deterministic. This group is
+      the React mechanics; `test-quality` judges the test itself.
 
 ---
 
@@ -175,7 +183,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 This skill is React framework rules. It does not cover:
 
 - Language rules (see `core-typescript`) or framework-neutral architecture (see `architecture-and-design`).
-- A specific framework's router, loaders, or metadata API (Next.js, React Router, TanStack Start) — the RSC and data-fetching rules here apply, the framework's own conventions do not.
+- A specific framework's router, loaders, or metadata API (Next.js, React Router, TanStack Start) — the RSC and data-fetching rules here apply, the framework's
+  own conventions do not.
 - Store libraries (Redux Toolkit, Zustand, Jotai) — use the state tiers in `architecture-and-design` and reach for a store only when they call for one.
 - Accessibility depth — `useId` and focus management are noted where they fit; the full lens lives in `accessibility`.
 - React Native, styling systems, animation libraries, and i18n.

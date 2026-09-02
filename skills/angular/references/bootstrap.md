@@ -3,8 +3,10 @@
 The rules are in the `angular` Ruleset (`bootstrap` group). This file is the reasoning and the
 config blocks.
 
-- **No `NgModule`.** Standalone is the default on current Angular; an `NgModule` adds a wiring layer with no gain. A component lists what it uses in its own `imports` array. Do not write `standalone: true` where it is already the default.
-- **`bootstrapApplication(App, appConfig)` in `main.ts`** — one entry point, one provider list. Configure with functional providers: they are tree-shakable and typed, with no module graph.
+- **No `NgModule`.** Standalone is the default on current Angular; an `NgModule` adds a wiring layer with no gain. A component lists what it uses in its own
+  `imports` array. Do not write `standalone: true` where it is already the default.
+- **`bootstrapApplication(App, appConfig)` in `main.ts`** — one entry point, one provider list. Configure with functional providers: they are tree-shakable and
+  typed, with no module graph.
 
 ```ts
 // main.ts

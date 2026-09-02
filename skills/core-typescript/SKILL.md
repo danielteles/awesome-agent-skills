@@ -67,7 +67,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 ### compiler-config → `references/compiler-config.md`
 
-- [ ] `strict` is on, plus `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, `noImplicitOverride`, `noFallthroughCasesInSwitch`, `noImplicitReturns`, `noUnusedLocals`, `noUnusedParameters`, and `verbatimModuleSyntax`.
+- [ ] `strict` is on, plus `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, `noImplicitOverride`, `noFallthroughCasesInSwitch`, `noImplicitReturns`,
+      `noUnusedLocals`, `noUnusedParameters`, and `verbatimModuleSyntax`.
 - [ ] A flag is never relaxed to clear an error — the code is fixed instead.
 
 ### unsafe-types → `references/unsafe-types.md`
@@ -101,7 +102,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 ### utility-types → `references/utility-types.md`
 
-- [ ] A related type is derived with `Pick` / `Omit` / `Partial` / `Required` / `Record` / `ReturnType` / `Parameters` / `Awaited` / `NonNullable` / `keyof` / `typeof` / indexed access / a template literal type — not hand-copied.
+- [ ] A related type is derived with `Pick` / `Omit` / `Partial` / `Required` / `Record` / `ReturnType` / `Parameters` / `Awaited` / `NonNullable` / `keyof` /
+      `typeof` / indexed access / a template literal type — not hand-copied.
 
 ### nullability → `references/nullability.md`
 
@@ -119,7 +121,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 - [ ] No floating promise — every promise is awaited or explicitly marked `void`.
 - [ ] Independent async work runs with `Promise.all`; serial `await` only for a step that needs the previous result.
-- [ ] A disposable resource (a timer, subscription, lock, or handle) is released with `using` / `await using` where the target supports explicit resource management.
+- [ ] A disposable resource (a timer, subscription, lock, or handle) is released with `using` / `await using` where the target supports explicit resource
+      management.
 
 ### errors → `references/errors.md`
 
@@ -140,7 +143,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 ### lint → `references/lint.md`
 
-- [ ] `typescript-eslint` runs with `strict-type-checked` (or at least `recommended-type-checked`), with `no-floating-promises`, `no-explicit-any`, `consistent-type-imports`, and `switch-exhaustiveness-check` on.
+- [ ] `typescript-eslint` runs with `strict-type-checked` (or at least `recommended-type-checked`), with `no-floating-promises`, `no-explicit-any`,
+      `consistent-type-imports`, and `switch-exhaustiveness-check` on.
 - [ ] Prettier formats, so style is not a review topic.
 
 ---
@@ -162,5 +166,6 @@ This skill decides the syntax. It does not replace reading the code and understa
 
 This skill composes with:
 
-- **`architecture-and-design`** — the design layer. On a shared topic (discriminated unions, branded ids) it decides the design and this skill decides the syntax.
+- **`architecture-and-design`** — the design layer. On a shared topic (discriminated unions, branded ids) it decides the design and this skill decides the
+  syntax.
 - **`react`** / **`angular`** — extend this skill with their framework's specifics. On a language-point conflict, this skill wins.

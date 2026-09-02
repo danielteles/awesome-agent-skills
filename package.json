@@ -8,6 +8,6 @@
     "node": ">=22"
   },
   "scripts": {
-    "test": "node bin/validate-skills.mjs && node bin/sync-readme.mjs --check"
+    "test": "node bin/validate-skills.mjs && node bin/sync-readme.mjs --check && npx --yes markdownlint-cli2@0.23.2"
   }
 }

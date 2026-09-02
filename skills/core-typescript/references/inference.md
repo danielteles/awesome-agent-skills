@@ -3,7 +3,9 @@
 The rules are in the `core-typescript` Ruleset (`inference` group). This file is the reasoning and
 an example.
 
-- **Do not re-annotate what the compiler already infers exactly.** A repeated annotation is noise, and a wider annotation than the inferred type throws away precision (`Record<string, string>` on a literal loses the exact keys and values). The exception is an exported API boundary, where the annotation is the contract (see `functions`).
+- **Do not re-annotate what the compiler already infers exactly.** A repeated annotation is noise, and a wider annotation than the inferred type throws away
+  precision (`Record<string, string>` on a literal loses the exact keys and values). The exception is an exported API boundary, where the annotation is the
+  contract (see `functions`).
 - **`satisfies`** validates a value against a shape *without* widening it — you get the shape check and keep the literal types.
 
 ```ts

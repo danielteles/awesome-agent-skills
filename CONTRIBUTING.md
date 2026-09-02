@@ -190,7 +190,7 @@ move detail into a reference file.
 Run the validator before opening a pull request and paste the output into the PR:
 
 ```bash
-npm test          # node bin/validate-skills.mjs && node bin/sync-readme.mjs --check
+npm test          # validate-skills.mjs + sync-readme.mjs --check + markdownlint-cli2
 ```
 
 `bin/validate-skills.mjs` enforces the whole contract above — frontmatter keys,
@@ -198,7 +198,10 @@ the name regex, the description limit, the 500-line body cap, every
 `references/` pointer, topic slugs, sibling-skill names, the reference-file
 header, the worked example, and the token budgets. `bin/sync-readme.mjs --check`
 fails if the README Skills table or structure tree is out of date; run
-`node bin/sync-readme.mjs` (no flag) to regenerate them.
+`node bin/sync-readme.mjs` (no flag) to regenerate them. `markdownlint-cli2`
+(config in `.markdownlint-cli2.jsonc`) enforces one rule — a 160-character
+ceiling on prose and list-item lines; wrap a long Ruleset line, do not let it
+run off.
 
 [`.github/workflows/check-skills.yml`](.github/workflows/check-skills.yml) runs
 `npm test` on every pull request. A red check blocks merge.

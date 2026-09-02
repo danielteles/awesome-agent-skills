@@ -3,7 +3,8 @@
 The rules are in the `core-typescript` Ruleset (`generics` group). This file is the reasoning and
 examples.
 
-- **Add a generic only when two types move together** — an input type and a return type, say. A type parameter used once is just `unknown` with extra syntax and no added safety.
+- **Add a generic only when two types move together** — an input type and a return type, say. A type parameter used once is just `unknown` with extra syntax and
+  no added safety.
 - **Constrain it with `extends`** so the body can use its shape.
 - **Give a common type parameter a default** so most callers skip the explicit argument.
 - **A `const` type parameter** (`<const T>`) keeps the caller's literal type without an `as const` at every call site.

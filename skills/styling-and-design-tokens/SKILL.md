@@ -63,7 +63,8 @@ Write one finding per line:
 
 - Name the Ruleset topic when you enforce a rule.
 - A raw value in a component (`#3b82f6`, `16px`, `9999`) is a missing token — say which tier it belongs in, not just "use a variable".
-- Contrast, motion, reflow, zoom, and forced-colors are `accessibility` requirements; this skill positions the tokens and queries that satisfy them and defers the numbers to that skill.
+- Contrast, motion, reflow, zoom, and forced-colors are `accessibility` requirements; this skill positions the tokens and queries that satisfy them and defers
+  the numbers to that skill.
 
 ---
 
@@ -74,34 +75,42 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 ### architecture → `references/architecture.md`
 
-- [ ] Every declaration sits in a cascade layer; the layer order is declared once, up front (`@layer reset, base, tokens, components, utilities;`). Unlayered CSS is reserved for a deliberate last-word override.
+- [ ] Every declaration sits in a cascade layer; the layer order is declared once, up front (`@layer reset, base, tokens, components, utilities;`). Unlayered
+      CSS is reserved for a deliberate last-word override.
 - [ ] Specificity stays flat: one class per rule, no `#id` styling, no descendant chain deeper than two, no tag-qualified class (`div.card`).
 - [ ] No `!important` outside the utilities layer or a commented third-party override.
-- [ ] Component styles are scoped — CSS Modules, `@scope`, shadow DOM, or the framework's scoped styles — never a bare element or global class selector from a component file.
+- [ ] Component styles are scoped — CSS Modules, `@scope`, shadow DOM, or the framework's scoped styles — never a bare element or global class selector from a
+      component file.
 - [ ] One reset/normalize, in the `reset` layer, with `box-sizing: border-box` set globally once.
 - [ ] A component's styles are colocated with the component, not added to a shared global stylesheet.
 
 ### tokens → `references/tokens.md`
 
-- [ ] Three tiers — primitive (`--blue-600`, `--space-4`), semantic (`--color-action`, `--space-inline-sm`), component (`--button-bg`) — and components read semantic or component tokens, never primitives.
-- [ ] No raw color, length, radius, shadow, duration, or z-index literal in a component rule; each is a `var(--token)`. Allowed literals: `0`, `1px` hairlines, `100%`, `50%`.
-- [ ] Tokens are defined once as CSS custom properties on `:root` or a theme scope; if a token build source exists (Style Dictionary or equivalent) it is the origin and CSS is generated.
+- [ ] Three tiers — primitive (`--blue-600`, `--space-4`), semantic (`--color-action`, `--space-inline-sm`), component (`--button-bg`) — and components read
+      semantic or component tokens, never primitives.
+- [ ] No raw color, length, radius, shadow, duration, or z-index literal in a component rule; each is a `var(--token)`. Allowed literals: `0`, `1px` hairlines,
+      `100%`, `50%`.
+- [ ] Tokens are defined once as CSS custom properties on `:root` or a theme scope; if a token build source exists (Style Dictionary or equivalent) it is the
+      origin and CSS is generated.
 - [ ] Spacing, font size, radius, and z-index each come from a named scale, not hand-picked values.
 - [ ] A token is named for its role, not its value — `--color-danger`, not `--color-red`.
 - [ ] Stacking uses a small named z-index scale (`--z-dropdown`, `--z-modal`, `--z-toast`); no ad-hoc `z-index: 9999`.
 
 ### theming → `references/theming.md`
 
-- [ ] A theme (dark mode, brand, density) changes only token values, redefined on a scope (`:root`, `[data-theme="dark"]`, `@media (prefers-color-scheme: dark)`); component rules never branch on the theme.
+- [ ] A theme (dark mode, brand, density) changes only token values, redefined on a scope (`:root`, `[data-theme="dark"]`,
+      `@media (prefers-color-scheme: dark)`); component rules never branch on the theme.
 - [ ] `color-scheme` is declared so native controls, scrollbars, and the canvas follow the theme.
 - [ ] Both an automatic path (`prefers-color-scheme`) and a persisted user override (an attribute on `<html>`) exist, and the override wins in both directions.
 - [ ] The active theme is applied before first paint — an inline script or an SSR attribute — so there is no theme flash.
-- [ ] Forced-colors mode is handled: no meaning carried only by `background-image`, `forced-color-adjust` used deliberately, checked under `@media (forced-colors: active)` (thresholds: `accessibility`, perceivable).
+- [ ] Forced-colors mode is handled: no meaning carried only by `background-image`, `forced-color-adjust` used deliberately, checked under
+      `@media (forced-colors: active)` (thresholds: `accessibility`, perceivable).
 - [ ] Every foreground/background token pair meets the contrast `accessibility` requires, in every theme.
 
 ### methodology → `references/methodology.md`
 
-- [ ] The approach — scoped CSS / CSS Modules, a utility system, or CSS-in-JS — is chosen once for the project and written down; a component does not mix all three.
+- [ ] The approach — scoped CSS / CSS Modules, a utility system, or CSS-in-JS — is chosen once for the project and written down; a component does not mix all
+      three.
 - [ ] Styling carries zero or build-time runtime cost: no per-render style recalculation, and no runtime CSS-in-JS in a Server Component or a long list.
 - [ ] Utilities and arbitrary values express tokens (`p-4`, not `p-[13px]`); an arbitrary value is a missing token.
 - [ ] Unused CSS is eliminated at build (module scoping, utility JIT, or coverage) — the global surface does not grow unbounded.
@@ -109,10 +118,12 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 ### responsive-layout → `references/responsive-layout.md`
 
-- [ ] Layout is intrinsic — flex/grid with wrapping, `minmax()`, `auto-fit`/`auto-fill`, and `min()`/`max()`/`clamp()` sizing — so content decides the breakpoint, not a device width.
+- [ ] Layout is intrinsic — flex/grid with wrapping, `minmax()`, `auto-fit`/`auto-fill`, and `min()`/`max()`/`clamp()` sizing — so content decides the
+      breakpoint, not a device width.
 - [ ] No fixed `px` width or height on a content container; use `max-width` in `rem`/`ch` with `width: 100%`.
 - [ ] Space between siblings is `gap`, not margins on the children.
-- [ ] Flow-relative logical properties (`margin-inline`, `padding-block`, `inset`, `border-start-start-radius`) instead of physical `left`/`right`/`top`/`bottom`, so writing-direction changes need no overrides.
+- [ ] Flow-relative logical properties (`margin-inline`, `padding-block`, `inset`, `border-start-start-radius`) instead of physical
+      `left`/`right`/`top`/`bottom`, so writing-direction changes need no overrides.
 - [ ] Media queries are `min-width` in `em`/`rem`, few in number, and tied to where the layout breaks — not one per device.
 - [ ] A component that must adapt to the space it is placed in uses a container query, not a media query (see `container-queries`).
 
@@ -140,7 +151,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 This skill is CSS architecture and design tokens. It does not cover:
 
 - The visual design itself — palettes, type pairings, brand. This skill positions tokens; it does not choose their values.
-- Contrast ratios, motion thresholds, reflow and zoom targets, and forced-colors requirements — those are set by `accessibility`. This skill wires the tokens and queries that meet them.
+- Contrast ratios, motion thresholds, reflow and zoom targets, and forced-colors requirements — those are set by `accessibility`. This skill wires the tokens
+  and queries that meet them.
 - Component API, composition, and where the design system lives — `architecture-and-design` and the framework skills.
 - Animation choreography, JS animation libraries, SVG authoring, and icon-system design.
 - The internals of a specific CSS framework or CSS-in-JS library — the choice between approaches is here; each library's API is its own.
@@ -155,5 +167,7 @@ This skill states how the CSS is organized. It is not a substitute for viewing t
 This skill composes with:
 
 - **`architecture-and-design`** — owns where the design system and its tokens live and the feature boundary; this skill owns the CSS inside it.
-- **`accessibility`** — owns the perceptual thresholds (contrast, motion, reflow, forced colors). This skill positions the tokens and queries; on a conflict `accessibility` decides the requirement.
-- **`react`** / **`angular`** — how styles attach to a component (CSS Modules, scoped styles, `styleUrls`, the `class` / `style` binding) and the Server Component runtime constraint on CSS-in-JS.
+- **`accessibility`** — owns the perceptual thresholds (contrast, motion, reflow, forced colors). This skill positions the tokens and queries; on a conflict
+  `accessibility` decides the requirement.
+- **`react`** / **`angular`** — how styles attach to a component (CSS Modules, scoped styles, `styleUrls`, the `class` / `style` binding) and the Server
+  Component runtime constraint on CSS-in-JS.

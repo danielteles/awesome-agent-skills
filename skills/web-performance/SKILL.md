@@ -75,7 +75,8 @@ Write one finding per line:
 
 - Name the Ruleset topic when you enforce a rule.
 - Tie every claim to a metric and, where you can, a number — "adds ~90 KB gzip to the entry bundle, pushing TBT over 200 ms", not "this is heavy".
-- A fix for one metric can cost another: preloading everything delays the LCP resource, over-splitting adds request latency, `font-display: block` trades CLS for blank text. State the trade.
+- A fix for one metric can cost another: preloading everything delays the LCP resource, over-splitting adds request latency, `font-display: block` trades CLS
+  for blank text. State the trade.
 - The budget is p75, mobile, field data. A fast run on a desktop with a wired connection is not a pass.
 
 ---
@@ -88,23 +89,28 @@ reviewing. Each group links to its `references/` file for rationale and examples
 ### budgets → `references/budgets.md`
 
 - [ ] Each route has a written budget: LCP, INP, CLS targets plus a ceiling for JS transfer size and request count.
-- [ ] The budget is enforced in CI — a bundle-size check and Lighthouse CI (or equivalent) on every pull request — and a regression past the ceiling fails the build.
-- [ ] Third-party scripts have their own byte and main-thread budget; a new one is justified against it, loaded `async` / `defer`, and behind consent where required.
+- [ ] The budget is enforced in CI — a bundle-size check and Lighthouse CI (or equivalent) on every pull request — and a regression past the ceiling fails the
+      build.
+- [ ] Third-party scripts have their own byte and main-thread budget; a new one is justified against it, loaded `async` / `defer`, and behind consent where
+      required.
 - [ ] The budget is derived from field data and the competitive set, not a round number picked once.
 - [ ] A performance change is verified in the field after release, not only in the pull request.
 
 ### lcp → `references/lcp.md`
 
 - [ ] The LCP element is server-rendered in the initial HTML — not injected by client JavaScript, not inside a client-only component.
-- [ ] The LCP image or its font is not lazy-loaded, not behind `content-visibility`, and carries `fetchpriority="high"`; a `<link rel="preload">` is used only when the resource is discovered late.
+- [ ] The LCP image or its font is not lazy-loaded, not behind `content-visibility`, and carries `fetchpriority="high"`; a `<link rel="preload">` is used only
+      when the resource is discovered late.
 - [ ] Render-blocking CSS is minimal and critical; non-critical CSS and all non-essential JS are deferred so they do not delay first render.
 - [ ] TTFB is within budget — cached/streamed HTML, no slow synchronous work in the server render path.
 - [ ] No above-the-fold web font blocks text for more than 100 ms; `font-display: swap` or `optional`, with a metric-matched fallback to limit the swap shift.
 
 ### inp → `references/inp.md`
 
-- [ ] No task on the main thread runs longer than 50 ms during or after load; long work is chunked, yielded (`await scheduler.yield()` / `setTimeout`), or moved to a Web Worker.
-- [ ] An event handler does the minimum synchronously (update state, show feedback) and defers the rest; a non-urgent re-render is marked as such (`useTransition`, `startTransition`).
+- [ ] No task on the main thread runs longer than 50 ms during or after load; long work is chunked, yielded (`await scheduler.yield()` / `setTimeout`), or moved
+      to a Web Worker.
+- [ ] An event handler does the minimum synchronously (update state, show feedback) and defers the rest; a non-urgent re-render is marked as such
+      (`useTransition`, `startTransition`).
 - [ ] Input handlers on high-frequency events (`input`, `scroll`, `pointermove`) are debounced or throttled and do no layout-thrashing reads-then-writes.
 - [ ] Hydration does not block the first interaction — it is deferred, chunked, or scoped to interactive islands (see `javascript`).
 - [ ] A large list is virtualized; expensive derived data is memoized so a keystroke does not recompute it.
@@ -120,14 +126,17 @@ reviewing. Each group links to its `references/` file for rationale and examples
 ### javascript → `references/javascript.md`
 
 - [ ] The bundle is inspected with an analyzer before shipping; nothing large or duplicated ships unexplained.
-- [ ] Code is split at the route boundary, and non-critical below-the-fold widgets are lazy-loaded; the initial route ships only what it needs to render and become interactive.
-- [ ] Imports are tree-shakeable — named imports from ES modules, no default-importing a whole utility or icon library for one function; a heavy dependency is replaced with a platform API or a smaller one where the need is small.
+- [ ] Code is split at the route boundary, and non-critical below-the-fold widgets are lazy-loaded; the initial route ships only what it needs to render and
+      become interactive.
+- [ ] Imports are tree-shakeable — named imports from ES modules, no default-importing a whole utility or icon library for one function; a heavy dependency is
+      replaced with a platform API or a smaller one where the need is small.
 - [ ] Polyfills and transpilation target the supported browser baseline only (`browserslist`), with a modern build served to modern browsers.
 - [ ] `modulepreload` (or the framework's equivalent) is used for the critical chunk graph so splitting does not create a request waterfall.
 
 ### assets → `references/assets.md`
 
-- [ ] Raster images are served responsively (`srcset` + `sizes`) in a modern format (AVIF or WebP) at the displayed size, through an image CDN or the framework's image component.
+- [ ] Raster images are served responsively (`srcset` + `sizes`) in a modern format (AVIF or WebP) at the displayed size, through an image CDN or the
+      framework's image component.
 - [ ] Below-the-fold images are `loading="lazy"`; all images set `decoding="async"` and explicit dimensions.
 - [ ] Fonts are self-hosted, subset to the glyphs used, `woff2`, preloaded only for the above-the-fold weights, with `font-display` set.
 - [ ] `preconnect` is set for a required cross-origin asset host; unused `preconnect` / `dns-prefetch` hints are removed.
@@ -162,7 +171,9 @@ This skill states the budget and the diagnosis. It is not a substitute for a tra
 
 This skill composes with:
 
-- **`react`** — the rendering and hydration API: `<Suspense>` and `lazy()`, `useTransition` / `useDeferredValue`, Server Components, streaming SSR, `fetchpriority` on `<img>`. On a conflict this skill sets the budget, `react` picks the API.
-- **`angular`** — `@defer` blocks, `NgOptimizedImage`, route-level lazy loading, `provideClientHydration()` and incremental hydration, zoneless change detection.
+- **`react`** — the rendering and hydration API: `<Suspense>` and `lazy()`, `useTransition` / `useDeferredValue`, Server Components, streaming SSR,
+  `fetchpriority` on `<img>`. On a conflict this skill sets the budget, `react` picks the API.
+- **`angular`** — `@defer` blocks, `NgOptimizedImage`, route-level lazy loading, `provideClientHydration()` and incremental hydration, zoneless change
+  detection.
 - **`architecture-and-design`** — data fetching, caching, and the state tiers that decide what renders when and how much ships to the client.
 - **`accessibility`** — `prefers-reduced-motion` and the reflow/zoom requirements that a CLS or font fix must also satisfy.

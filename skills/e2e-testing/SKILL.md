@@ -79,20 +79,24 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] A `data-testid` is used only when no accessible query works, and it is a stable contract, never a scraped class name, tag path, or nth-child.
 - [ ] No CSS or XPath selector that encodes DOM structure or styling; no locator that matches more than one element without an explicit index reason.
 - [ ] Locators are lazy and auto-waiting — created once, resolved on use; no querying the DOM into a variable and reusing a stale handle.
-- [ ] Text locators tolerate insignificant whitespace and case where the framework allows, and do not depend on copy that changes with locale unless the test sets the locale.
+- [ ] Text locators tolerate insignificant whitespace and case where the framework allows, and do not depend on copy that changes with locale unless the test
+      sets the locale.
 
 ### test-data → `references/test-data.md`
 
-- [ ] Each test creates the data it needs through the application's API or a factory, and tears it down or uses a unique namespace — no reliance on a shared seeded record.
+- [ ] Each test creates the data it needs through the application's API or a factory, and tears it down or uses a unique namespace — no reliance on a shared
+      seeded record.
 - [ ] Identifiers are unique per test run (a run id or UUID prefix) so parallel workers do not collide.
 - [ ] Authentication is done once per worker and reused via a stored session (`storageState` / `cy.session`), not by logging in through the UI in every test.
 - [ ] Tests pass when run in isolation, in any order, and fully parallel; none depends on a previous test's side effect.
-- [ ] No test mutates global or account-wide state (feature flags, settings) that another test reads, unless that state is scoped to the test's own tenant or user.
+- [ ] No test mutates global or account-wide state (feature flags, settings) that another test reads, unless that state is scoped to the test's own tenant or
+      user.
 
 ### network → `references/network.md`
 
 - [ ] Third-party, paid, rate-limited, and non-deterministic endpoints (payments, maps, analytics, email, time-based feeds) are stubbed at the network layer.
-- [ ] Your own backend runs for real in a true end-to-end test; stubbing it is a deliberate choice that downgrades the test to integration and is labelled as such.
+- [ ] Your own backend runs for real in a true end-to-end test; stubbing it is a deliberate choice that downgrades the test to integration and is labelled as
+      such.
 - [ ] A stubbed response matches the real contract's shape; a contract test or type guards the fixture against drift.
 - [ ] The test waits on a specific request or response (`waitForResponse`, `cy.intercept` alias) when it needs one, not a blind delay.
 - [ ] Interception is scoped and cleaned up so a stub from one test does not leak into the next.
@@ -116,7 +120,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 ### flake-triage → `references/flake-triage.md`
 
 - [ ] A flake is reproduced before it is fixed — `--repeat-each` / a loop, with the trace retained — not fixed by guesswork.
-- [ ] The cause is named: fixed timeout, animation/transition race, network race, shared or leftover data, test-order coupling, non-deterministic clock/locale/timezone, or a real product bug.
+- [ ] The cause is named: fixed timeout, animation/transition race, network race, shared or leftover data, test-order coupling, non-deterministic
+      clock/locale/timezone, or a real product bug.
 - [ ] Animations and transitions are disabled in the test environment (reduced motion, or a CSS override) so they cannot race the assertions.
 - [ ] Time, timezone, locale, and viewport are pinned in the config; a test that needs "now" controls the clock.
 - [ ] The fix removes the root cause; adding a wait or a retry to make it pass is not a fix.
@@ -135,9 +140,11 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 This skill is the design of a browser end-to-end suite. It does not cover:
 
-- The quality of an individual test in the abstract — assertion strength, naming, one-outcome-per-test, test doubles. That is `test-quality`, and it applies to every e2e test too.
+- The quality of an individual test in the abstract — assertion strength, naming, one-outcome-per-test, test doubles. That is `test-quality`, and it applies to
+  every e2e test too.
 - The test pyramid and how much to test at each layer — `architecture-and-design`, testing.
-- Component and integration testing frameworks (Testing Library, `@playwright/experimental-ct`, Cypress component testing) — the selector and network rules carry over, the runner setup does not.
+- Component and integration testing frameworks (Testing Library, `@playwright/experimental-ct`, Cypress component testing) — the selector and network rules
+  carry over, the runner setup does not.
 - Unit test runners (Vitest, Jest) and their mocking APIs.
 - Visual regression, performance, load, and security testing.
 - CI platform configuration beyond the retry, sharding, and artifact policy here.
@@ -151,6 +158,7 @@ This skill states how an e2e suite is built. It is not a substitute for reading 
 
 This skill composes with:
 
-- **`test-quality`** — judges each e2e test as a test: one outcome, a meaningful assertion on observable behaviour, determinism. On a conflict it decides the individual test and this skill decides the e2e mechanics.
+- **`test-quality`** — judges each e2e test as a test: one outcome, a meaningful assertion on observable behaviour, determinism. On a conflict it decides the
+  individual test and this skill decides the e2e mechanics.
 - **`architecture-and-design`** — its `testing` group decides the suite shape; this skill assumes the e2e layer is thin and defers "how thin" to it.
 - **`accessibility`** — querying by role and accessible name is both a robust e2e locator and an accessibility signal; the full lens lives there.

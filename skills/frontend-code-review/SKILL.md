@@ -52,7 +52,8 @@ The merged review. Each finding keeps the Output Format of the skill that produc
 <severity> · <topic> · <file>:<line> — <what is wrong>. <the fix as an action>.
 ```
 
-- `<topic>` is a Ruleset topic slug (`routing`, `dedup`, `merging`) for a finding this skill raises itself, or the originating skill's own topic (`effects`, `tokens`, `lcp`, …) for a routed one.
+- `<topic>` is a Ruleset topic slug (`routing`, `dedup`, `merging`) for a finding this skill raises itself, or the originating skill's own topic (`effects`,
+  `tokens`, `lcp`, …) for a routed one.
 - Prefix the review with one summary line: the file count, the `must-fix` count, and whether it blocks merge.
 
 ### Rules for Every Mode
@@ -71,15 +72,20 @@ result. Each group links to its `references/` file for rationale and an example.
 
 ### routing → `references/routing.md`
 
-- [ ] Every changed file is classified and mapped to the skills that apply — `.ts`/`.tsx` to `core-typescript`; a component or hook to the matching framework skill; any UI to `accessibility` and, if it touches CSS or tokens, `styling-and-design-tokens`; a change to loading, bundling, or rendering to `web-performance`; a test file to `test-quality`, an e2e spec to `e2e-testing`; a cross-cutting or structural change to `architecture-and-design`.
-- [ ] Skills are applied base-first: `core-typescript`, then `architecture-and-design`, then the one framework skill, then the lenses, then this skill's own checks.
+- [ ] Every changed file is classified and mapped to the skills that apply — `.ts`/`.tsx` to `core-typescript`; a component or hook to the matching framework
+      skill; any UI to `accessibility` and, if it touches CSS or tokens, `styling-and-design-tokens`; a change to loading, bundling, or rendering to
+      `web-performance`; a test file to `test-quality`, an e2e spec to `e2e-testing`; a cross-cutting or structural change to `architecture-and-design`.
+- [ ] Skills are applied base-first: `core-typescript`, then `architecture-and-design`, then the one framework skill, then the lenses, then this skill's own
+      checks.
 - [ ] Only the framework skill for the codebase runs — not `react` and `angular` and `vue` on the same file.
 - [ ] A concern the diff clearly touches with no skill available to cover it is reported as a `routing` gap, not silently skipped.
 
 ### dedup → `references/dedup.md`
 
 - [ ] When two skills flag the same line for the same underlying issue, one finding is reported, not two.
-- [ ] The finding is kept from the skill that owns that decision: `accessibility` for an a11y requirement, the framework skill for its API, `styling-and-design-tokens` for a CSS value, `web-performance` for a budget, `architecture-and-design` for a design call, `core-typescript` for a type or syntax point, `test-quality` for what a test asserts.
+- [ ] The finding is kept from the skill that owns that decision: `accessibility` for an a11y requirement, the framework skill for its API,
+      `styling-and-design-tokens` for a CSS value, `web-performance` for a budget, `architecture-and-design` for a design call, `core-typescript` for a type or
+      syntax point, `test-quality` for what a test asserts.
 - [ ] The kept finding names the other skill that also flagged it, so the author sees it matters on two axes.
 - [ ] Two findings on the same line for *different* issues are both kept.
 - [ ] A genuine conflict — two skills prescribing incompatible fixes — is surfaced explicitly with the recommended resolution, not silently resolved.
@@ -115,7 +121,8 @@ to them:
 
 - **`core-typescript`**, **`architecture-and-design`** — the base layers, applied first.
 - **`react`** / **`angular`** / **`vue`** — the one framework skill for the codebase.
-- **`accessibility`**, **`styling-and-design-tokens`**, **`web-performance`**, **`test-quality`**, **`e2e-testing`** — the lenses, applied after the framework skill.
+- **`accessibility`**, **`styling-and-design-tokens`**, **`web-performance`**, **`test-quality`**, **`e2e-testing`** — the lenses, applied after the framework
+  skill.
 
 On a conflict between two skills' findings, the `dedup` group decides which is reported; on a
 conflict about a rule's substance, the owning skill named there wins.

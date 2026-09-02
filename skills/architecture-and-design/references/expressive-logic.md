@@ -3,13 +3,15 @@
 The rules are in the `architecture-and-design` Ruleset (`expressive-logic` group). This file is the
 reasoning and examples. These patterns dominate pull-request review comments.
 
-- **The condition is already the value.** `status === 'active' ? true : false` and `if (c) return true; else return false` both wrap a boolean in a boolean. Comparing against a boolean literal (`=== true`, `!== false`) adds a redundant operation.
+- **The condition is already the value.** `status === 'active' ? true : false` and `if (c) return true; else return false` both wrap a boolean in a boolean.
+  Comparing against a boolean literal (`=== true`, `!== false`) adds a redundant operation.
 - **Guard clauses over nesting.** Return early. Flat code scans top to bottom; a pyramid of `if/else` makes the reader hold state.
 - **Positive conditions.** `!isNotReady` takes two reads to parse. Name the state so the condition is direct.
 - **Name a long boolean chain.** A variable or a predicate function states the intent that the operators hide.
 - **`?.` and `??`.** Fewer tokens than a manual `&&` null chain, same safety. Use `??` (not `||`) for a default where `0` or `''` is a valid value.
 - **Name magic values.** `900000` does not say "15 minutes"; `3` does not say "max retries".
-- **Dispatch table over an `if/else if` ladder** on one value. The ladder edits the same function for every new case (breaks OCP). A `Record<Union, Handler>` forces a handler for every member — a missing case fails to compile, a new case adds one entry.
+- **Dispatch table over an `if/else if` ladder** on one value. The ladder edits the same function for every new case (breaks OCP). A `Record<Union, Handler>`
+  forces a handler for every member — a missing case fails to compile, a new case adds one entry.
 
 ## Redundant booleans
 
