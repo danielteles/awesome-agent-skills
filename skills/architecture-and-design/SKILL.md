@@ -128,7 +128,9 @@ decides the syntax.
 - [ ] A value that can be computed from props or other state is derived, not stored.
 - [ ] A server collection is normalized: each entity stored once, keyed by id.
 - [ ] Each state kind sits in its tier: server-cache library / URL params / a small store or context / the component.
+- [ ] Context holds only low-frequency values; a fast-changing value goes in a store with selectors, not a wide context.
 - [ ] Server data goes through a cache library keyed by its inputs — not fetched in an effect into local state.
+- [ ] Server data is fetched at the point of use, not prop-drilled from a far ancestor.
 - [ ] Independent requests load in parallel, not as a parent → child waterfall.
 - [ ] A mutation updates the cache from its response; an optimistic update has a rollback path.
 - [ ] An explicit stale time and retry policy per query type.

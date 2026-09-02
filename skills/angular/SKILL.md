@@ -66,7 +66,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 ### bootstrap → `references/bootstrap.md`
 
-- [ ] No `NgModule` — every component, directive, and pipe is standalone; no redundant `standalone: true` where it is already the default.
+- [ ] No `NgModule` — every component, directive, and pipe is standalone; no redundant `standalone: true` where it is already the default. Each component lists what it uses in its own `imports` array.
 - [ ] Bootstrap with `bootstrapApplication(App, appConfig)` and functional providers (`provideZonelessChangeDetection`, `provideRouter`, `provideHttpClient`, `provideClientHydration`).
 - [ ] `angularCompilerOptions` has `strictTemplates`, `strictInjectionParameters`, `strictInputAccessModifiers`, `strictStandalone`, and `typeCheckHostBindings` on.
 - [ ] `angular-eslint` runs (`recommended` + `template/recommended` + `template/accessibility`), with `prefer-standalone`, `prefer-on-push-component-change-detection`, `use-lifecycle-interface`, `no-input-rename`, `template/prefer-control-flow`, and `template/prefer-ngsrc` on.
@@ -76,7 +76,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] `ChangeDetectionStrategy.OnPush` on every component.
 - [ ] Dependencies come from `inject()`, not constructor parameters; injected members, inputs, outputs, and queries are grouped at the top; every Angular-assigned member is `readonly`; a template-only member is `protected`.
 - [ ] One component / directive / service per file, named for the class (the current style guide drops the `.component` suffix — match the codebase if it still uses it).
-- [ ] A single project selector prefix; an attribute selector for a directive; each lifecycle hook implements its interface (`OnInit`, `OnDestroy`); host bindings and listeners go in the `host` object, not `@HostBinding` / `@HostListener`.
+- [ ] A single project selector prefix; an attribute selector for a directive; each lifecycle hook is kept short and implements its interface (`OnInit`, `OnDestroy`); host bindings and listeners go in the `host` object, not `@HostBinding` / `@HostListener`.
 - [ ] An event handler is named for the action (`saveDraft()`), not the event (`onClick()`).
 - [ ] Cross-cutting behavior is a `hostDirective`, not a base class or copy-paste.
 - [ ] No `::ng-deep`; `ViewEncapsulation.None` only in a clearly-named global file; a child-piercing override is scoped with `:has()`.
@@ -86,7 +86,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] State is in `signal()`; every dependent value is a `computed()`, kept pure.
 - [ ] No signal write inside `effect()` — use `computed()` or `linkedSignal()`. An `effect()` only pushes a signal value into a non-reactive API (logging, `localStorage`, a canvas, a widget) and releases its resource in `onCleanup`.
 - [ ] `untracked()` wraps a read that must not become a dependency.
-- [ ] No `cdr.detectChanges()` or `markForCheck()` after a signal write — the write schedules the update itself.
+- [ ] No `cdr.detectChanges()` or `markForCheck()` after a signal write — the write schedules the update itself; `cdr.detectChanges()` is left only for an imperative non-signal change Angular cannot observe (and that field should become a signal).
 - [ ] Shared state is a `providedIn: 'root'` service exposing `signal` / `computed` members; a store library only once that service grows entities, effects, and derived collections (`architecture-and-design`, state-and-data).
 
 ### inputs-outputs → `references/inputs-outputs.md`
@@ -110,6 +110,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] Route guards are functional (`CanActivateFn`); HTTP interceptors are functional (`HttpInterceptorFn` with `withInterceptors`).
 - [ ] A system boundary injects an `InjectionToken<T>` for an abstraction, not a concrete class (`architecture-and-design`, solid — DIP, and patterns).
 - [ ] `inject()` is called only in an injection context (constructor, field initializer, `provide*` factory); a later call is wrapped in `runInInjectionContext`.
+- [ ] Manual teardown is tied to `inject(DestroyRef)`, not an `ngOnDestroy` bookkeeping field.
 
 ### rxjs → `references/rxjs.md`
 

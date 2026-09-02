@@ -70,11 +70,11 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] `ref` is accepted as a plain prop — no `forwardRef` on a new component.
 - [ ] One component per file, file name matching the component; no `import React` just for JSX (`"jsx": "react-jsx"`).
 - [ ] A semantic element (`button`, `nav`, `label`) over a `div` with a handler; every control has an accessible name; `useId()` for label / `aria-*` ids, never as a list key.
-- [ ] `eslint-plugin-react-hooks` (v5) is on and every warning fixed, not disabled.
+- [ ] `eslint-plugin-react` and `eslint-plugin-react-hooks` (v5) are on and every warning fixed, not disabled.
 
 ### hooks → `references/hooks.md`
 
-- [ ] Every hook is called at the top level of a component or another hook, before any early `return` — never in a condition, loop, nested function, event handler, or `try`/`catch`.
+- [ ] Every hook is called at the top level of a component or another hook, before any early `return` — never in a condition, loop, nested function, event handler, `try`/`catch`, or a function passed to `useMemo` / `useReducer` / `useEffect`.
 - [ ] Hooks are called only from a function component or a custom hook.
 - [ ] Shared stateful logic is a custom hook named `useX` returning a stable, typed value.
 - [ ] `useEffect` / `useMemo` / `useCallback` dependency arrays are complete and not suppressed.
@@ -96,6 +96,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] An Effect exists only to synchronize with an external system (widget, socket, subscription, document title).
 - [ ] Every Effect has a cleanup that undoes its setup; one Effect per synchronization.
 - [ ] An Effect that fetches guards against a stale response (`AbortController` / ignore flag) — or, better, uses a cache library (see `data-fetching`).
+- [ ] A reusable Effect is extracted into a custom hook.
 - [ ] Reading the latest value without re-subscribing uses an Effect Event (`useEffectEvent`), not a dishonest dependency array.
 
 ### refs → `references/refs.md`
@@ -104,13 +105,16 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] No `ref.current` read or write during render — only in an event handler or an Effect.
 - [ ] `ref` is a plain prop; no `forwardRef`.
 - [ ] An imperative API is exposed with `useImperativeHandle` and is small and named (`focus`, `scrollIntoView`).
+- [ ] A `ref` callback that attaches a listener returns a cleanup function that detaches it.
 - [ ] Focus is moved with a ref after navigation, after an async action, and when a dialog opens.
+- [ ] The ref is an escape hatch — state or a prop is tried first.
 
 ### context → `references/context.md`
 
 - [ ] Context holds only low-frequency, widely-read data (theme, locale, current user, DI container).
 - [ ] A fast-changing value is in its own context, or in local state / a store with selectors — not a wide context.
 - [ ] The provider is `<Context value={…}>` (React 19), not `<Context.Provider>`.
+- [ ] Context is read with `useContext`; `use(Context)` only where the read must be conditional.
 - [ ] The context `value` is memoized (or the React Compiler is on) — never an inline object literal.
 - [ ] A component extends via `children` and slot props, not a growing list of boolean config props.
 - [ ] A modal / tooltip / toast renders through `createPortal`, staying in the React tree.
@@ -127,6 +131,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 ### forms → `references/forms.md`
 
 - [ ] Submit is `<form action={submitAction}>` driven by `useActionState`; child pending state via `useFormStatus`.
+- [ ] An optimistic row uses `useOptimistic` (which reverts on failure), not hand-rolled optimistic state.
 - [ ] Inputs are uncontrolled by default; controlled only when the value drives other UI; never switched between the two.
 - [ ] Validators are built from the same schema the server uses, and the server re-validates.
 - [ ] Entered values survive a failed submit; each field error maps back to its field.
@@ -134,6 +139,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 ### server-client → `references/server-client.md`
 
 - [ ] Components are Server Components by default (no directive); no state, Effects, browser APIs, or handlers in them.
+- [ ] A Server Component that needs data is `async` and `await`s it in render (reads the database or a file directly) — no client round-trip built for its own data.
 - [ ] `'use client'` sits on the smallest interactive leaf, not a page or layout.
 - [ ] A server function is marked `'use server'` and called as an Action; props across the boundary are serializable (no functions except Server Actions, no class instances).
 - [ ] No server-only module (db client, secret, `fs`) is reachable from a `'use client'` file; `server-only` enforces it.
@@ -154,6 +160,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] Network mocked with MSW — not a mocked module or hook.
 - [ ] Assertions are on rendered output, not state, props, or call counts; async via `findBy*` / `waitFor`.
 - [ ] A custom hook is tested through a component that uses it; `renderHook` only when there is none.
+- [ ] `createPortal` content is queried through `screen` (document-wide), not the `render()` return value.
 - [ ] No shallow rendering, no Enzyme, no broad snapshot.
 
 ---

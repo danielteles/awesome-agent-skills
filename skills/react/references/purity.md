@@ -35,7 +35,7 @@ export function UserCard({ user, onRemove, ref }: UserCardProps) {
 
 ## Why the JSX/lint setup
 
-`"jsx": "react-jsx"` enables the automatic runtime, so no `import React` is needed for JSX. `eslint-plugin-react-hooks` (v5) catches conditional hooks and broken dependency arrays that no type checker sees — a suppressed warning there is a latent stale-closure or hook-order bug.
+`"jsx": "react-jsx"` enables the automatic runtime, so no `import React` is needed for JSX. `eslint-plugin-react` catches JSX-level mistakes (an array-index `key`, a missing `key`, an unstable nested component); `eslint-plugin-react-hooks` (v5) catches conditional hooks and broken dependency arrays that no type checker sees — a suppressed warning in either is a latent bug.
 
 ## Accessibility
 
