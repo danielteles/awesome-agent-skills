@@ -65,14 +65,13 @@ composes with but does not tell the agent to load them up front — a base skill
 pulled in when the task actually turns on its layer, so a focused React task
 costs one `SKILL.md`, not three.
 
-Two checks guard this, run on every PR by
-[`.github/workflows/check-skills.yml`](.github/workflows/check-skills.yml):
-
-- `node bin/check-references.mjs` — every `references/` pointer in every
-  `SKILL.md` resolves, no reference file is orphaned, and the frontmatter `name`
-  matches the directory.
-- `node bin/check-token-budget.mjs` — estimates the token cost of each file and
-  fails if a `SKILL.md` or a `references/` file grows past its budget.
+One validator guards this — `node bin/validate-skills.mjs` (aliased as
+`npm test`), run on every PR by
+[`.github/workflows/check-skills.yml`](.github/workflows/check-skills.yml). It
+checks the frontmatter (`name`, `description` length, `license`, `metadata`),
+the 500-line body cap, every `references/` pointer, the topic slugs and
+sibling-skill names named in prose, the reference-file header, the worked
+example, and the per-file token budgets.
 
 ---
 
@@ -198,8 +197,7 @@ awesome-agent-skills/
 │   ├── reference.md
 │   └── worked-example.md
 ├── bin/
-│   ├── check-references.mjs             # verifies every references/ pointer resolves
-│   └── check-token-budget.mjs           # flags a SKILL.md or reference that grows past budget
+│   └── validate-skills.mjs              # one validator: frontmatter, contract, and token budgets
 ├── CONTRIBUTING.md
 ├── LICENSE
 └── README.md
@@ -213,8 +211,8 @@ New skills and fixes are welcome. [`CONTRIBUTING.md`](CONTRIBUTING.md) is the
 full contract — frontmatter, body sections, the Output Format, reference-file
 rules, token budgets, and the review process. Copy [`templates/`](templates/)
 (`SKILL.md`, `reference.md`, `worked-example.md`) to start a skill without
-reading an existing one, fill every `<placeholder>`, and run the two checks in
-[`bin/`](bin/) before opening a pull request.
+reading an existing one, fill every `<placeholder>`, and run `npm test`
+(`node bin/validate-skills.mjs`) before opening a pull request.
 
 ---
 
