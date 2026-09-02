@@ -26,8 +26,10 @@ src/
 
 ## The boundary rules, and why
 
-- **One-way flow: `features` import `shared`, `shared` never imports `features`.** A shared module that knows about a feature is no longer shared — it now drags that feature into every other consumer.
-- **Feature isolation: a feature never imports another feature's internals.** Cross only through `index.ts`, shared state, or routing. A deep import (`features/checkout/model/cart.ts` from `features/billing`) couples the two forever and breaks when either refactors.
+- **One-way flow: `features` import `shared`, `shared` never imports `features`.** A shared module that knows about a feature is no longer shared — it now drags
+  that feature into every other consumer.
+- **Feature isolation: a feature never imports another feature's internals.** Cross only through `index.ts`, shared state, or routing. A deep import
+  (`features/checkout/model/cart.ts` from `features/billing`) couples the two forever and breaks when either refactors.
 - **Enforce it with a linter** (`eslint-plugin-boundaries`, Nx module boundaries). A boundary rule that is not enforced is not kept.
 
 ```javascript

@@ -1,0 +1,18 @@
+{
+  // The skill Markdown is authored with hard line wraps. The only rule enforced
+  // is a 160-character ceiling on prose and list-item lines — long Ruleset
+  // checkbox lines are wrapped, not left to run off. Headings, tables, and
+  // fenced code are exempt: a table row and a code line cannot be wrapped
+  // without changing what they mean.
+  "config": {
+    "default": false,
+    "MD013": {
+      "line_length": 160,
+      "headings": false,
+      "tables": false,
+      "code_blocks": false
+    }
+  },
+  "globs": ["skills/**/*.md", "templates/**/*.md", "*.md"],
+  "ignores": ["ROADMAP-NOTES.md", "node_modules"]
+}

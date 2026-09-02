@@ -4,10 +4,13 @@ The rules are in the `core-typescript` Ruleset (`data-modeling` group). This fil
 and examples. On the design of these shapes, `architecture-and-design` (patterns, type-safety)
 decides; this skill decides the syntax.
 
-- **Union of string literals, not `enum`.** A TypeScript `enum` emits runtime code and has surprising nominal rules (a plain string is not assignable to it). `const enum` breaks under `isolatedModules`. When you need the values at runtime, freeze a `const` object with `as const` and derive the type from it.
+- **Union of string literals, not `enum`.** A TypeScript `enum` emits runtime code and has surprising nominal rules (a plain string is not assignable to it).
+  `const enum` breaks under `isolatedModules`. When you need the values at runtime, freeze a `const` object with `as const` and derive the type from it.
 - **`readonly`** on unchanging data (and `readonly T[]` for a list) makes the compiler reject a mutation.
-- **Discriminated union** for mutually exclusive states: a shared discriminant field (`kind`, `status`) lets the compiler narrow each case and flag a missing one.
-- **Branded id** for a domain identifier: `string` ids are all interchangeable to the compiler, so a `UserId` and an `OrderId` swap silently. A brand makes the swap a compile error. Mint the branded value with one sanctioned cast, at the boundary where the raw string enters.
+- **Discriminated union** for mutually exclusive states: a shared discriminant field (`kind`, `status`) lets the compiler narrow each case and flag a missing
+  one.
+- **Branded id** for a domain identifier: `string` ids are all interchangeable to the compiler, so a `UserId` and an `OrderId` swap silently. A brand makes the
+  swap a compile error. Mint the branded value with one sanctioned cast, at the boundary where the raw string enters.
 
 ```ts
 // ❌ Runtime code, nominal typing, no plain string assignment

@@ -63,7 +63,8 @@ Write one finding per line:
 - Name the Ruleset topic when you enforce a rule.
 - State the reason, not only the rule. "This re-renders the whole tree" beats "move state down".
 - A principle serves the code. When two principles conflict, pick the one that makes the code simpler to read and change, and say why.
-- When the task is a decision, not a diff, weigh the options against `solid`, `clean-architecture`, `structure`, `state-and-data`, and `micro-frontends`, and record the choice as an ADR in the repo using `assets/adr-template.md` (context, options, decision, consequences).
+- When the task is a decision, not a diff, weigh the options against `solid`, `clean-architecture`, `structure`, `state-and-data`, and `micro-frontends`, and
+  record the choice as an ADR in the repo using `assets/adr-template.md` (context, options, decision, consequences).
 
 ---
 
@@ -166,7 +167,8 @@ decides the syntax.
 
 ### testing → `references/testing.md`
 
-- [ ] The suite is weighted toward integration: a static-analysis base, unit tests for pure logic, a thick layer of component-plus-collaborator tests with the network mocked at the edge, a thin top of end-to-end tests for critical paths.
+- [ ] The suite is weighted toward integration: a static-analysis base, unit tests for pure logic, a thick layer of component-plus-collaborator tests with the
+      network mocked at the edge, a thin top of end-to-end tests for critical paths.
 - [ ] Domain and use cases: fast unit tests on plain functions, no DOM or network.
 - [ ] Components: queried by role and label, asserted on what the user sees.
 - [ ] The network is mocked at the boundary (MSW), not by replacing modules.
@@ -175,7 +177,8 @@ decides the syntax.
 - [ ] The API boundary is contract-tested, or types are generated from the contract and the payload validated.
 - [ ] A flaky test is quarantined on the first flake and fixed within the sprint.
 - [ ] A snapshot is used only for small, stable output.
-- [ ] Each test also passes the `test-quality` Ruleset — asserts on behavior not implementation, has a meaningful assertion, is deterministic and order-independent. This group decides the suite *shape*; `test-quality` judges the individual test.
+- [ ] Each test also passes the `test-quality` Ruleset — asserts on behavior not implementation, has a meaningful assertion, is deterministic and
+      order-independent. This group decides the suite *shape*; `test-quality` judges the individual test.
 
 ### ddd → `references/ddd.md`
 
@@ -210,12 +213,16 @@ decides the syntax.
 This skill covers frontend architecture and design. It does not cover:
 
 - Backend, database, or infrastructure design.
-- Distributed system architecture: microservices, service decomposition, event-driven backends, message brokers, sagas, distributed consistency. `ddd` covers DDD tactical patterns inside one app; strategic and cross-service concerns belong in a system-architecture skill. `micro-frontends` covers the frontend split only.
+- Distributed system architecture: microservices, service decomposition, event-driven backends, message brokers, sagas, distributed consistency. `ddd` covers
+  DDD tactical patterns inside one app; strategic and cross-service concerns belong in a system-architecture skill. `micro-frontends` covers the frontend split
+  only.
 - Styling systems, design tokens, and CSS architecture beyond the note in `frontend-practices`.
-- Accessibility beyond "use a semantic element and a label". Focus management, ARIA, live regions, keyboard operability, and a11y testing live in `accessibility`.
+- Accessibility beyond "use a semantic element and a label". Focus management, ARIA, live regions, keyboard operability, and a11y testing live in
+  `accessibility`.
 - Deep performance profiling and bundle analysis. `frontend-practices` covers only the field-monitoring habit.
 - CI pipeline configuration, dependency-update bots, release tooling, and monorepo setup.
-- Framework-specific rules: Rules of Hooks, `useMemo` / `useCallback` policy, Angular change detection and signals, Vue reactivity caveats. These live in the framework skills.
+- Framework-specific rules: Rules of Hooks, `useMemo` / `useCallback` policy, Angular change detection and signals, Vue reactivity caveats. These live in the
+  framework skills.
 
 This skill states principles. It is not a substitute for reading the code and understanding the domain.
 
@@ -226,6 +233,7 @@ This skill states principles. It is not a substitute for reading the code and un
 This skill composes with:
 
 - **`core-typescript`** — the language base. On a shared topic this skill decides the design and `core-typescript` decides the syntax.
-- **`react`** / **`angular`** / **`vue`** — the framework form of these rules. Apply the matching one in a React, Angular, or Vue codebase; it wins on a direct conflict.
+- **`react`** / **`angular`** / **`vue`** — the framework form of these rules. Apply the matching one in a React, Angular, or Vue codebase; it wins on a direct
+  conflict.
 - **`accessibility`** — the review lens for UI: ARIA, keyboard and focus, live regions, a11y testing.
 - **`test-quality`** — this skill's `testing` group sets the suite shape; `test-quality` judges each individual test.

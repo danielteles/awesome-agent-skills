@@ -70,17 +70,24 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 ### bootstrap → `references/bootstrap.md`
 
-- [ ] No `NgModule` — every component, directive, and pipe is standalone; no redundant `standalone: true` where it is already the default. Each component lists what it uses in its own `imports` array.
-- [ ] Bootstrap with `bootstrapApplication(App, appConfig)` and functional providers (`provideZonelessChangeDetection`, `provideRouter`, `provideHttpClient`, `provideClientHydration`).
-- [ ] `angularCompilerOptions` has `strictTemplates`, `strictInjectionParameters`, `strictInputAccessModifiers`, `strictStandalone`, and `typeCheckHostBindings` on.
-- [ ] `angular-eslint` runs (`recommended` + `template/recommended` + `template/accessibility`), with `prefer-standalone`, `prefer-on-push-component-change-detection`, `use-lifecycle-interface`, `no-input-rename`, `template/prefer-control-flow`, and `template/prefer-ngsrc` on.
+- [ ] No `NgModule` — every component, directive, and pipe is standalone; no redundant `standalone: true` where it is already the default. Each component lists
+      what it uses in its own `imports` array.
+- [ ] Bootstrap with `bootstrapApplication(App, appConfig)` and functional providers (`provideZonelessChangeDetection`, `provideRouter`, `provideHttpClient`,
+      `provideClientHydration`).
+- [ ] `angularCompilerOptions` has `strictTemplates`, `strictInjectionParameters`, `strictInputAccessModifiers`, `strictStandalone`, and `typeCheckHostBindings`
+      on.
+- [ ] `angular-eslint` runs (`recommended` + `template/recommended` + `template/accessibility`), with `prefer-standalone`,
+      `prefer-on-push-component-change-detection`, `use-lifecycle-interface`, `no-input-rename`, `template/prefer-control-flow`, and `template/prefer-ngsrc` on.
 
 ### components → `references/components.md`
 
 - [ ] `ChangeDetectionStrategy.OnPush` on every component.
-- [ ] Dependencies come from `inject()`, not constructor parameters; injected members, inputs, outputs, and queries are grouped at the top; every Angular-assigned member is `readonly`; a template-only member is `protected`.
-- [ ] One component / directive / service per file, named for the class (the current style guide drops the `.component` suffix — match the codebase if it still uses it).
-- [ ] A single project selector prefix; an attribute selector for a directive; each lifecycle hook is kept short and implements its interface (`OnInit`, `OnDestroy`); host bindings and listeners go in the `host` object, not `@HostBinding` / `@HostListener`.
+- [ ] Dependencies come from `inject()`, not constructor parameters; injected members, inputs, outputs, and queries are grouped at the top; every
+      Angular-assigned member is `readonly`; a template-only member is `protected`.
+- [ ] One component / directive / service per file, named for the class (the current style guide drops the `.component` suffix — match the codebase if it still
+      uses it).
+- [ ] A single project selector prefix; an attribute selector for a directive; each lifecycle hook is kept short and implements its interface (`OnInit`,
+      `OnDestroy`); host bindings and listeners go in the `host` object, not `@HostBinding` / `@HostListener`.
 - [ ] An event handler is named for the action (`saveDraft()`), not the event (`onClick()`).
 - [ ] Cross-cutting behavior is a `hostDirective`, not a base class or copy-paste.
 - [ ] No `::ng-deep`; `ViewEncapsulation.None` only in a clearly-named global file; a child-piercing override is scoped with `:has()`.
@@ -88,24 +95,32 @@ reviewing. Each group links to its `references/` file for rationale and examples
 ### signals → `references/signals.md`
 
 - [ ] State is in `signal()`; every dependent value is a `computed()`, kept pure.
-- [ ] No signal write inside `effect()` — use `computed()` or `linkedSignal()`. An `effect()` only pushes a signal value into a non-reactive API (logging, `localStorage`, a canvas, a widget) and releases its resource in `onCleanup`.
+- [ ] No signal write inside `effect()` — use `computed()` or `linkedSignal()`. An `effect()` only pushes a signal value into a non-reactive API (logging,
+      `localStorage`, a canvas, a widget) and releases its resource in `onCleanup`.
 - [ ] `untracked()` wraps a read that must not become a dependency.
-- [ ] No `cdr.detectChanges()` or `markForCheck()` after a signal write — the write schedules the update itself; `cdr.detectChanges()` is left only for an imperative non-signal change Angular cannot observe (and that field should become a signal).
-- [ ] Shared state is a `providedIn: 'root'` service exposing `signal` / `computed` members; a store library only once that service grows entities, effects, and derived collections (`architecture-and-design`, state-and-data).
+- [ ] No `cdr.detectChanges()` or `markForCheck()` after a signal write — the write schedules the update itself; `cdr.detectChanges()` is left only for an
+      imperative non-signal change Angular cannot observe (and that field should become a signal).
+- [ ] Shared state is a `providedIn: 'root'` service exposing `signal` / `computed` members; a store library only once that service grows entities, effects, and
+      derived collections (`architecture-and-design`, state-and-data).
 
 ### inputs-outputs → `references/inputs-outputs.md`
 
-- [ ] `input()` / `input.required()` / `output()` / `model()` / `viewChild()` / `contentChild()` — no `@Input()` / `@Output()` / `@ViewChild` / `@ContentChild` decorators.
-- [ ] An input is read as a call (`this.name()`); `input.required<T>()` over an optional input plus a `?` guard; a two-way value is written with `this.value.set(...)`.
+- [ ] `input()` / `input.required()` / `output()` / `model()` / `viewChild()` / `contentChild()` — no `@Input()` / `@Output()` / `@ViewChild` / `@ContentChild`
+      decorators.
+- [ ] An input is read as a call (`this.name()`); `input.required<T>()` over an optional input plus a `?` guard; a two-way value is written with
+      `this.value.set(...)`.
 - [ ] Route params are bound to inputs with `withComponentInputBinding()` (see `routing`).
 
 ### templates → `references/templates.md`
 
 - [ ] `@if` / `@for` / `@switch`, not `*ngIf` / `*ngFor` / `*ngSwitch`; every `@for` has a `track` on a stable id, not `$index`.
-- [ ] No method call in a binding — a `computed()` or a pure pipe; any expression past a property read or one pipe is moved into a `computed()`; `@let` for a value read more than once.
+- [ ] No method call in a binding — a `computed()` or a pure pipe; any expression past a property read or one pipe is moved into a `computed()`; `@let` for a
+      value read more than once.
 - [ ] `@defer` with an `on` trigger around a heavy or below-the-fold section.
-- [ ] `[class.x]` / `[style.x.px]` over `NgClass` / `NgStyle`; an Observable is shown via the `async` pipe or `toSignal()`, never `.subscribe()` in the class for display data.
-- [ ] A reusable component takes content via `<ng-content>` + named slots, a `TemplateRef` input + `*ngTemplateOutlet`, or `NgComponentOutlet` — not a pile of boolean config props (`architecture-and-design`, solid — OCP).
+- [ ] `[class.x]` / `[style.x.px]` over `NgClass` / `NgStyle`; an Observable is shown via the `async` pipe or `toSignal()`, never `.subscribe()` in the class
+      for display data.
+- [ ] A reusable component takes content via `<ng-content>` + named slots, a `TemplateRef` input + `*ngTemplateOutlet`, or `NgComponentOutlet` — not a pile of
+      boolean config props (`architecture-and-design`, solid — OCP).
 - [ ] A custom pipe is pure, standalone, typed, and does no I/O.
 
 ### dependency-injection → `references/dependency-injection.md`
@@ -113,20 +128,25 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] A service is `@Injectable({ providedIn: 'root' })`; a narrower scope only when the instance must be per-route or per-component.
 - [ ] Route guards are functional (`CanActivateFn`); HTTP interceptors are functional (`HttpInterceptorFn` with `withInterceptors`).
 - [ ] A system boundary injects an `InjectionToken<T>` for an abstraction, not a concrete class (`architecture-and-design`, solid — DIP, and patterns).
-- [ ] `inject()` is called only in an injection context (constructor, field initializer, `provide*` factory); a later call is wrapped in `runInInjectionContext`.
+- [ ] `inject()` is called only in an injection context (constructor, field initializer, `provide*` factory); a later call is wrapped in
+      `runInInjectionContext`.
 - [ ] Manual teardown is tied to `inject(DestroyRef)`, not an `ngOnDestroy` bookkeeping field.
 
 ### rxjs → `references/rxjs.md`
 
-- [ ] A signal for state; an Observable for a stream over time (HTTP, router events, WebSocket, DOM events), converted to a signal at the edge with `toSignal()`.
+- [ ] A signal for state; an Observable for a stream over time (HTTP, router events, WebSocket, DOM events), converted to a signal at the edge with
+      `toSignal()`.
 - [ ] No manual `.subscribe()` without `takeUntilDestroyed()` (in an injection context or passed a `DestroyRef`) or the `async` pipe.
-- [ ] `HttpClient` is called from a repository, not a component (`architecture-and-design`, patterns); server state is cached with a cache library, not a hand-rolled `BehaviorSubject` store (`architecture-and-design`, state-and-data).
+- [ ] `HttpClient` is called from a repository, not a component (`architecture-and-design`, patterns); server state is cached with a cache library, not a
+      hand-rolled `BehaviorSubject` store (`architecture-and-design`, state-and-data).
 - [ ] `resource()` / `rxResource()` / `httpResource()` are avoided while experimental — `toSignal()` or a cache library.
-- [ ] Transport errors are handled in one functional interceptor (status → domain error, backoff retry for an idempotent call); one top-level `ErrorHandler` reports and shows a fallback (`architecture-and-design`, frontend-practices).
+- [ ] Transport errors are handled in one functional interceptor (status → domain error, backoff retry for an idempotent call); one top-level `ErrorHandler`
+      reports and shows a fallback (`architecture-and-design`, frontend-practices).
 
 ### forms → `references/forms.md`
 
-- [ ] Reactive, typed forms (`new FormControl<string>('', { nonNullable: true })`) for anything past a single field; template-driven only for a trivial single input.
+- [ ] Reactive, typed forms (`new FormControl<string>('', { nonNullable: true })`) for anything past a single field; template-driven only for a trivial single
+      input.
 - [ ] Validators are built from the same schema as the domain model (`architecture-and-design`, forms).
 - [ ] `invalid` / `dirty` / error text are derived from form state, not copied into signals.
 - [ ] A control a mode does not render is `disable({ emitEvent: false })`d, not `@if`-hidden.
@@ -134,7 +154,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 ### routing → `references/routing.md`
 
-- [ ] `provideRouter(routes)`; a feature is lazy-loaded with `loadComponent` / `loadChildren` and maps to a feature folder (`architecture-and-design`, structure).
+- [ ] `provideRouter(routes)`; a feature is lazy-loaded with `loadComponent` / `loadChildren` and maps to a feature folder (`architecture-and-design`,
+      structure).
 - [ ] A feature-only service is scoped in the route's `providers` array, not `providedIn: 'root'`.
 - [ ] Route params, query params, and data are bound to inputs with `withComponentInputBinding()`.
 - [ ] A route guard is a functional `CanActivateFn` using `inject()`.
@@ -143,7 +164,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 ### rendering-ssr → `references/rendering-ssr.md`
 
 - [ ] Zoneless-ready: the view is driven by signals or the `async` pipe, never a change-detection side effect.
-- [ ] DOM measurement and imperative DOM work go in `afterNextRender()` / `afterRender()`, not `ngAfterViewInit`; DOM changes go through `Renderer2` or a binding, not `ElementRef.nativeElement` + `document`.
+- [ ] DOM measurement and imperative DOM work go in `afterNextRender()` / `afterRender()`, not `ngAfterViewInit`; DOM changes go through `Renderer2` or a
+      binding, not `ElementRef.nativeElement` + `document`.
 - [ ] No `window` / `document` / `localStorage` in a constructor or field initializer — guarded with `afterNextRender` or `isPlatformBrowser`.
 - [ ] `provideClientHydration()` for an SSR app; `NgOptimizedImage` (`ngSrc`) with explicit `width` / `height` or `fill`.
 - [ ] No `bypassSecurityTrust*` on anything a user or an API supplied (`architecture-and-design`, security).
@@ -152,14 +174,17 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 ### testing → `references/testing.md`
 
-- [ ] A standalone component is tested through its own imports — `TestBed.configureTestingModule({ imports: [C] })` or `@testing-library/angular`'s `render(C, …)`.
+- [ ] A standalone component is tested through its own imports — `TestBed.configureTestingModule({ imports: [C] })` or `@testing-library/angular`'s
+      `render(C, …)`.
 - [ ] `provideHttpClientTesting()` and assertions on `HttpTestingController`; the network is never hit.
 - [ ] Navigation is driven by `RouterTestingHarness`, not a hand-built `ActivatedRoute` stub.
-- [ ] The DOM is queried by role and accessible name (a CDK harness or `@testing-library/angular`'s `screen.getByRole`), never a raw CSS selector on `DebugElement` / `nativeElement`.
+- [ ] The DOM is queried by role and accessible name (a CDK harness or `@testing-library/angular`'s `screen.getByRole`), never a raw CSS selector on
+      `DebugElement` / `nativeElement`.
 - [ ] A `signal` / `computed` is read after `fixture.detectChanges()`; real providers, mocks only at the network boundary and at a true external service.
 - [ ] `fakeAsync` / `tick` only when `await fixture.whenStable()` cannot do it; a resolved promise chain is `await`ed before a synchronous assertion.
 - [ ] Overlay content (dialog, dropdown) is asserted via its controlling signal or a `document` query, not `fixture.nativeElement`.
-- [ ] Each test also passes the `test-quality` Ruleset — asserts on behavior not internals, has a meaningful assertion, is deterministic. This group is the Angular mechanics; `test-quality` judges the test itself.
+- [ ] Each test also passes the `test-quality` Ruleset — asserts on behavior not internals, has a meaningful assertion, is deterministic. This group is the
+      Angular mechanics; `test-quality` judges the test itself.
 
 ---
 
@@ -168,7 +193,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 This skill is Angular framework rules. It does not cover:
 
 - Language rules (see `core-typescript`) or framework-neutral architecture (see `architecture-and-design`).
-- Deep RxJS operator design, and store libraries (NgRx, NGXS) — use the state tiers in `architecture-and-design`, state-and-data, and reach for a store only when they call for one.
+- Deep RxJS operator design, and store libraries (NgRx, NGXS) — use the state tiers in `architecture-and-design`, state-and-data, and reach for a store only
+  when they call for one.
 - Nx or monorepo setup, Angular Material theming, `@angular/animations`, and i18n.
 - Accessibility depth — CDK a11y usage is noted where it fits, but focus management, ARIA, and a11y testing live in `accessibility`.
 - Angular versions before standalone components and block control flow. For a legacy app, migrate first (the Migrate mode above).

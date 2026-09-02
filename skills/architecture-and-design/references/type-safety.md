@@ -6,10 +6,14 @@ Precise Types, Narrowing).
 
 A type is a design tool, not paperwork. A precise type stops a class of bugs before the code runs.
 
-- **`any` disables checking** for that value and everything it touches; a cast (`as`) tells the compiler to stop verifying. Type an unknown input as `unknown` and narrow it.
-- **A discriminated union** carries exactly the fields each state has. An object of optional fields allows states that cannot exist (a paid order with no payment id, a draft with a shipped date).
-- **Make illegal values unrepresentable** with `readonly`, `as const`, and branded id types, so the compiler rejects the bad value instead of a runtime check catching it.
-- **A type on a network response is a promise, not a fact.** Parse the response against a schema at the adapter, then map it to the domain model. Generate API types from the contract (OpenAPI, GraphQL codegen, tRPC) — a hand-written type drifts from the server the moment the server changes.
+- **`any` disables checking** for that value and everything it touches; a cast (`as`) tells the compiler to stop verifying. Type an unknown input as `unknown`
+  and narrow it.
+- **A discriminated union** carries exactly the fields each state has. An object of optional fields allows states that cannot exist (a paid order with no
+  payment id, a draft with a shipped date).
+- **Make illegal values unrepresentable** with `readonly`, `as const`, and branded id types, so the compiler rejects the bad value instead of a runtime check
+  catching it.
+- **A type on a network response is a promise, not a fact.** Parse the response against a schema at the adapter, then map it to the domain model. Generate API
+  types from the contract (OpenAPI, GraphQL codegen, tRPC) — a hand-written type drifts from the server the moment the server changes.
 - **Validate env and runtime config against a schema at startup**, so the app fails at boot with a clear message rather than mid-session on an undefined read.
 
 ## Narrow from `unknown`

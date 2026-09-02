@@ -58,7 +58,8 @@ Write one finding per line:
 <severity> · <topic> · <file>:<line> — <what is wrong>. <the fix as an action>.
 ```
 
-- `<severity>` is `must-fix` (a string that cannot be translated correctly, or a locale that renders wrong) or `consider` (works, but a rule prefers another form).
+- `<severity>` is `must-fix` (a string that cannot be translated correctly, or a locale that renders wrong) or `consider` (works, but a rule prefers another
+  form).
 - `<topic>` is a Ruleset topic slug (`messages`, `plurals-gender`, `formatting`, `rtl-bidi`, `locale-routing`, `catalog`).
 
 ### Rules for Every Mode
@@ -77,7 +78,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 ### messages → `references/messages.md`
 
 - [ ] Every user-facing string is an externalized message, not a literal in the component or a hardcoded attribute.
-- [ ] A message is one complete sentence or phrase with named ICU placeholders (`{name}`, `{count}`) — never assembled from concatenated or interpolated sub-strings.
+- [ ] A message is one complete sentence or phrase with named ICU placeholders (`{name}`, `{count}`) — never assembled from concatenated or interpolated
+      sub-strings.
 - [ ] Messages are keyed by meaning or location (`checkout.payButton`), not by their English text, so fixing a typo does not orphan every translation.
 - [ ] Each message ships a description / context note for translators, and a screenshot or usage where the tool supports it.
 - [ ] Inline formatting (bold, a link) inside a message uses ICU rich-text tags or the library's component interpolation, not HTML strings spliced together.
@@ -85,34 +87,44 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 ### plurals-gender → `references/plurals-gender.md`
 
-- [ ] Any count-dependent text uses ICU `plural` with CLDR categories (`one`, `other`, and `zero` / `two` / `few` / `many` where a locale needs them) — never `count === 1 ? 'item' : 'items'`.
+- [ ] Any count-dependent text uses ICU `plural` with CLDR categories (`one`, `other`, and `zero` / `two` / `few` / `many` where a locale needs them) — never
+      `count === 1 ? 'item' : 'items'`.
 - [ ] Ordinals ("1st", "2nd") use `selectordinal`, not a suffix table.
 - [ ] Text that varies by gender or another enum uses ICU `select` with an `other` branch, not string branching in code.
-- [ ] The number that drives the plural is passed as an argument to the message, so the translator controls the whole sentence around it (`#` inside the message).
+- [ ] The number that drives the plural is passed as an argument to the message, so the translator controls the whole sentence around it (`#` inside the
+      message).
 - [ ] An `=0` / `=1` exact match is used only for a genuinely special sentence, with the category branches still present.
 
 ### formatting → `references/formatting.md`
 
-- [ ] Dates and times are formatted with `Intl.DateTimeFormat` (or the library wrapper) with the active locale and an explicit time zone — never manual `getMonth()` string-building or a fixed pattern.
-- [ ] Numbers, percentages, and units use `Intl.NumberFormat`; currency uses it with a `currency` code and the locale, and the amount is stored in minor units, not a float.
-- [ ] Relative time ("in 3 days") uses `Intl.RelativeTimeFormat`; lists ("A, B, and C") use `Intl.ListFormat` — not a hand-joined string with a hardcoded conjunction.
+- [ ] Dates and times are formatted with `Intl.DateTimeFormat` (or the library wrapper) with the active locale and an explicit time zone — never manual
+      `getMonth()` string-building or a fixed pattern.
+- [ ] Numbers, percentages, and units use `Intl.NumberFormat`; currency uses it with a `currency` code and the locale, and the amount is stored in minor units,
+      not a float.
+- [ ] Relative time ("in 3 days") uses `Intl.RelativeTimeFormat`; lists ("A, B, and C") use `Intl.ListFormat` — not a hand-joined string with a hardcoded
+      conjunction.
 - [ ] `toLocaleString()` / `toLocaleDateString()` are never called without an explicit locale argument (they use the runtime's, which on a server is arbitrary).
-- [ ] Server-rendered formatted values are produced with the request's locale and time zone, not the server's, and match what the client would render (no hydration mismatch).
+- [ ] Server-rendered formatted values are produced with the request's locale and time zone, not the server's, and match what the client would render (no
+      hydration mismatch).
 - [ ] Collation-sensitive sorting of user-visible lists uses `Intl.Collator`, not the default code-unit sort.
 
 ### rtl-bidi → `references/rtl-bidi.md`
 
 - [ ] `dir` is set (on `<html>`, from the locale) and flips to `rtl` for RTL locales; the app is verified in at least one RTL locale.
-- [ ] Layout uses flow-relative logical properties and values (`margin-inline`, `inset-inline-start`, `text-align: start`) — no physical `left` / `right` in directional layout (mechanism: `styling-and-design-tokens`).
-- [ ] A value interpolated into a sentence (a name, an ID, a file path) is bidi-isolated — `<bdi>`, the library's isolate, or Unicode isolate characters — so a Hebrew name in an English sentence does not scramble punctuation.
+- [ ] Layout uses flow-relative logical properties and values (`margin-inline`, `inset-inline-start`, `text-align: start`) — no physical `left` / `right` in
+      directional layout (mechanism: `styling-and-design-tokens`).
+- [ ] A value interpolated into a sentence (a name, an ID, a file path) is bidi-isolated — `<bdi>`, the library's isolate, or Unicode isolate characters — so a
+      Hebrew name in an English sentence does not scramble punctuation.
 - [ ] User-generated content of unknown direction is rendered with `dir="auto"`.
 - [ ] Directional icons (back / forward arrows, send, undo) are mirrored in RTL; a logo or a play button is not.
 - [ ] No layout math assumes LTR (e.g. computing an offset from the left edge, or `text-align: left` for "start").
 
 ### locale-routing → `references/locale-routing.md`
 
-- [ ] The active locale is in the URL — a path segment (`/de/…`) or a subdomain — so a page is linkable, cacheable, and crawlable per locale; a cookie alone is not enough.
-- [ ] First-visit locale is negotiated from `Accept-Language` against the supported set, with a defined default fallback; the user's explicit choice is then persisted and wins.
+- [ ] The active locale is in the URL — a path segment (`/de/…`) or a subdomain — so a page is linkable, cacheable, and crawlable per locale; a cookie alone is
+      not enough.
+- [ ] First-visit locale is negotiated from `Accept-Language` against the supported set, with a defined default fallback; the user's explicit choice is then
+      persisted and wins.
 - [ ] Each localized page has `hreflang` alternates (including `x-default`) and a self-referential canonical.
 - [ ] `<html lang>` matches the rendered locale exactly (region included where it matters), and it updates on a client-side locale switch.
 - [ ] SSR renders the requested locale's messages and formats on the first response — no default-locale flash corrected after hydration.
@@ -122,7 +134,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] A missing translation falls back to the default locale (or a defined chain), never renders the raw key or an empty string, and is reported.
 - [ ] Locale message bundles are loaded on demand for the active locale, not all locales bundled into the main chunk.
 - [ ] CLDR / plural data is loaded per locale alongside its messages, not assumed present.
-- [ ] A pseudo-localization pass runs in development or CI (accented, padded, bracketed text) to surface hardcoded strings, truncation, and concatenation before translators do.
+- [ ] A pseudo-localization pass runs in development or CI (accented, padded, bracketed text) to surface hardcoded strings, truncation, and concatenation before
+      translators do.
 - [ ] The build fails or warns on an untranslated key in a shipping locale and on an unused key in the catalog.
 - [ ] Message keys are stable across releases; a removed key is deprecated, not silently dropped mid-cycle.
 
@@ -135,7 +148,8 @@ This skill is the internationalization of a web UI. It does not cover:
 - Translation itself — vendor choice, TMS workflow, MT post-editing, glossary and style-guide authoring, linguistic QA.
 - Content strategy and localization of imagery, video, legal copy, and pricing.
 - Backend and data-layer i18n — locale-aware collation in the database, multi-currency accounting, per-region data residency.
-- The framework's i18n library API in depth — `react-intl` components, `@angular/localize` build pipeline, `vue-i18n` config. Those are `react` / `angular` / `vue`.
+- The framework's i18n library API in depth — `react-intl` components, `@angular/localize` build pipeline, `vue-i18n` config. Those are `react` / `angular` /
+  `vue`.
 - The CSS mechanism for RTL (logical properties, `:dir()`), which is `styling-and-design-tokens`; this skill states that the layout must be direction-agnostic.
 - Accessibility beyond `lang` / `dir` and language-of-parts — the full lens is `accessibility`.
 - Right-to-left typography and complex-script shaping (Arabic joining, Indic clusters) beyond "use the platform text stack and test it".
@@ -148,7 +162,9 @@ This skill states what makes a UI translatable and locale-correct. It is not a s
 
 This skill composes with:
 
-- **`react`** / **`angular`** / **`vue`** — the i18n library and its API (FormatJS / `react-intl`, `@angular/localize` and `$localize`, `vue-i18n`), message extraction, and the framework's SSR locale wiring.
+- **`react`** / **`angular`** / **`vue`** — the i18n library and its API (FormatJS / `react-intl`, `@angular/localize` and `$localize`, `vue-i18n`), message
+  extraction, and the framework's SSR locale wiring.
 - **`accessibility`** — `lang` on the document and on foreign-language spans, `dir`, and announcing a language change; the full lens lives there.
-- **`styling-and-design-tokens`** — logical properties and `:dir()` are how a layout survives an RTL locale; this skill requires direction-agnostic layout, that skill supplies the CSS.
+- **`styling-and-design-tokens`** — logical properties and `:dir()` are how a layout survives an RTL locale; this skill requires direction-agnostic layout, that
+  skill supplies the CSS.
 - **`architecture-and-design`** — where the message catalog and locale state sit in the app structure.
