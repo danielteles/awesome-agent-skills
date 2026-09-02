@@ -165,7 +165,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 This skill judges the individual test. It does not cover:
 
 - Suite strategy and the test pyramid — how much to unit- vs integration- vs end-to-end-test, contract testing, where coverage pays off most. That is the `testing` group in `architecture-and-design`.
-- Framework mechanics — React Testing Library queries and `user-event`, Angular `TestBed` and `HttpTestingController`, component harnesses. Those live in the `testing` group of `react` and `angular`.
+- Framework mechanics — React Testing Library queries and `user-event`, Angular `TestBed` and `HttpTestingController`, Vue Testing Library and `@vue/test-utils`, component harnesses. Those live in the `testing` group of `react`, `angular`, and `vue`.
 - End-to-end test design (Playwright, Cypress): selectors, per-worker data, retries, sharding.
 - Performance and load testing.
 - Accessibility testing — a component test that queries by role doubles as an a11y check, but the full lens is in `accessibility`.
@@ -180,6 +180,6 @@ This skill states what makes a test worth keeping. It is not a substitute for ru
 This skill composes with:
 
 - **`architecture-and-design`** — decides the suite shape and what to test at each layer. On a conflict it decides strategy, this skill decides the individual test.
-- **`react`** / **`angular`** — the framework mechanics for rendering, querying, and driving a component; this skill's rules about what to assert apply on top.
+- **`react`** / **`angular`** / **`vue`** — the framework mechanics for rendering, querying, and driving a component; this skill's rules about what to assert apply on top.
 - **`core-typescript`** — test code is code: `strict`, no `any` in fixtures, typed builders, narrowed error assertions.
 - **`accessibility`** — querying by role and accessible name is both a behavior assertion and an a11y signal; the full lens lives there.

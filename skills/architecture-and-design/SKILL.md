@@ -226,6 +226,6 @@ This skill states principles. It is not a substitute for reading the code and un
 This skill composes with:
 
 - **`core-typescript`** — the language base. On a shared topic this skill decides the design and `core-typescript` decides the syntax.
-- **`react`** / **`angular`** — the framework form of these rules. Apply the matching one in a React or Angular codebase; it wins on a direct conflict.
+- **`react`** / **`angular`** / **`vue`** — the framework form of these rules. Apply the matching one in a React, Angular, or Vue codebase; it wins on a direct conflict.
 - **`accessibility`** — the review lens for UI: ARIA, keyboard and focus, live regions, a11y testing.
 - **`test-quality`** — this skill's `testing` group sets the suite shape; `test-quality` judges each individual test.
