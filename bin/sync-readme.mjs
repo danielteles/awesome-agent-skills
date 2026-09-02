@@ -20,6 +20,7 @@ const ORDER = [
   'architecture-and-design',
   'react',
   'angular',
+  'vue',
   'accessibility',
   'styling-and-design-tokens',
   'web-performance',

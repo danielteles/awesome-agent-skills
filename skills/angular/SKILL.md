@@ -172,6 +172,7 @@ This skill is Angular framework rules. It does not cover:
 - Nx or monorepo setup, Angular Material theming, `@angular/animations`, and i18n.
 - Accessibility depth — CDK a11y usage is noted where it fits, but focus management, ARIA, and a11y testing live in `accessibility`.
 - Angular versions before standalone components and block control flow. For a legacy app, migrate first (the Migrate mode above).
+- Other frameworks — `react` and `vue` are the sibling skills; every rule here is Angular-specific.
 
 Zoneless change detection is stabilizing. The rules here keep code zoneless-ready without requiring the provider.
 
@@ -185,4 +186,4 @@ This skill composes with:
 - **`architecture-and-design`** — the design layer. On a conflict it decides the design, this skill decides the Angular API.
 - **`accessibility`** — the review lens for UI; Angular's tools are the CDK `a11y` package and `LiveAnnouncer`.
 - **`test-quality`** — judges the individual test this skill's `testing` group produces.
-- **`react`** — the sibling framework skill.
+- **`react`** / **`vue`** — the sibling framework skills.

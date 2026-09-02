@@ -177,6 +177,7 @@ This skill composes with:
 - **`architecture-and-design`** — its `frontend-practices` rules check only for a semantic element and a label, and defer focus, ARIA, live regions, and a11y testing to this skill.
 - **`react`** — the React mechanism: `useId`, ref-based focus, `createPortal`, primitive libraries (Radix, React Aria).
 - **`angular`** — the Angular mechanism: the CDK `a11y` package (`cdkTrapFocus`, `FocusMonitor`, `LiveAnnouncer`) and the `template/accessibility` lint rules.
+- **`vue`** — the Vue mechanism: semantic SFC templates, `useId()`, and primitive libraries (Radix Vue, Headless UI).
 
 **Normative:**
 

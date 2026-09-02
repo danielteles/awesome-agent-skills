@@ -179,6 +179,7 @@ This skill is React framework rules. It does not cover:
 - Store libraries (Redux Toolkit, Zustand, Jotai) — use the state tiers in `architecture-and-design` and reach for a store only when they call for one.
 - Accessibility depth — `useId` and focus management are noted where they fit; the full lens lives in `accessibility`.
 - React Native, styling systems, animation libraries, and i18n.
+- Other frameworks — `angular` and `vue` are the sibling skills; every rule here is React-specific.
 
 The React Compiler is on a release track. The rules here assume you adopt it; where you have not, the `rendering` rules on manual memoization apply.
 
@@ -192,4 +193,4 @@ This skill composes with:
 - **`architecture-and-design`** — the design layer. On a conflict it decides the design, this skill decides the React API.
 - **`accessibility`** — the review lens for UI; React's tools are `useId`, ref-based focus, and primitive libraries (Radix, React Aria).
 - **`test-quality`** — judges the individual test this skill's `testing` group produces.
-- **`angular`** — the sibling framework skill.
+- **`angular`** / **`vue`** — the sibling framework skills.
