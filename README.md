@@ -123,7 +123,7 @@ all of them:
    ├────────────────────────────────────────────────────────────────────────────┤
    │  lenses over test code:  test-quality · e2e-testing                        │
    ├────────────────────────────────────────────────────────────────────────────┤
-   │  frontend-code-review:   routes a diff to the skills above, merges findings│
+   │  frontend-code-review:   routes a diff to every skill, merges the findings │
    └────────────────────────────────────────────────────────────────────────────┘
 ```
 

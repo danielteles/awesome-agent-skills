@@ -27,9 +27,10 @@ move independently; this file tracks the repository as a whole.
   and merges their findings.
 - Review pass over the new skills: Vue 3 `v-if` / `v-for` precedence and the
   Pinia write-path rule corrected; `frontend-code-review` now routes to
-  `i18n-and-localization` and `component-api-design`; invented findings removed
-  from worked examples; the original skills' Limits name the lens that owns each
-  concern they defer.
+  `i18n-and-localization` and `component-api-design`, and its `merging` order
+  rule matches its reference (file, then severity, then line); invented findings
+  removed from worked examples; the original skills' Limits name the lens that
+  owns each concern they defer.
 
 ### Structure and docs
 

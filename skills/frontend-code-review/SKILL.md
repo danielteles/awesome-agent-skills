@@ -42,7 +42,7 @@ Pick the mode that matches the task. Do the steps in order.
 
 | Mode | Steps |
 |---|---|
-| **Review** — run a full review of a diff | 1. Classify each changed file and pick the skills that apply (`routing`). 2. Apply them in order: `core-typescript` → `architecture-and-design` → the framework skill → the lenses → this skill's checks. 3. Collect every skill's findings in its own Output Format. 4. De-duplicate across skills (`dedup`). 5. Merge into one list — `must-fix` before `consider`, grouped by file, in file order (`merging`). 6. Write the summary line and hand off. |
+| **Review** — run a full review of a diff | 1. Classify each changed file and pick the skills that apply (`routing`). 2. Apply them in order: `core-typescript` → `architecture-and-design` → the framework skill → the lenses → this skill's checks. 3. Collect every skill's findings in its own Output Format. 4. De-duplicate across skills (`dedup`). 5. Merge into one list — grouped by file, `must-fix` before `consider` within each file, ascending line order within each severity (`merging`). 6. Write the summary line and hand off. |
 | **Scope** — decide which skills a change needs | 1. Classify the changed files (`routing`). 2. List the skills that apply and why, and the ones that do not. 3. Flag any gap — a changed concern with no skill loaded to cover it. Do not do the full review. |
 
 ### Output Format
@@ -96,7 +96,8 @@ result. Each group links to its `references/` file for rationale and an example.
 
 ### merging → `references/merging.md`
 
-- [ ] The merged list is ordered `must-fix` before `consider`, then grouped by file, then by ascending line number.
+- [ ] The merged list is grouped by file; within a file `must-fix` comes before `consider`, and within each severity the findings are in ascending line
+      order.
 - [ ] Each finding is one line in the Output Format, carrying its originating skill and topic.
 - [ ] The review opens with a summary line: files reviewed, `must-fix` count, `consider` count, and whether it blocks merge (any `must-fix` blocks).
 - [ ] If no skill produced a finding, the review says so in one line and does not manufacture nits.
