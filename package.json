@@ -1,0 +1,13 @@
+{
+  "name": "awesome-agent-skills",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Composable, model-agnostic AI agent skills for frontend engineering.",
+  "license": "CC-BY-4.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node bin/check-references.mjs && node bin/check-token-budget.mjs"
+  }
+}
