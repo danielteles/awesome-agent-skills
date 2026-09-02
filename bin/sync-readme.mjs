@@ -26,6 +26,7 @@ const ORDER = [
   'web-performance',
   'test-quality',
   'e2e-testing',
+  'frontend-code-review',
 ];
 
 // The non-skills part of the tree. Kept here (not enumerated) so unrelated repo
