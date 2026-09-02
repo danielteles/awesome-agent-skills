@@ -18,6 +18,8 @@ This skill holds React-specific rules for modern React (function components, hoo
 
 Where those skills and this one cover the same ground, this skill gives the React form of the rule.
 
+> **Prerequisites.** Load `core-typescript` and `architecture-and-design` alongside this skill. `npx skills add …@react` installs this file alone and does not pull them in.
+
 ---
 
 ## How to Use This Skill
@@ -355,7 +357,7 @@ This skill is React framework rules. It does not cover:
 - Language rules (see core-typescript) or framework-neutral architecture (see architecture-and-design).
 - A specific framework's router, loaders, or metadata API (Next.js, React Router, TanStack Start) — the RSC and data-fetching rules here apply, the framework's own conventions do not.
 - Store libraries (Redux Toolkit, Zustand, Jotai) — use the state tiers in architecture-and-design Section 8 and reach for a store only when they call for one.
-- Accessibility depth — `useId` and focus management are noted where they fit; the full lens lives in `accessibility.md`.
+- Accessibility depth — `useId` and focus management are noted where they fit; the full lens lives in `accessibility`.
 - React Native, styling systems, animation libraries, and i18n.
 
 The React Compiler is on a release track. The rules here assume you adopt it; where you have not, the manual-memoization rules in Section 10 apply.
@@ -366,9 +368,9 @@ The React Compiler is on a release track. The rules here assume you adopt it; wh
 
 This skill extends the base skills. It composes with:
 
-- **`core-typescript.md`** — the language base: `strict`, safe typing, narrowing, `unknown`, utility types. JSX and hooks do not exempt code from these.
-- **`architecture-and-design.md`** — layering, feature boundaries, the adapter / repository pattern, state tiers, forms validation, security. This skill gives the React form of those rules; architecture-and-design decides the design.
-- **`accessibility.md`** — the accessibility review lens. React's tools for it are `useId`, ref-based focus management, and accessible primitive libraries (Radix, React Aria).
-- **`angular.md`** — the sibling framework skill.
+- **`core-typescript`** — the language base: `strict`, safe typing, narrowing, `unknown`, utility types. JSX and hooks do not exempt code from these.
+- **`architecture-and-design`** — layering, feature boundaries, the adapter / repository pattern, state tiers, forms validation, security. This skill gives the React form of those rules; architecture-and-design decides the design.
+- **`accessibility`** — the accessibility review lens. React's tools for it are `useId`, ref-based focus management, and accessible primitive libraries (Radix, React Aria).
+- **`angular`** — the sibling framework skill.
 
 On a conflict between this skill and architecture-and-design, architecture-and-design decides the design and this skill decides the React API.

@@ -7,7 +7,7 @@ description: >-
   accessible names and ARIA, keyboard and focus, forms, perceivable content
   (text alternatives, color, contrast, motion, zoom), status messages and SPA
   route changes, and accessibility testing. Extends architecture-and-design;
-  composes with react.md and angular.md for the framework mechanism. Use it when
+  composes with react and angular for the framework mechanism. Use it when
   building or reviewing UI, or when the user says "accessibility", "a11y",
   "WCAG", "ARIA", "screen reader", "keyboard navigation", "focus", "contrast",
   "axe", "landmark", or "WAI".
@@ -17,7 +17,9 @@ description: >-
 
 This skill is the accessibility review lens for web UI, grounded in the W3C Web Accessibility Initiative (WAI). The target is **WCAG 2.2, conformance level AA** — the technical bar behind EN 301 549, the ADA, Section 508, and the European Accessibility Act.
 
-It is framework-neutral. It extends **architecture-and-design** (Section 9 defers to this skill) and composes with **react.md** and **angular.md** for the framework mechanism behind each rule.
+It is framework-neutral. It extends **architecture-and-design** (Section 9 defers to this skill) and composes with **react** and **angular** for the framework mechanism behind each rule.
+
+> **Prerequisites.** Load `architecture-and-design` alongside this skill, and `react` or `angular` for the framework mechanism. `npx skills add …@accessibility` installs this file alone and does not pull them in.
 
 WCAG is organized by four principles — **POUR**:
 
@@ -262,9 +264,10 @@ This skill covers the accessibility of a web UI. It does not cover:
 
 This skill is the accessibility review lens. It composes with:
 
-- **`architecture-and-design.md`** — Section 9 checks only that a semantic element and a label are present, and defers focus management, ARIA, live regions, and a11y testing to this skill.
-- **`react.md`** — the React mechanism: `useId` for label association, ref-based focus moves, `createPortal` for dialogs, and primitive libraries (Radix, React Aria).
-- **`angular.md`** — the Angular mechanism: the CDK `a11y` package (`cdkTrapFocus`, `FocusMonitor`, `LiveAnnouncer`) and the `template/accessibility` lint rules.
+- **`architecture-and-design`** — Section 9 checks only that a semantic element and a label are present, and defers focus management, ARIA, live regions, and a11y testing to this skill.
+- **`react`** — the React mechanism: `useId` for label association, ref-based focus moves, `createPortal` for dialogs, and primitive libraries (Radix, React Aria).
+- **`angular`** — the Angular mechanism: the CDK `a11y` package (`cdkTrapFocus`, `FocusMonitor`, `LiveAnnouncer`) and the `template/accessibility` lint rules.
+
 **Normative:**
 
 - WCAG 2.2 — `w3.org/TR/WCAG22`

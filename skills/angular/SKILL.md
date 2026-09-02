@@ -18,6 +18,8 @@ This skill holds Angular-specific rules for modern Angular (standalone, signals,
 
 Where those skills and this one cover the same ground, this skill gives the Angular form of the rule.
 
+> **Prerequisites.** Load `core-typescript` and `architecture-and-design` alongside this skill. `npx skills add …@angular` installs this file alone and does not pull them in.
+
 ---
 
 ## How to Use This Skill
@@ -81,6 +83,7 @@ Write one finding per line:
 // main.ts
 bootstrapApplication(App, {
   providers: [
+    provideZonelessChangeDetection(),
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideClientHydration(),
@@ -339,7 +342,7 @@ export const routes: Routes = [
 | Add `provideClientHydration()` for a server-rendered app. | It reuses the server DOM instead of re-rendering. |
 | Use `NgOptimizedImage` (`ngSrc`) with explicit `width` and `height`, or `fill`. | It lazy-loads, sets fetch priority, and prevents layout shift. |
 | Change the DOM through `Renderer2` or a binding, not `ElementRef.nativeElement` and `document`. | Direct DOM access breaks under SSR and Web Workers. |
-| Interpolation and `[innerHTML]` are sanitized. Do not call `bypassSecurityTrust*` on anything a user or an API supplied. | A bypass on untrusted input is an XSS hole (architecture-and-design Section 12). |
+| Interpolation and `[innerHTML]` are sanitized. Do not call `bypassSecurityTrust*` on anything a user or an API supplied. | A bypass on untrusted input is an XSS hole (architecture-and-design Section 10). |
 | Manage focus and announce a live change with the CDK a11y tools: `FocusTrap`, `FocusMonitor`, `LiveAnnouncer`. | A route change or a dialog that does not move focus is unusable with a keyboard or a screen reader. |
 | Until the app is zoneless, run a high-frequency listener (`scroll`, `mousemove`, `requestAnimationFrame`) inside `NgZone.runOutsideAngular`. | Each event otherwise triggers a full change-detection pass. |
 
@@ -351,10 +354,10 @@ Test each layer the way architecture-and-design Section 11 describes. The Angula
 
 | Rule | Why |
 |---|---|
-| Test a standalone component with `TestBed.configureTestingModule({ imports: [TheComponent] })`. | A standalone component needs no host module. |
+| Test a standalone component through its own imports — `TestBed.configureTestingModule({ imports: [TheComponent] })`, or `@testing-library/angular`'s `render(TheComponent, …)` which does the same. | A standalone component needs no host module. |
 | Provide `provideHttpClientTesting()` and assert on `HttpTestingController`. Never let a test hit the network. | The test controls every response and verifies the request. |
 | Drive navigation with `RouterTestingHarness`, not a hand-built `ActivatedRoute` stub. | The stub drifts from the real router contract. |
-| Query the DOM through a CDK component harness or by role, not a raw CSS selector on `DebugElement`. | A harness survives a template refactor; a selector does not. |
+| Query the DOM by role and accessible name — a CDK component harness, or `@testing-library/angular`'s `screen.getByRole` — not a raw CSS selector on `DebugElement` or `nativeElement`. | A harness and a role query survive a template refactor; a CSS selector does not, and a role query tests the tree the screen reader uses. |
 | Read a `signal` or `computed` after `fixture.detectChanges()`. Assert on its value. | The value is the observable behavior. |
 | Use real providers. Mock only at the network boundary and at a true external service. | A test built on deep mocks passes while the app breaks. |
 | Reach for `fakeAsync` and `tick` only when a test cannot use `await fixture.whenStable()`. | `fakeAsync` hides timing bugs as often as it exposes them. |
@@ -362,16 +365,15 @@ Test each layer the way architecture-and-design Section 11 describes. The Angula
 | For an assertion that depends on a resolved promise chain, `await` the chain (or an `expectAsync`) before asserting. Do not rely on `fixture.whenStable()` alone to flush it. | A chained `.then()` may not have run when a synchronous assertion fires. |
 
 ```ts
-TestBed.configureTestingModule({
-  imports: [UserCard],
+await render(UserCard, {
+  inputs: { userId: 'u_1' },
   providers: [provideHttpClientTesting(), { provide: UserService, useClass: FakeUserService }],
 });
-const fixture = TestBed.createComponent(UserCard);
-fixture.componentRef.setInput('userId', 'u_1');
-fixture.detectChanges();
 
-expect(fixture.nativeElement.querySelector('[role="heading"]').textContent).toContain('Ada');
+expect(screen.getByRole('heading', { name: /Ada/ })).toBeInTheDocument();
 ```
+
+With a plain `TestBed`, load a CDK harness instead — never assert on `nativeElement.querySelector`.
 
 ---
 
@@ -460,7 +462,7 @@ This skill is Angular framework rules. It does not cover:
 - Language rules (see core-typescript) or framework-neutral architecture (see architecture-and-design).
 - Deep RxJS operator design, and store libraries (NgRx, NGXS) — use the state tiers in architecture-and-design Section 8 and reach for a store only when they call for one.
 - Nx or monorepo setup, Angular Material theming, `@angular/animations`, and i18n.
-- Accessibility depth — CDK a11y usage is noted where it fits, but focus management, ARIA, and a11y testing live in `accessibility.md`.
+- Accessibility depth — CDK a11y usage is noted where it fits, but focus management, ARIA, and a11y testing live in `accessibility`.
 - Angular versions before standalone components and block control flow. For a legacy app, migrate first (the Migrate mode above).
 
 Zoneless change detection is stabilizing. The rules here keep code zoneless-ready without requiring the provider.
@@ -471,9 +473,9 @@ Zoneless change detection is stabilizing. The rules here keep code zoneless-read
 
 This skill extends the base skills. It composes with:
 
-- **`core-typescript.md`** — the language base: `strict`, safe typing, narrowing, `unknown`, utility types. Angular templates and DI do not exempt code from these.
-- **`architecture-and-design.md`** — layering, feature boundaries, the adapter / repository pattern, state tiers, forms validation, security. This skill gives the Angular form of those rules; architecture-and-design decides the design.
-- **`accessibility.md`** — the accessibility review lens. Angular's tools for it are the CDK a11y package and `LiveAnnouncer`.
-- **`react.md`** — the sibling framework skill.
+- **`core-typescript`** — the language base: `strict`, safe typing, narrowing, `unknown`, utility types. Angular templates and DI do not exempt code from these.
+- **`architecture-and-design`** — layering, feature boundaries, the adapter / repository pattern, state tiers, forms validation, security. This skill gives the Angular form of those rules; architecture-and-design decides the design.
+- **`accessibility`** — the accessibility review lens. Angular's tools for it are the CDK a11y package and `LiveAnnouncer`.
+- **`react`** — the sibling framework skill.
 
 On a conflict between this skill and architecture-and-design, architecture-and-design decides the design and this skill decides the Angular API.

@@ -58,7 +58,7 @@ Write one finding per line:
 | 1 | Run `strict` plus `noUncheckedIndexedAccess` and the extra flags. Never relax a flag to hide an error. |
 | 2 | No `any`, no `as`, no `!`, no `@ts-ignore`. Take an unknown value as `unknown` and narrow it. |
 | 3 | Let the compiler infer. Use `satisfies` to check a literal without widening it. |
-| 4 | Model data with literal unions and discriminated unions. Never a TypeScript `enum`. |
+| 4 | Model data with literal unions, discriminated unions, and branded ids. Never a TypeScript `enum`. |
 | 5 | Narrow with a type guard or an assertion function. End every union `switch` with `assertNever`. |
 | 6 | Add a generic only when two types move together. Constrain it. No single-use type parameter. |
 | 7 | Derive related types with utility types, `keyof`, `typeof`, and indexed access. Do not hand-copy a shape. |
@@ -162,6 +162,7 @@ routes.home; // type is '/'
 | Freeze a runtime lookup with `as const`. | It keeps the literal types and blocks mutation. |
 | Mark unchanging data `readonly`. Use `readonly T[]` for a list. | The compiler then rejects a mutation. |
 | Model mutually exclusive states as a discriminated union. Design rationale: architecture-and-design Section 7.2. | A shared discriminant field lets the compiler narrow and check every case. |
+| Give each domain id its own branded type. Mint it with one sanctioned cast at the boundary. Design rationale: architecture-and-design Section 4. | Two `string` ids are interchangeable to the compiler; a brand makes passing an `OrderId` for a `UserId` a compile error. |
 
 ```ts
 // ❌ Runtime code, nominal typing, no plain string assignment
@@ -189,6 +190,16 @@ function unwrap(result: Result): number {
       return assertNever(result);
   }
 }
+
+// ✅ Branded id: a compile-time tag over a plain runtime string
+type UserId = string & { readonly __brand: 'UserId' };
+type OrderId = string & { readonly __brand: 'OrderId' };
+
+const toUserId = (raw: string): UserId => raw as UserId; // the one sanctioned cast, at the boundary
+
+declare function loadUser(id: UserId): Promise<unknown>;
+declare const orderId: OrderId;
+loadUser(orderId); // compile error: OrderId is not assignable to UserId
 ```
 
 ---
@@ -424,6 +435,7 @@ Make sure that:
 - [ ] **Assertions justified:** every `as` and every `!` has a guard or a comment that proves it is safe.
 - [ ] **Strict on:** the project runs `strict` plus `noUncheckedIndexedAccess`.
 - [ ] **Literal unions:** a string set uses a union or a frozen `const` object, not a TypeScript `enum`.
+- [ ] **Branded ids:** a domain id (`UserId`, `OrderId`) has a branded type, not a bare `string`.
 - [ ] **Exhaustive switch:** every `switch` on a union ends with an `assertNever` default.
 - [ ] **Public return types:** every exported function annotates its return type.
 - [ ] **No floating promise:** every promise is awaited or marked `void`.
@@ -485,8 +497,8 @@ This skill decides the syntax. It does not replace reading the code and understa
 
 This skill is the language base. It composes with:
 
-- **`architecture-and-design.md`** — the design layer: SOLID, clean architecture, feature boundaries, state management, security, testing. On a shared topic such as discriminated unions or branded ids, architecture-and-design decides the design and this skill decides the syntax.
-- **`react.md`** — extends this skill with React: hooks, effects, memoization, TSX conventions.
-- **`angular.md`** — extends this skill with Angular: standalone components, signals, `OnPush`, dependency injection, RxJS.
+- **`architecture-and-design`** — the design layer: SOLID, clean architecture, feature boundaries, state management, security, testing. On a shared topic such as discriminated unions or branded ids, architecture-and-design decides the design and this skill decides the syntax.
+- **`react`** — extends this skill with React: hooks, effects, memoization, TSX conventions.
+- **`angular`** — extends this skill with Angular: standalone components, signals, `OnPush`, dependency injection, RxJS.
 
 When a framework skill and this skill conflict on a language point, this skill wins.

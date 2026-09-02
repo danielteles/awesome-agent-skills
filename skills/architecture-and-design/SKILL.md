@@ -741,7 +741,7 @@ const { data: user, isPending, error } = useQuery({
 | Send a caught error to a tracker (Sentry, Datadog) with the source map, the release tag, and session context. | An error with no stack and no version is not actionable. |
 | Measure Core Web Vitals (LCP, INP, CLS) in the field with RUM, not only in Lighthouse. | Lab numbers hide what real devices and networks see. |
 | Remove `console.log`. Lint it out. Log structured events through one logger. | Console noise buries the signal and ships to production. |
-| For accessibility, see `accessibility.md`. This skill checks only that a semantic element and a label are present. | Focus management, ARIA, live regions, and testing are a separate review lens. |
+| For accessibility, see `accessibility`. This skill checks only that a semantic element and a label are present. | Focus management, ARIA, live regions, and testing are a separate review lens. |
 
 ### Computation out of the template
 
@@ -1014,7 +1014,7 @@ This skill covers frontend architecture and design. It does not cover:
 - Backend, database, or infrastructure design.
 - Distributed system architecture: microservices, service decomposition, event-driven backends, message brokers, sagas, distributed consistency. Section 12 covers DDD tactical patterns inside one app; strategic and cross-service concerns belong in a system-architecture skill. Section 13 covers micro-frontends only.
 - Styling systems, design tokens, and CSS architecture beyond the note in Section 9.
-- Accessibility beyond "use a semantic element and a label". Focus management, ARIA, live regions, keyboard operability, and a11y testing live in `accessibility.md`.
+- Accessibility beyond "use a semantic element and a label". Focus management, ARIA, live regions, keyboard operability, and a11y testing live in `accessibility`.
 - Deep performance profiling and bundle analysis. Section 9 covers only the field-monitoring habit.
 - CI pipeline configuration, dependency-update bots, release tooling, and monorepo setup.
 - Framework-specific rules: Rules of Hooks, `useMemo` and `useCallback` policy, Angular change detection and signals, Vue reactivity caveats. These live in the framework skills (see References).
@@ -1027,9 +1027,9 @@ This skill states principles. It is not a substitute for reading the code and un
 
 This skill is the framework-neutral architecture layer. It composes with:
 
-- **`core-typescript.md`** — the base skill. Language-level TypeScript conventions: compiler strictness, safe typing, narrowing, utility types, `assertNever`. On a shared topic such as discriminated unions or branded ids, this skill decides the design and core-typescript decides the syntax.
-- **`react.md`** — extends this skill with React specifics: Rules of Hooks, effect dependencies, memoization policy, `Suspense` and error boundaries, TSX conventions.
-- **`angular.md`** — extends this skill with Angular specifics: standalone components, signals, `OnPush`, dependency injection, RxJS patterns.
-- **`accessibility.md`** — the accessibility review lens: semantic HTML, ARIA discipline, keyboard and focus, forms, live regions, SPA route announcements, a11y testing.
+- **`core-typescript`** — the base skill. Language-level TypeScript conventions: compiler strictness, safe typing, narrowing, utility types, `assertNever`. On a shared topic such as discriminated unions or branded ids, this skill decides the design and core-typescript decides the syntax.
+- **`react`** — extends this skill with React specifics: Rules of Hooks, effect dependencies, memoization policy, `Suspense` and error boundaries, TSX conventions.
+- **`angular`** — extends this skill with Angular specifics: standalone components, signals, `OnPush`, dependency injection, RxJS patterns.
+- **`accessibility`** — the accessibility review lens: semantic HTML, ARIA discipline, keyboard and focus, forms, live regions, SPA route announcements, a11y testing.
 
 When you work in a React or Angular codebase, apply this skill together with the matching framework skill. The framework skill wins on a direct conflict.
