@@ -25,7 +25,8 @@ rules hold for any runner (Vitest, Jest, `node:test`) and any framework; example
 > **Builds on.** `core-typescript` (test code is code), `architecture-and-design` for suite
 > *strategy* (the pyramid, unit vs integration), and `react` / `angular` for the mechanics of
 > rendering and querying a component. The Ruleset below is complete on its own; load these when the
-> task turns on their layer. `npx skills add …@test-quality` installs this file alone.
+> task turns on their layer. If a named skill is not loaded, apply that layer from general
+> knowledge and do not block.
 
 This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, and
 nothing here depends on a `references/` file being read. Each `references/<topic>.md` holds the
