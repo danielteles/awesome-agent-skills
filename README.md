@@ -44,6 +44,7 @@ options are under [Install](#install).
 | [`skills/react/SKILL.md`](skills/react/SKILL.md) | Modern React conventions for writing, reviewing, refactoring, or migrating React: render purity, the Rules of Hooks, "you might not need an Effect", state placement, refs, context, Suspense data fetching, Actions and form state, Server and Client Components, the React Compiler, testing by role. |
 | [`skills/angular/SKILL.md`](skills/angular/SKILL.md) | Modern Angular conventions for writing, reviewing, refactoring, or migrating Angular: standalone components, `OnPush` and signals, `input()` / `output()` / `model()`, `@if` / `@for` / `@switch` control flow, `inject()` and functional providers, functional guards and interceptors, typed reactive forms, lazy routing, zoneless-ready change detection and SSR, testing by role. |
 | [`skills/accessibility/SKILL.md`](skills/accessibility/SKILL.md) | Web accessibility as a framework-neutral review lens for building or reviewing UI, grounded in the W3C WAI: WCAG 2.2 level AA, WAI-ARIA, and the ARIA Authoring Practices Guide. Semantic HTML and structure, accessible names and ARIA, keyboard and focus, forms, perceivable content (text alternatives, contrast, motion, zoom), live regions and SPA route announcements, a11y testing. Composes with `react` and `angular` for the framework mechanism. |
+| [`skills/styling-and-design-tokens/SKILL.md`](skills/styling-and-design-tokens/SKILL.md) | A framework-neutral review lens for CSS architecture and design tokens when building or reviewing web UI: cascade layers and flat specificity, a primitive/semantic/component token pipeline, theming and dark mode by token redefinition, the CSS Modules vs utility vs CSS-in-JS decision, intrinsic responsive layout, container queries, and fluid type and spacing. Composes with `react`, `angular`, and `accessibility`. |
 | [`skills/test-quality/SKILL.md`](skills/test-quality/SKILL.md) | Framework-neutral standards for the quality of an individual automated test in TypeScript: assert on behavior not implementation, meaningful assertions, one outcome-named scenario per test, builders over shared fixtures, test doubles that earn their place, deterministic order-independent tests, coverage read as a map of the unverified. |
 <!-- /sync-readme:skills -->
 
@@ -191,6 +192,9 @@ awesome-agent-skills/
 │   │   ├── SKILL.md
 │   │   └── references/
 │   ├── accessibility/
+│   │   ├── SKILL.md
+│   │   └── references/
+│   ├── styling-and-design-tokens/
 │   │   ├── SKILL.md
 │   │   └── references/
 │   └── test-quality/
