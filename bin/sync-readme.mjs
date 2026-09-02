@@ -102,9 +102,11 @@ skills.forEach((s, i) => {
   const last = i === skills.length - 1;
   const branch = last ? '└──' : '├──';
   const cont = last ? '    ' : '│   ';
+  const hasAssets = existsSync(join(skillsDir, s.name, 'assets'));
   treeLines.push(`│   ${branch} ${s.name}/`);
   treeLines.push(`│   ${cont}├── SKILL.md`);
-  treeLines.push(`│   ${cont}└── references/`);
+  treeLines.push(`│   ${cont}${hasAssets ? '├──' : '└──'} references/`);
+  if (hasAssets) treeLines.push(`│   ${cont}└── assets/`);
 });
 treeLines.push('├── templates/');
 for (const f of readdirSync(join(repoRoot, 'templates')).filter((f) => f.endsWith('.md')).sort()) {

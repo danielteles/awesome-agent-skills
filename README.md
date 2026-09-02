@@ -187,10 +187,12 @@ awesome-agent-skills/
 ├── skills/
 │   ├── core-typescript/
 │   │   ├── SKILL.md
-│   │   └── references/
+│   │   ├── references/
+│   │   └── assets/
 │   ├── architecture-and-design/
 │   │   ├── SKILL.md
-│   │   └── references/
+│   │   ├── references/
+│   │   └── assets/
 │   ├── component-api-design/
 │   │   ├── SKILL.md
 │   │   └── references/
@@ -217,7 +219,8 @@ awesome-agent-skills/
 │   │   └── references/
 │   ├── test-quality/
 │   │   ├── SKILL.md
-│   │   └── references/
+│   │   ├── references/
+│   │   └── assets/
 │   ├── e2e-testing/
 │   │   ├── SKILL.md
 │   │   └── references/

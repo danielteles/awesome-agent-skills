@@ -1,6 +1,6 @@
 # Test Quality — Test Doubles: why, and examples
 
-The rules are in the `testing` Ruleset (`test-doubles` group). This file is the reasoning and code.
+The rules are in the `test-quality` Ruleset (`test-doubles` group). This file is the reasoning and code.
 Terms (Meszaros): a **dummy** is a value passed to fill a parameter and never used; a **stub**
 returns canned data; a **spy** is a stub that also records how it was called; a **fake** is a
 working lightweight implementation; a **mock** carries scripted expectations and fails if they are

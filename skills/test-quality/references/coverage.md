@@ -1,6 +1,6 @@
 # Test Quality — Coverage: why, and examples
 
-The rules are in the `testing` Ruleset (`coverage` group). This file is the reasoning and code.
+The rules are in the `test-quality` Ruleset (`coverage` group). This file is the reasoning and code.
 
 ## Coverage measures execution, not verification
 
