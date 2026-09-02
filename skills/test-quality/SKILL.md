@@ -10,6 +10,10 @@ description: >-
   test — or when the user says "test quality", "unit test review", "these tests
   are brittle", "flaky test", "over-mocking", "testing implementation details",
   "AAA", "arrange act assert", or "assert on behavior".
+license: CC-BY-4.0
+metadata:
+  author: danielteles
+  version: "1.0"
 ---
 
 # Test Quality — Engineering Skill

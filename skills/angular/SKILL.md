@@ -10,6 +10,10 @@ description: >-
   Angular, signals, `computed`, `effect`, standalone, `OnPush`, control flow,
   `inject`, RxJS, reactive forms, change detection, zoneless, `NgModule`, or
   `ng generate`.
+license: CC-BY-4.0
+metadata:
+  author: danielteles
+  version: "1.0"
 ---
 
 # Angular Conventions — Framework Skill

@@ -5,6 +5,10 @@ description: >-
   gives — write, review, refactor, migrate.> <One sentence: the task types it
   serves.> Builds on <`sibling`, `sibling`>. Use it when the user mentions
   <keyword>, <keyword>, <keyword>, or <keyword>.
+license: CC-BY-4.0
+metadata:
+  author: <your-handle>
+  version: "1.0"
 ---
 
 <!--

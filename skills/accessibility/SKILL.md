@@ -10,6 +10,10 @@ description: >-
   it when the user says "accessibility", "a11y", "WCAG", "ARIA", "screen
   reader", "keyboard navigation", "focus", "contrast", "axe", "landmark", or
   "WAI".
+license: CC-BY-4.0
+metadata:
+  author: danielteles
+  version: "1.0"
 ---
 
 # Accessibility — Review Skill

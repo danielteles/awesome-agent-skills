@@ -10,6 +10,10 @@ description: >-
   or when the user says "TypeScript", "tsconfig", "strict mode", "type error",
   "any", "generics", "type safety", "utility types", "discriminated union", or
   "narrowing".
+license: CC-BY-4.0
+metadata:
+  author: danielteles
+  version: "1.0"
 ---
 
 # Core TypeScript Conventions — Base Engineering Skill
