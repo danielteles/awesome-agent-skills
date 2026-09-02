@@ -122,7 +122,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 ### test-data → `references/test-data.md`
 
-- [ ] Objects are built with a factory or builder that fills sane defaults; the test sets only the fields under test.
+- [ ] Objects are built with a factory or builder that fills sane defaults; the test sets only the fields under test. Start from `assets/builder.template.ts`.
 - [ ] The values the assertion depends on are visible in the test, not buried in a shared fixture.
 - [ ] No large shared fixture that many tests lean on in different, conflicting ways.
 - [ ] Randomized data is seeded and printed on failure; otherwise use fixed, meaningful literals.
