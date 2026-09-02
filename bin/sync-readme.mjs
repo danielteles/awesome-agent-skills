@@ -21,6 +21,7 @@ const ORDER = [
   'react',
   'angular',
   'accessibility',
+  'styling-and-design-tokens',
   'test-quality',
 ];
 
