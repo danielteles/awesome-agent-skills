@@ -39,7 +39,7 @@ Pick the mode that matches the task. Do the steps in order.
 |---|---|
 | **Generate** — write new TypeScript | 1. Assume `strict` is on (`compiler-config`). 2. Write the code, applying the Ruleset as you go. 3. Annotate the return type of every exported function (`functions`). 4. Run the Ruleset as a checklist. Fix each fail before you hand off. |
 | **Review** — check a diff | 1. Run the Ruleset against the diff. 2. Write one finding per fail, in the Output Format below. 3. Order the findings: `must-fix` first, then `consider`. 4. If nothing fails, say so in one line. Do not invent findings. |
-| **Configure** — set up or audit `tsconfig.json` | 1. Start from the `compiler-config` block. 2. Turn on every flag listed. 3. For a flag you cannot turn on yet, add a `// TODO` with the reason. 4. Do not relax a flag to clear an error. Fix the code. |
+| **Configure** — set up or audit `tsconfig.json` and ESLint | 1. Start from `assets/tsconfig.base.json` and `assets/eslint.config.js`. 2. Turn on every flag in `compiler-config` and every rule in `lint`. 3. For a flag you cannot turn on yet, add a `// TODO` with the reason. 4. Do not relax a flag or disable a rule to clear an error. Fix the code. |
 
 ### Output Format
 

@@ -1,0 +1,32 @@
+// Baseline tsconfig for the `core-typescript` skill.
+// Referenced from SKILL.md (Configure mode). Every flag here is required by the
+// `compiler-config` Ruleset group or is the practical default that group's
+// reference file documents. Extend it per project; never relax a flag to clear
+// an error — fix the code, or leave a `// TODO` with the reason.
+//
+//   { "extends": "./tsconfig.base.json", "compilerOptions": { /* project paths */ } }
+{
+  "compilerOptions": {
+    // --- required by the `compiler-config` Ruleset ---
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "verbatimModuleSyntax": true,
+
+    // --- practical defaults from the reference file ---
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": ["ES2022"],
+    "resolveJsonModule": true,
+    "noEmit": true
+  }
+}
