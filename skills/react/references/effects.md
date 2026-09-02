@@ -1,6 +1,6 @@
 # React — Effects: why, and the decision aid
 
-The rules are in the `react` Ruleset (`effects` group). This file is the reasoning.
+The rules are in the `react` Ruleset (`effects` group). This file is the reasoning and an example.
 
 ## Why most Effects are a mistake
 
@@ -32,3 +32,12 @@ event subscription, the document title.
 - **Cleanup is not optional.** The Effect re-runs and unmounts; without a cleanup function it leaks the listener, timer, or subscription it created. One Effect per synchronization, so each has one reason to re-run and one thing to clean up.
 - **Fetching in an Effect races.** Responses can arrive out of order and overwrite newer data. An `AbortController` or an `ignore` flag is the minimum; a cache library (see `data-fetching`) is better.
 - **`useEffectEvent`** lets the Effect read the latest prop or state without listing it as a dependency, so it does not re-subscribe on every change. It is the honest alternative to omitting the dependency.
+
+```tsx
+// ❌ An Effect to derive render data — paints empty, then re-renders once it catches up
+const [visible, setVisible] = useState<Item[]>([]);
+useEffect(() => setVisible(items.filter((i) => i.active)), [items]);
+
+// ✅ Derive during render (wrap in useMemo only if profiling says it is expensive)
+const visible = items.filter((i) => i.active);
+```

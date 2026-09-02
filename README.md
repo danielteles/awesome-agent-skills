@@ -57,9 +57,10 @@ Each skill is a directory: a lean `SKILL.md` plus a `references/` folder.
   checkboxes, read top-to-bottom to generate and ticked against a diff to review.
   `SKILL.md` is self-sufficient — an agent can enforce every rule from it alone.
 - **`references/<topic>.md`** — one file per Ruleset group, holding the
-  *reasoning*, the finer detail, and `❌ / ✅` code for that topic. An agent with
-  file access reads only the one or two that the current diff touches; the rule
-  text lives in the Ruleset, so nothing is duplicated.
+  *reasoning*, the finer detail, and — where code clarifies the point — `❌ / ✅`
+  examples for that topic. An agent with file access reads only the one or two
+  that the current diff touches; the rule text lives in the Ruleset, so nothing
+  is duplicated.
 
 This keeps the always-loaded cost of a skill small while a review pulls in depth
 only where it is needed. A skill's **Builds on** note names the skills it
