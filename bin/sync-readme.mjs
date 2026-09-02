@@ -24,6 +24,7 @@ const ORDER = [
   'styling-and-design-tokens',
   'web-performance',
   'test-quality',
+  'e2e-testing',
 ];
 
 // The non-skills part of the tree. Kept here (not enumerated) so unrelated repo

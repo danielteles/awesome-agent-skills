@@ -47,6 +47,7 @@ options are under [Install](#install).
 | [`skills/styling-and-design-tokens/SKILL.md`](skills/styling-and-design-tokens/SKILL.md) | A framework-neutral review lens for CSS architecture and design tokens when building or reviewing web UI: cascade layers and flat specificity, a primitive/semantic/component token pipeline, theming and dark mode by token redefinition, the CSS Modules vs utility vs CSS-in-JS decision, intrinsic responsive layout, container queries, and fluid type and spacing. Composes with `react`, `angular`, and `accessibility`. |
 | [`skills/web-performance/SKILL.md`](skills/web-performance/SKILL.md) | A framework-neutral review lens for the loading and runtime performance of a web UI: Core Web Vitals budgets, diagnosing and fixing LCP, INP, and CLS, JavaScript bundle analysis and a code-splitting policy, image and font loading, hydration cost, and field measurement (RUM) with regression gating. Composes with `react` and `angular` for the framework rendering API and with `architecture-and-design` for data and state strategy. |
 | [`skills/test-quality/SKILL.md`](skills/test-quality/SKILL.md) | Framework-neutral standards for the quality of an individual automated test in TypeScript: assert on behavior not implementation, meaningful assertions, one outcome-named scenario per test, builders over shared fixtures, test doubles that earn their place, deterministic order-independent tests, coverage read as a map of the unverified. |
+| [`skills/e2e-testing/SKILL.md`](skills/e2e-testing/SKILL.md) | Framework-neutral standards for end-to-end browser tests with Playwright or Cypress: role-based user-facing selectors, per-worker and per-test data isolation, network interception, web-first retrying assertions instead of fixed waits, a retry and sharding policy, flake triage to a root cause, and keeping the suite a thin layer of critical journeys. Composes with `test-quality` for the quality of each individual test. |
 <!-- /sync-readme:skills -->
 
 ### How a skill is structured
@@ -201,7 +202,10 @@ awesome-agent-skills/
 │   ├── web-performance/
 │   │   ├── SKILL.md
 │   │   └── references/
-│   └── test-quality/
+│   ├── test-quality/
+│   │   ├── SKILL.md
+│   │   └── references/
+│   └── e2e-testing/
 │       ├── SKILL.md
 │       └── references/
 ├── templates/
