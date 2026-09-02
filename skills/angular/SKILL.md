@@ -155,6 +155,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] A `signal` / `computed` is read after `fixture.detectChanges()`; real providers, mocks only at the network boundary and at a true external service.
 - [ ] `fakeAsync` / `tick` only when `await fixture.whenStable()` cannot do it; a resolved promise chain is `await`ed before a synchronous assertion.
 - [ ] Overlay content (dialog, dropdown) is asserted via its controlling signal or a `document` query, not `fixture.nativeElement`.
+- [ ] Each test also passes the `test-quality` Ruleset — asserts on behavior not internals, has a meaningful assertion, is deterministic. This group is the Angular mechanics; `test-quality` judges the test itself.
 
 ---
 
@@ -179,6 +180,7 @@ This skill extends the base skills. It composes with:
 - **`core-typescript`** — the language base: `strict`, safe typing, narrowing, `unknown`, utility types. Angular templates and DI do not exempt code from these.
 - **`architecture-and-design`** — layering, feature boundaries, the adapter / repository pattern, state tiers, forms validation, security. This skill gives the Angular form of those rules; `architecture-and-design` decides the design.
 - **`accessibility`** — the accessibility review lens. Angular's tools for it are the CDK a11y package and `LiveAnnouncer`.
+- **`test-quality`** — the quality of the individual test this skill's `testing` mechanics produce: what it asserts, how it is named, what it fakes, whether it is deterministic.
 - **`react`** — the sibling framework skill.
 
 On a conflict between this skill and `architecture-and-design`, architecture-and-design decides the design and this skill decides the Angular API.

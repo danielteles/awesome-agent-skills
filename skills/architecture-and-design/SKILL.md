@@ -171,6 +171,7 @@ decides the syntax.
 - [ ] The API boundary is contract-tested, or types are generated from the contract and the payload validated.
 - [ ] A flaky test is quarantined on the first flake and fixed within the sprint.
 - [ ] A snapshot is used only for small, stable output.
+- [ ] Each test also passes the `test-quality` Ruleset — asserts on behavior not implementation, has a meaningful assertion, is deterministic and order-independent. This group decides the suite *shape*; `test-quality` judges the individual test.
 
 ### ddd → `references/ddd.md`
 
@@ -224,5 +225,6 @@ This skill is the framework-neutral architecture layer. It composes with:
 - **`react`** — the React form of these rules: Rules of Hooks, effect dependencies, memoization policy, `Suspense` and error boundaries, TSX conventions.
 - **`angular`** — the Angular form: standalone components, signals, `OnPush`, dependency injection, RxJS patterns.
 - **`accessibility`** — the accessibility review lens: semantic HTML, ARIA discipline, keyboard and focus, forms, live regions, SPA route announcements, a11y testing.
+- **`test-quality`** — the cross-cutting lens over test code. This skill's `testing` group sets the suite shape; `test-quality` judges each individual test that shape calls for.
 
 When you work in a React or Angular codebase, apply this skill together with the matching framework skill. The framework skill wins on a direct conflict.

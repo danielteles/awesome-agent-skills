@@ -162,6 +162,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] A custom hook is tested through a component that uses it; `renderHook` only when there is none.
 - [ ] `createPortal` content is queried through `screen` (document-wide), not the `render()` return value.
 - [ ] No shallow rendering, no Enzyme, no broad snapshot.
+- [ ] Each test also passes the `test-quality` Ruleset — asserts on rendered behavior not internals, has a meaningful assertion, is deterministic. This group is the React mechanics; `test-quality` judges the test itself.
 
 ---
 
@@ -186,6 +187,7 @@ This skill extends the base skills. It composes with:
 - **`core-typescript`** — the language base: `strict`, safe typing, narrowing, `unknown`, utility types. JSX and hooks do not exempt code from these.
 - **`architecture-and-design`** — layering, feature boundaries, the adapter / repository pattern, state tiers, forms validation, security. This skill gives the React form of those rules; architecture-and-design decides the design.
 - **`accessibility`** — the accessibility review lens. React's tools for it are `useId`, ref-based focus management, and accessible primitive libraries (Radix, React Aria).
+- **`test-quality`** — the quality of the individual test this skill's `testing` mechanics produce: what it asserts, how it is named, what it fakes, whether it is deterministic.
 - **`angular`** — the sibling framework skill.
 
 On a conflict between this skill and `architecture-and-design`, architecture-and-design decides the design and this skill decides the React API.

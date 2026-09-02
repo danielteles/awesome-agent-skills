@@ -1,7 +1,9 @@
 # Testing — why, and an example
 
-The rules are in the `angular` Ruleset (`testing` group). Test each layer the way
-`architecture-and-design`, testing, describes; these are the Angular specifics.
+The rules are in the `angular` Ruleset (`testing` group) — the Angular mechanics for `TestBed`,
+harnesses, and `HttpTestingController`. Test each layer the way `architecture-and-design`, testing,
+describes; judge the individual test by `test-quality` (behavior not implementation, meaningful
+assertions, determinism). These are the Angular specifics.
 
 - **A standalone component needs no host module** — test it through its own imports: `TestBed.configureTestingModule({ imports: [TheComponent] })`, or `@testing-library/angular`'s `render(TheComponent, …)`, which does the same.
 - **`provideHttpClientTesting()` and assert on `HttpTestingController`** — the test controls every response and verifies the request; the network is never hit.

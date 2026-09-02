@@ -1,7 +1,9 @@
 # React — Testing: why, and an example
 
-The rules are in the `react` Ruleset (`testing` group). Test each layer the way
-`architecture-and-design`, testing, describes; these are the React specifics.
+The rules are in the `react` Ruleset (`testing` group) — the React mechanics for rendering and
+querying. Test each layer the way `architecture-and-design`, testing, describes; judge the
+individual test by `test-quality` (behavior not implementation, meaningful assertions,
+determinism). These are the React specifics.
 
 - **Query by role and accessible name.** It tests the tree a user and a screen reader actually perceive, and a test that cannot find an element by role is often flagging a real accessibility gap.
 - **`@testing-library/user-event`, awaited**, reproduces the full event sequence (focus, keydown, input, keyup, click) that `fireEvent` skips. Awaiting each call removes `act()` warnings and the flakiness they mark.
