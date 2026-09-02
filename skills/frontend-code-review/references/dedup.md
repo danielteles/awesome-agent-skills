@@ -14,6 +14,8 @@ an example — it adds no rule the Ruleset does not state.
   | Framework API (which hook, which directive, `ref` as prop) | the framework skill |
   | A CSS value, token, layer, or query | `styling-and-design-tokens` |
   | A performance budget or loading strategy | `web-performance` |
+  | A translatable string or a locale-sensitive format | `i18n-and-localization` |
+  | A component's props, slots, or controlled contract | `component-api-design` |
   | A design or layering decision | `architecture-and-design` |
   | A type, `any`, narrowing, or syntax point | `core-typescript` |
   | What a test asserts or fakes | `test-quality` |

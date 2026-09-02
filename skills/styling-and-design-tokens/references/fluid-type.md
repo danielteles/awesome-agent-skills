@@ -13,10 +13,10 @@ reasoning and a `❌ / ✅` example — it adds no rule the Ruleset does not sta
 - **Floor at ~16px, measure near 66ch.** The `clamp()` minimum must not resolve below about 16px
   for body text, or small screens get unreadable text. Capping line length with `max-width` in `ch`
   keeps lines in the comfortable 45–75 character range.
-- **Keep a `rem` term in the expression.** A `clamp()` whose middle value is pure `vw` does not grow
-  when the user zooms (zoom scales `rem`, not the viewport-proportional part enough). Include a
-  `rem` addend so 200% zoom still enlarges the text — the reflow requirement is in `accessibility`,
-  perceivable.
+- **Keep a `rem` term in the expression.** Browser zoom and the user's font-size setting scale
+  `rem`; they do not change `vw`. A preferred value that is pure `vw` therefore ignores both, and
+  the text never reaches 200% (WCAG 1.4.4, resize text). A `rem` addend keeps the user's setting in
+  the sum — the requirement itself is in `accessibility`, perceivable.
 
 ```css
 /* ❌ px font size, stepped at breakpoints, fixed line-height, no measure cap */

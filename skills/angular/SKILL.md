@@ -195,7 +195,8 @@ This skill is Angular framework rules. It does not cover:
 - Language rules (see `core-typescript`) or framework-neutral architecture (see `architecture-and-design`).
 - Deep RxJS operator design, and store libraries (NgRx, NGXS) — use the state tiers in `architecture-and-design`, state-and-data, and reach for a store only
   when they call for one.
-- Nx or monorepo setup, Angular Material theming, `@angular/animations`, and i18n.
+- Nx or monorepo setup, Angular Material theming, and `@angular/animations`. Styling is `styling-and-design-tokens`; i18n (`@angular/localize` policy) is
+  `i18n-and-localization`; loading and interaction cost is `web-performance`.
 - Accessibility depth — CDK a11y usage is noted where it fits, but focus management, ARIA, and a11y testing live in `accessibility`.
 - Angular versions before standalone components and block control flow. For a legacy app, migrate first (the Migrate mode above).
 - Other frameworks — `react` and `vue` are the sibling skills; every rule here is Angular-specific.

@@ -22,9 +22,9 @@ example — it adds no rule the Ruleset does not state.
 ```ts
 // ❌ module-scope state (shared across all callers + SSR requests); plain-value arg; lifecycle after await
 const items = ref<Item[]>([]);
-export function useItems(query: string) {
-  fetch(`/api/items?q=${query}`).then(async (r) => (items.value = await r.json()));
-  onUnmounted(() => (items.value = []));
+export async function useItems(query: string) {
+  items.value = await getItems(query); // caller passes props.q once; later changes are never seen
+  onUnmounted(() => (items.value = [])); // after an await: no current instance, so it never runs
   return { items };
 }
 

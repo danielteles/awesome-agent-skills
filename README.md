@@ -1,19 +1,22 @@
 # awesome-agent-skills
 
 > Composable, model-agnostic AI agent skills for frontend engineering —
-> TypeScript, React, Angular, architecture, accessibility, and test quality.
+> TypeScript, architecture, React, Angular, Vue, accessibility, styling,
+> performance, i18n, component APIs, and test quality.
 
 [![check-skills](https://github.com/danielteles/awesome-agent-skills/actions/workflows/check-skills.yml/badge.svg)](https://github.com/danielteles/awesome-agent-skills/actions/workflows/check-skills.yml)
 [![License: CC BY 4.0](https://img.shields.io/badge/license-CC%20BY%204.0-blue.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 Drop-in **skills / rules** for Claude Code, Cursor, Windsurf, Codex, and any
-MCP-capable agent. Six skills that compose — each builds on the others instead of
-repeating the same baseline rules.
+MCP-capable agent. Thirteen skills that compose — two base skills, three
+framework skills, six review lenses, a component-API skill, and a code-review
+conductor — each building on the others instead of repeating the same baseline
+rules.
 
 ## Quick start
 
 ```bash
-npx skills add danielteles/awesome-agent-skills --all                       # all six
+npx skills add danielteles/awesome-agent-skills --all                       # all thirteen
 npx skills add danielteles/awesome-agent-skills                             # pick interactively
 npx skills add danielteles/awesome-agent-skills --skill react --skill core-typescript --skill architecture-and-design
 ```
@@ -23,11 +26,18 @@ npx skills add danielteles/awesome-agent-skills --skill react --skill core-types
 | Working on… | Install |
 | --- | --- |
 | Any TypeScript | `core-typescript` |
-| Architecture decision, code review, module design | `core-typescript` + `architecture-and-design` |
+| Architecture decision, module design | `core-typescript` + `architecture-and-design` |
 | A React component or hook | `core-typescript` + `architecture-and-design` + `react` |
 | An Angular component | `core-typescript` + `architecture-and-design` + `angular` |
-| Any UI — markup, components, styling | the row above **+ `accessibility`** |
-| Writing or reviewing tests | the row above **+ `test-quality`** |
+| A Vue component or composable | `core-typescript` + `architecture-and-design` + `vue` |
+| Any UI — markup, components | the framework row **+ `accessibility`** |
+| CSS, design tokens, theming, layout | **+ `styling-and-design-tokens`** |
+| Page speed, bundle size, Core Web Vitals | **+ `web-performance`** |
+| User-facing text, dates, currency, RTL | **+ `i18n-and-localization`** |
+| A shared or library component's props | **+ `component-api-design`** |
+| Writing or reviewing unit and integration tests | **+ `test-quality`** |
+| A Playwright or Cypress suite | **+ `test-quality` + `e2e-testing`** |
+| A full multi-skill review of a diff | every skill the diff touches **+ `frontend-code-review`** |
 
 Dependencies are not auto-resolved — install every skill a row names. Full
 options are under [Install](#install).
@@ -87,7 +97,9 @@ example, and the per-file token budgets.
 
 ## How the skills compose
 
-Two base skills, extended by the framework skills, with two cross-cutting lenses — accessibility over UI work, test-quality over test code:
+Two base skills, extended by three framework skills; a component-API skill between design and the
+frameworks; review lenses over UI work and over test code; and a conductor that routes a diff to
+all of them:
 
 ```
    ┌─────────────────────┐   ┌───────────────────────────┐
@@ -97,17 +109,22 @@ Two base skills, extended by the framework skills, with two cross-cutting lenses
               │                            │
               └─────────────┬──────────────┘
                             │   extend / compose
-               ┌────────────┴────────────┐
-               ▼                         ▼
-         ┌───────────┐             ┌───────────┐
-         │   react   │             │  angular  │
-         └───────────┘             └───────────┘
+              ┌─────────────┼─────────────┐
+              ▼             ▼             ▼
+        ┌───────────┐ ┌───────────┐ ┌───────────┐
+        │   react   │ │  angular  │ │    vue    │
+        └───────────┘ └───────────┘ └───────────┘
+          component-api-design — the public contract of a shared component,
+          between architecture-and-design and the framework skill
 
-   ┌───────────────────────────────────────────────────┐
-   │  accessibility  —  review lens over all UI work   │
-   ├───────────────────────────────────────────────────┤
-   │  test-quality   —  review lens over all test code │
-   └───────────────────────────────────────────────────┘
+   ┌────────────────────────────────────────────────────────────────────────────┐
+   │  lenses over UI work:    accessibility · styling-and-design-tokens         │
+   │                          web-performance · i18n-and-localization           │
+   ├────────────────────────────────────────────────────────────────────────────┤
+   │  lenses over test code:  test-quality · e2e-testing                        │
+   ├────────────────────────────────────────────────────────────────────────────┤
+   │  frontend-code-review:   routes a diff to the skills above, merges findings│
+   └────────────────────────────────────────────────────────────────────────────┘
 ```
 
 - **`core-typescript`** holds the language rules every TypeScript project should
@@ -115,19 +132,31 @@ Two base skills, extended by the framework skills, with two cross-cutting lenses
 - **`architecture-and-design`** holds framework-neutral design and architecture
   rules. It composes with `core-typescript`: on a shared topic it decides the
   design, and `core-typescript` decides the syntax.
-- **`react`** and **`angular`** extend `core-typescript` and compose with
-  `architecture-and-design`, adding their framework's specifics on top. On a
+- **`react`**, **`angular`**, and **`vue`** extend `core-typescript` and compose
+  with `architecture-and-design`, adding their framework's specifics on top. On a
   conflict, `architecture-and-design` decides the design and the framework skill
-  decides the framework API.
+  decides the framework API. Only one framework skill applies to a codebase.
+- **`component-api-design`** governs the public API of a reusable component —
+  props contract, slots, controlled pairs, compound components, versioning.
+  `architecture-and-design` decides the principle, this skill the contract shape,
+  and the framework skill the API syntax.
 - **`accessibility`** is a cross-cutting review lens grounded in WCAG 2.2. It
-  composes with `architecture-and-design`, which defers focus management, ARIA,
-  and a11y testing to it, and with the framework skills, which supply the API
-  that satisfies each rule.
+  decides the requirement; the framework skills supply the API and
+  `styling-and-design-tokens` supplies the CSS that satisfies it.
+- **`styling-and-design-tokens`**, **`web-performance`**, and
+  **`i18n-and-localization`** are review lenses over UI work: CSS architecture
+  and tokens, loading and interaction cost against a budget, and translatable,
+  locale-correct UI. Each states which sibling wins on a shared line.
 - **`test-quality`** is a cross-cutting lens over test code. It judges the
   individual test — what it asserts, how it is named, what it fakes, whether it
-  is deterministic. Suite strategy (the pyramid, unit vs integration) stays in
-  `architecture-and-design`; framework test mechanics (RTL queries, `TestBed`)
-  stay in `react` / `angular`; this skill applies on top of both.
+  is deterministic. Suite strategy stays in `architecture-and-design`; framework
+  test mechanics stay in the framework skills.
+- **`e2e-testing`** covers the browser end-to-end suite — selectors, data
+  isolation, network interception, waiting, retries, flake triage. It defers the
+  quality of each individual test to `test-quality`.
+- **`frontend-code-review`** holds no engineering rules. Given a diff it picks
+  the skills that apply, runs them base-first, de-duplicates findings two skills
+  raise on one line, and merges them into one ordered review.
 
 A change to a base skill propagates to every skill that builds on it.
 
@@ -141,7 +170,7 @@ Code, Cursor, Windsurf, Codex, and ~70 other assistants — straight from GitHub
 no clone needed.
 
 ```bash
-# Pick from the list interactively (all six skills offered)
+# Pick from the list interactively (all thirteen skills offered)
 npx skills add danielteles/awesome-agent-skills
 
 # Everything, no prompts
@@ -165,9 +194,11 @@ Project scope (default) writes to `./.claude/skills/`; `-g` writes to
 `npx skills update`, and `npx skills remove <name>`.
 
 **Dependencies are not resolved automatically.** The `skills` CLI installs only
-what you name, so when you add `react` or `angular`, also add `core-typescript`
-and `architecture-and-design`; add `accessibility` for any UI work, and
-`test-quality` when writing or reviewing tests.
+what you name, so when you add `react`, `angular`, or `vue`, also add
+`core-typescript` and `architecture-and-design`; add `accessibility` for any UI
+work, the other lenses for the concerns they cover (see the matrix above), and
+`test-quality` when writing or reviewing tests. `frontend-code-review` expects
+every skill it routes to be installed.
 
 Prefer to wire it up by hand? Copy or reference the `SKILL.md` files under
 [`skills/`](skills/) into wherever your agent loads skills or rules.

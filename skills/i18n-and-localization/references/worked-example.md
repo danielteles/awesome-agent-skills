@@ -32,5 +32,4 @@ must-fix · formatting · order-summary.tsx:3 — `'$' + toFixed(2)` hardcodes t
 must-fix · formatting · order-summary.tsx:5 — list joined with ', ' and ' and '. Use `Intl.ListFormat(locale, { type: 'conjunction' })`.
 must-fix · rtl-bidi · order-summary.tsx:7 — `textAlign: 'left'` and `marginLeft` are physical. Use `text-align: start` and `margin-inline-start` so RTL locales mirror.
 consider · rtl-bidi · order-summary.tsx:10 — interpolated names of unknown direction. Wrap each in `<bdi>` to keep punctuation correct in mixed-direction text.
-consider · catalog · order-summary.tsx:8 — confirm a missing translation for these keys falls back to the default locale, not the raw key.
 ```

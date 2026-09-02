@@ -28,7 +28,7 @@ function Search({ items }: { items: Item[] }) {
 // ✅ urgent input update; the expensive re-render is a transition
 function Search({ items }: { items: Item[] }) {
   const [q, setQ] = useState('');
-  const [deferredQ] = [useDeferredValue(q)];
+  const deferredQ = useDeferredValue(q);
   const results = useMemo(() => items.filter((i) => matches(i, deferredQ)), [items, deferredQ]);
   return <><input value={q} onChange={(e) => setQ(e.target.value)} /><List rows={results} /></>;
 }

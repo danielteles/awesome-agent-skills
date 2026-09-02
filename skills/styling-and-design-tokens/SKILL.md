@@ -169,5 +169,5 @@ This skill composes with:
 - **`architecture-and-design`** — owns where the design system and its tokens live and the feature boundary; this skill owns the CSS inside it.
 - **`accessibility`** — owns the perceptual thresholds (contrast, motion, reflow, forced colors). This skill positions the tokens and queries; on a conflict
   `accessibility` decides the requirement.
-- **`react`** / **`angular`** — how styles attach to a component (CSS Modules, scoped styles, `styleUrls`, the `class` / `style` binding) and the Server
-  Component runtime constraint on CSS-in-JS.
+- **`react`** / **`angular`** / **`vue`** — how styles attach to a component (CSS Modules, `styleUrls`, `<style scoped>`, the `class` / `style` binding) and
+  the Server Component runtime constraint on CSS-in-JS.

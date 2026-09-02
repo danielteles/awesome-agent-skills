@@ -154,11 +154,19 @@ least three topics.
 
 - A **base** skill (`core-typescript`, `architecture-and-design`) has no
   framework or UI assumptions.
-- A **framework** skill (`react`, `angular`) extends `core-typescript` and
+- A **framework** skill (`react`, `angular`, `vue`) extends `core-typescript` and
   `architecture-and-design` with one framework's API.
-- A **lens** / Review skill (`accessibility`, `test-quality`) composes over UI
-  work or test code, deferring framework mechanics to the framework skills and
-  design strategy to `architecture-and-design`.
+- A **lens** skill (`accessibility`, `styling-and-design-tokens`,
+  `web-performance`, `i18n-and-localization`, `test-quality`, `e2e-testing`)
+  composes over UI work or test code, deferring framework mechanics to the
+  framework skills and design strategy to `architecture-and-design`.
+- An **engineering** skill with a layer of its own (`component-api-design`) sits
+  between `architecture-and-design` and the framework skills and states which
+  of them wins on each axis.
+- The **meta** skill (`frontend-code-review`) holds no engineering rules; it
+  routes a diff to the skills above and merges their findings. A new skill is
+  added to its `routing` and `dedup` rules and reference tables, and to the
+  Limits of any existing skill that used to defer that concern to nothing.
 
 ### No tool, vendor, or model names
 

@@ -175,5 +175,7 @@ This skill composes with:
   `fetchpriority` on `<img>`. On a conflict this skill sets the budget, `react` picks the API.
 - **`angular`** — `@defer` blocks, `NgOptimizedImage`, route-level lazy loading, `provideClientHydration()` and incremental hydration, zoneless change
   detection.
+- **`vue`** — `defineAsyncComponent` and the router's lazy import, `<Suspense>`, Nuxt `<NuxtImg>` / `useAsyncData`, and the lazy hydration strategies
+  (`hydrateOnVisible`, `hydrateOnIdle`).
 - **`architecture-and-design`** — data fetching, caching, and the state tiers that decide what renders when and how much ships to the client.
 - **`accessibility`** — `prefers-reduced-motion` and the reflow/zoom requirements that a CLS or font fix must also satisfy.

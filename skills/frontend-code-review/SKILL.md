@@ -23,8 +23,9 @@ engineering rules — every finding still comes from another skill's Ruleset.
 
 > **Builds on.** Every other skill in this repository: `core-typescript` and
 > `architecture-and-design` (the base), `react` / `angular` / `vue` (framework), and
-> `accessibility` / `styling-and-design-tokens` / `web-performance` / `test-quality` / `e2e-testing`
-> (the lenses). This skill only routes; each finding's authority is the skill it came from. If a
+> `accessibility` / `styling-and-design-tokens` / `web-performance` / `i18n-and-localization` /
+> `test-quality` / `e2e-testing` (the lenses), and `component-api-design` for a shared component's
+> public contract. This skill only routes; each finding's authority is the skill it came from. If a
 > named skill is not loaded, apply its layer from general knowledge and do not block. On a conflict
 > between two skills' findings, this skill's de-duplication rules decide which one is reported.
 
@@ -73,8 +74,10 @@ result. Each group links to its `references/` file for rationale and an example.
 ### routing → `references/routing.md`
 
 - [ ] Every changed file is classified and mapped to the skills that apply — `.ts`/`.tsx` to `core-typescript`; a component or hook to the matching framework
-      skill; any UI to `accessibility` and, if it touches CSS or tokens, `styling-and-design-tokens`; a change to loading, bundling, or rendering to
-      `web-performance`; a test file to `test-quality`, an e2e spec to `e2e-testing`; a cross-cutting or structural change to `architecture-and-design`.
+      skill; any UI to `accessibility` and, if it touches CSS or tokens, `styling-and-design-tokens`; user-facing text or a formatted value to
+      `i18n-and-localization`; a change to loading, bundling, or rendering to `web-performance`; a shared or library component's props to
+      `component-api-design`; a test file to `test-quality`, an e2e spec to `e2e-testing`; a cross-cutting or structural change to
+      `architecture-and-design`.
 - [ ] Skills are applied base-first: `core-typescript`, then `architecture-and-design`, then the one framework skill, then the lenses, then this skill's own
       checks.
 - [ ] Only the framework skill for the codebase runs — not `react` and `angular` and `vue` on the same file.
@@ -84,8 +87,9 @@ result. Each group links to its `references/` file for rationale and an example.
 
 - [ ] When two skills flag the same line for the same underlying issue, one finding is reported, not two.
 - [ ] The finding is kept from the skill that owns that decision: `accessibility` for an a11y requirement, the framework skill for its API,
-      `styling-and-design-tokens` for a CSS value, `web-performance` for a budget, `architecture-and-design` for a design call, `core-typescript` for a type or
-      syntax point, `test-quality` for what a test asserts.
+      `styling-and-design-tokens` for a CSS value, `web-performance` for a budget, `i18n-and-localization` for a translatable string or a locale format,
+      `component-api-design` for a props contract, `architecture-and-design` for a design call, `core-typescript` for a type or syntax point, `test-quality`
+      for what a test asserts.
 - [ ] The kept finding names the other skill that also flagged it, so the author sees it matters on two axes.
 - [ ] Two findings on the same line for *different* issues are both kept.
 - [ ] A genuine conflict — two skills prescribing incompatible fixes — is surfaced explicitly with the recommended resolution, not silently resolved.
@@ -121,8 +125,9 @@ to them:
 
 - **`core-typescript`**, **`architecture-and-design`** — the base layers, applied first.
 - **`react`** / **`angular`** / **`vue`** — the one framework skill for the codebase.
-- **`accessibility`**, **`styling-and-design-tokens`**, **`web-performance`**, **`test-quality`**, **`e2e-testing`** — the lenses, applied after the framework
-  skill.
+- **`accessibility`**, **`styling-and-design-tokens`**, **`web-performance`**, **`i18n-and-localization`**, **`test-quality`**, **`e2e-testing`** — the
+  lenses, applied after the framework skill.
+- **`component-api-design`** — the public contract of a shared component, applied with the framework skill when the diff touches a library component.
 
 On a conflict between two skills' findings, the `dedup` group decides which is reported; on a
 conflict about a rule's substance, the owning skill named there wins.

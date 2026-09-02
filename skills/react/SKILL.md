@@ -187,7 +187,8 @@ This skill is React framework rules. It does not cover:
   own conventions do not.
 - Store libraries (Redux Toolkit, Zustand, Jotai) — use the state tiers in `architecture-and-design` and reach for a store only when they call for one.
 - Accessibility depth — `useId` and focus management are noted where they fit; the full lens lives in `accessibility`.
-- React Native, styling systems, animation libraries, and i18n.
+- React Native and animation libraries. Styling is `styling-and-design-tokens`; i18n (`react-intl` policy) is `i18n-and-localization`; loading and
+  interaction cost is `web-performance`.
 - Other frameworks — `angular` and `vue` are the sibling skills; every rule here is React-specific.
 
 The React Compiler is on a release track. The rules here assume you adopt it; where you have not, the `rendering` rules on manual memoization apply.

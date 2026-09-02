@@ -213,13 +213,13 @@ decides the syntax.
 This skill covers frontend architecture and design. It does not cover:
 
 - Backend, database, or infrastructure design.
-- Distributed system architecture: microservices, service decomposition, event-driven backends, message brokers, sagas, distributed consistency. `ddd` covers
-  DDD tactical patterns inside one app; strategic and cross-service concerns belong in a system-architecture skill. `micro-frontends` covers the frontend split
-  only.
-- Styling systems, design tokens, and CSS architecture beyond the note in `frontend-practices`.
+- Distributed system architecture: microservices, event-driven backends, message brokers, sagas, distributed consistency. `ddd` covers tactical
+  patterns inside one app; `micro-frontends` covers the frontend split only.
+- Styling systems, design tokens, and CSS architecture beyond the note in `frontend-practices` — see `styling-and-design-tokens`.
 - Accessibility beyond "use a semantic element and a label". Focus management, ARIA, live regions, keyboard operability, and a11y testing live in
   `accessibility`.
-- Deep performance profiling and bundle analysis. `frontend-practices` covers only the field-monitoring habit.
+- Deep performance profiling and bundle analysis — `web-performance`.
+- A reusable component's public API (`component-api-design`) and internationalization (`i18n-and-localization`).
 - CI pipeline configuration, dependency-update bots, release tooling, and monorepo setup.
 - Framework-specific rules: Rules of Hooks, `useMemo` / `useCallback` policy, Angular change detection and signals, Vue reactivity caveats. These live in the
   framework skills.

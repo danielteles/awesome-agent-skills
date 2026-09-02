@@ -5,7 +5,7 @@ example — it adds no rule the Ruleset does not state.
 
 - **`setup` runs on the server.** Reading `window`, `document`, or `localStorage` at the top level
   of `<script setup>` throws during SSR or during the server render pass of hydration. Put that code
-  in `onMounted` (client-only) or behind `import.meta.client`.
+  in `onMounted` (client-only) or behind `import.meta.client` (Nuxt) / `!import.meta.env.SSR` (Vite SSR).
 - **Module `ref` is shared across requests.** On the server the module is evaluated once and lives
   for the process lifetime, so a module-scope `ref` holding "the current user" is handed to every
   concurrent request. Use the framework's request-scoped primitive — Nuxt `useState(key, init)`.

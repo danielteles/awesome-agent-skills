@@ -180,7 +180,7 @@ This skill judges the individual test. It does not cover:
   `testing` group in `architecture-and-design`.
 - Framework mechanics — React Testing Library queries and `user-event`, Angular `TestBed` and `HttpTestingController`, Vue Testing Library and
   `@vue/test-utils`, component harnesses. Those live in the `testing` group of `react`, `angular`, and `vue`.
-- End-to-end test design (Playwright, Cypress): selectors, per-worker data, retries, sharding.
+- End-to-end test design (Playwright, Cypress): selectors, per-worker data, retries, sharding. That is `e2e-testing`.
 - Performance and load testing.
 - Accessibility testing — a component test that queries by role doubles as an a11y check, but the full lens is in `accessibility`.
 - Choosing and configuring a runner (Vitest, Jest, `node:test`), and CI parallelization.

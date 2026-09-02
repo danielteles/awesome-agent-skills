@@ -6,7 +6,9 @@ and an example — it adds no rule the Ruleset does not state.
 - **Classify by file, then by change.** The file extension picks the baseline (`.ts` → language,
   `.vue`/`.tsx` → a component); what the change *does* adds lenses — a new `<img>` or CSS pulls in
   `styling-and-design-tokens` and `web-performance`, a new interactive element pulls in
-  `accessibility`, a new `*.spec.ts` pulls in `test-quality` or `e2e-testing`.
+  `accessibility`, a new user-facing string or formatted value pulls in `i18n-and-localization`, a
+  change to a library component's props pulls in `component-api-design`, a new `*.spec.ts` pulls in
+  `test-quality` or `e2e-testing`.
 - **Base first.** A framework finding often rests on a language or design point
   (`architecture-and-design` says "extract a repository", `react` then says "call it from a
   loader"). Running base skills first means the framework and lens passes build on settled ground.
@@ -21,6 +23,8 @@ and an example — it adds no rule the Ruleset does not state.
 | React/Vue/Angular component | `core-typescript` → `architecture-and-design` → framework skill → `accessibility` |
 | + touches CSS / tokens | … + `styling-and-design-tokens` |
 | + touches loading / bundle / rendering | … + `web-performance` |
+| + adds user-facing text or a formatted value | … + `i18n-and-localization` |
+| shared / library component's props or slots | … + `component-api-design` |
 | `*.test.ts(x)` | `test-quality` (+ framework `testing` group) |
 | `*.spec.ts` e2e | `e2e-testing` → `test-quality` |
 | structural / cross-cutting | `architecture-and-design` (leading) |

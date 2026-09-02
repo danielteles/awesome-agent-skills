@@ -196,6 +196,9 @@ This skill composes with:
 - **`react`** — the React mechanism: `useId`, ref-based focus, `createPortal`, primitive libraries (Radix, React Aria).
 - **`angular`** — the Angular mechanism: the CDK `a11y` package (`cdkTrapFocus`, `FocusMonitor`, `LiveAnnouncer`) and the `template/accessibility` lint rules.
 - **`vue`** — the Vue mechanism: semantic SFC templates, `useId()`, and primitive libraries (Radix Vue, Headless UI).
+- **`styling-and-design-tokens`** — positions the tokens and queries (contrast pairs per theme, `prefers-reduced-motion`, forced-colors, `rem`-based type)
+  that satisfy this skill's perceivable rules; this skill decides the requirement, that skill decides the CSS.
+- **`i18n-and-localization`** — sets `lang` and `dir` from the locale and isolates bidi text; this skill owns what `lang` and language-of-parts must be.
 
 **Normative:**
 
