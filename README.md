@@ -229,8 +229,10 @@ awesome-agent-skills/
 │   ├── reference.md
 │   └── worked-example.md
 ├── bin/
+│   ├── bump-version.mjs
 │   ├── sync-readme.mjs
 │   └── validate-skills.mjs
+├── CHANGELOG.md
 ├── CONTRIBUTING.md
 ├── LICENSE
 └── README.md

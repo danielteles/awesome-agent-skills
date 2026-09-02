@@ -231,6 +231,36 @@ run off.
 
 ---
 
+## Releasing
+
+Two version axes, moved independently.
+
+### A skill's version
+
+`metadata.version` in `SKILL.md` tracks that one skill's rules. Bump it when the
+Ruleset changes in a way a consumer would notice:
+
+| Change | Bump |
+|---|---|
+| Typo, clearer wording, a new reference example | patch (`1.0` → `1.0.1`) |
+| A new rule or a new Ruleset group | minor (`1.0` → `1.1`) |
+| A rule removed, inverted, or materially narrowed | major (`1.0` → `2.0`) |
+
+Run `node bin/bump-version.mjs <skill> <version>` — it rewrites only the
+`version:` line. Then add a line to the changelog.
+
+### The repository
+
+[`CHANGELOG.md`](CHANGELOG.md) follows Keep a Changelog. Every pull request adds
+an entry under `## [Unreleased]` in the fitting subsection (Skills / Structure
+and docs / Tooling), in the same imperative style as the commit.
+
+To cut a release: move the `## [Unreleased]` entries under a new
+`## [x.y.z] - YYYY-MM-DD` heading, leave a fresh empty `## [Unreleased]` above
+it, and tag the commit `vX.Y.Z`.
+
+---
+
 ## Licensing
 
 By contributing you agree that your contributions are licensed under

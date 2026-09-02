@@ -34,6 +34,7 @@ const ORDER = [
 // The non-skills part of the tree. Kept here (not enumerated) so unrelated repo
 // files do not leak into the structure block; update alongside a matching change.
 const TREE_TAIL = [
+  '├── CHANGELOG.md',
   '├── CONTRIBUTING.md',
   '├── LICENSE',
   '└── README.md',
