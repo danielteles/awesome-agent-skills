@@ -49,6 +49,7 @@ options are under [Install](#install).
 | [`skills/web-performance/SKILL.md`](skills/web-performance/SKILL.md) | A framework-neutral review lens for the loading and runtime performance of a web UI: Core Web Vitals budgets, diagnosing and fixing LCP, INP, and CLS, JavaScript bundle analysis and a code-splitting policy, image and font loading, hydration cost, and field measurement (RUM) with regression gating. Composes with `react` and `angular` for the framework rendering API and with `architecture-and-design` for data and state strategy. |
 | [`skills/test-quality/SKILL.md`](skills/test-quality/SKILL.md) | Framework-neutral standards for the quality of an individual automated test in TypeScript: assert on behavior not implementation, meaningful assertions, one outcome-named scenario per test, builders over shared fixtures, test doubles that earn their place, deterministic order-independent tests, coverage read as a map of the unverified. |
 | [`skills/e2e-testing/SKILL.md`](skills/e2e-testing/SKILL.md) | Framework-neutral standards for end-to-end browser tests with Playwright or Cypress: role-based user-facing selectors, per-worker and per-test data isolation, network interception, web-first retrying assertions instead of fixed waits, a retry and sharding policy, flake triage to a root cause, and keeping the suite a thin layer of critical journeys. Composes with `test-quality` for the quality of each individual test. |
+| [`skills/frontend-code-review/SKILL.md`](skills/frontend-code-review/SKILL.md) | A meta skill that orchestrates a frontend code review: given a diff, it picks which of the other skills apply, runs them in a sensible order, merges their findings into one ordered list, and de-duplicates an issue that two skills report. It holds no engineering rules of its own — it routes to `core-typescript`, `architecture-and-design`, the framework skills, and the lenses. |
 <!-- /sync-readme:skills -->
 
 ### How a skill is structured
@@ -209,7 +210,10 @@ awesome-agent-skills/
 │   ├── test-quality/
 │   │   ├── SKILL.md
 │   │   └── references/
-│   └── e2e-testing/
+│   ├── e2e-testing/
+│   │   ├── SKILL.md
+│   │   └── references/
+│   └── frontend-code-review/
 │       ├── SKILL.md
 │       └── references/
 ├── templates/
