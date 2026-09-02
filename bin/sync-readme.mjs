@@ -25,6 +25,7 @@ const ORDER = [
   'accessibility',
   'styling-and-design-tokens',
   'web-performance',
+  'i18n-and-localization',
   'test-quality',
   'e2e-testing',
   'frontend-code-review',
