@@ -24,8 +24,8 @@ Section 508, and the European Accessibility Act.
 
 > **Builds on.** `architecture-and-design`, and `react` or `angular` for the framework mechanism
 > behind each rule. The Ruleset below is complete on its own; load these when you need the design
-> rationale or the framework API, not by default. `npx skills add …@accessibility` installs this
-> file alone.
+> rationale or the framework API, not by default. If a named skill is not loaded, apply that layer
+> from general knowledge and do not block.
 
 This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, with the
 key WCAG criteria inline, and nothing here depends on a `references/` file being read. Each

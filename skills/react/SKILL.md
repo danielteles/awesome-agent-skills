@@ -22,8 +22,8 @@ set in general terms.
 
 > **Builds on.** `core-typescript` (language rules) and `architecture-and-design` (design). The
 > Ruleset below is complete on its own; load a base skill when the task turns on its layer — a
-> type-modeling question, an architecture decision — not by default. `npx skills add …@react`
-> installs this file alone.
+> type-modeling question, an architecture decision — not by default. If a named skill is not
+> loaded, apply that layer from general knowledge and do not block.
 
 This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, and
 nothing here depends on a `references/` file being read. Each `references/<topic>.md` holds the

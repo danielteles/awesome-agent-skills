@@ -24,7 +24,8 @@ set in general terms.
 
 > **Builds on.** `core-typescript` (language rules) and `architecture-and-design` (design), plus
 > `accessibility` for UI work. The Ruleset below is complete on its own; load one of these when the
-> task turns on its layer, not by default. `npx skills add …@angular` installs this file alone.
+> task turns on its layer, not by default. If a named skill is not loaded, apply that layer from
+> general knowledge and do not block.
 
 This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, and
 nothing here depends on a `references/` file being read. Each `references/<topic>.md` holds the
