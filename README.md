@@ -168,12 +168,28 @@ awesome-agent-skills/
 │   └── test-quality/                    # Lens: quality of an individual automated test
 │       ├── SKILL.md
 │       └── references/
+├── templates/                          # scaffolds for a new skill (see CONTRIBUTING.md)
+│   ├── SKILL.md
+│   ├── reference.md
+│   └── worked-example.md
 ├── bin/
 │   ├── check-references.mjs             # verifies every references/ pointer resolves
 │   └── check-token-budget.mjs           # flags a SKILL.md or reference that grows past budget
+├── CONTRIBUTING.md
 ├── LICENSE
 └── README.md
 ```
+
+---
+
+## Contributing
+
+New skills and fixes are welcome. [`CONTRIBUTING.md`](CONTRIBUTING.md) is the
+full contract — frontmatter, body sections, the Output Format, reference-file
+rules, token budgets, and the review process. Copy [`templates/`](templates/)
+(`SKILL.md`, `reference.md`, `worked-example.md`) to start a skill without
+reading an existing one, fill every `<placeholder>`, and run the two checks in
+[`bin/`](bin/) before opening a pull request.
 
 ---
 
