@@ -18,6 +18,7 @@ const skillsDir = join(repoRoot, 'skills');
 const ORDER = [
   'core-typescript',
   'architecture-and-design',
+  'component-api-design',
   'react',
   'angular',
   'vue',

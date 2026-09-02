@@ -41,6 +41,7 @@ options are under [Install](#install).
 | --- | --- |
 | [`skills/core-typescript/SKILL.md`](skills/core-typescript/SKILL.md) | Language-level TypeScript conventions for every project, framework or not — compiler strictness, banning unsafe types, inference and `satisfies`, discriminated unions and branded ids, narrowing, generics, utility types, nullability, async, errors as `unknown`, module and language hygiene. The base skill that `react`, `angular`, and `architecture-and-design` build on. |
 | [`skills/architecture-and-design/SKILL.md`](skills/architecture-and-design/SKILL.md) | Framework-neutral architecture and design standards for frontend engineering in TypeScript (React, Angular, Vue, or any component framework): SOLID and clean code, clean architecture and layer boundaries, feature-first structure, the adapter/repository pattern, state tiers and data fetching, security, testing strategy, DDD tactical patterns, micro-frontends, forms. |
+| [`skills/component-api-design/SKILL.md`](skills/component-api-design/SKILL.md) | Framework-neutral standards for the public API of a reusable UI component: a minimal and stable props contract, slots and composition versus configuration props, controlled and uncontrolled value pairs, the compound-component pattern, and evolving a shared component without breaking its consumers. Sits between `architecture-and-design` and the framework skills. |
 | [`skills/react/SKILL.md`](skills/react/SKILL.md) | Modern React conventions for writing, reviewing, refactoring, or migrating React: render purity, the Rules of Hooks, "you might not need an Effect", state placement, refs, context, Suspense data fetching, Actions and form state, Server and Client Components, the React Compiler, testing by role. |
 | [`skills/angular/SKILL.md`](skills/angular/SKILL.md) | Modern Angular conventions for writing, reviewing, refactoring, or migrating Angular: standalone components, `OnPush` and signals, `input()` / `output()` / `model()`, `@if` / `@for` / `@switch` control flow, `inject()` and functional providers, functional guards and interceptors, typed reactive forms, lazy routing, zoneless-ready change detection and SSR, testing by role. |
 | [`skills/vue/SKILL.md`](skills/vue/SKILL.md) | Modern Vue 3 conventions for writing, reviewing, refactoring, or migrating Vue: `<script setup>` and the Composition API, `defineProps` / `defineEmits` / `defineModel`, `ref` vs `reactive` and reactivity-loss caveats, composables for shared logic, `provide` / `inject` and Pinia within the state tiers, templates and keyed lists, `<Suspense>` and async components, the Nuxt server boundary, and testing by role. |
@@ -187,6 +188,9 @@ awesome-agent-skills/
 │   │   ├── SKILL.md
 │   │   └── references/
 │   ├── architecture-and-design/
+│   │   ├── SKILL.md
+│   │   └── references/
+│   ├── component-api-design/
 │   │   ├── SKILL.md
 │   │   └── references/
 │   ├── react/
