@@ -94,7 +94,7 @@ bootstrapApplication(App, {
 
 ### Compiler strictness
 
-Turn on the Angular compiler's own checks, next to the TypeScript `strict` flags from core-typescript Section 1.
+Turn on the Angular compiler's own checks, next to the TypeScript `strict` flags from `core-typescript`, compiler-config.
 
 ```jsonc
 // tsconfig.json
