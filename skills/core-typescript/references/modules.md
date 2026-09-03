@@ -1,7 +1,6 @@
 # Modules and Imports — why, and an example
 
-The rules are in the `core-typescript` Ruleset (`modules` group). This file is the reasoning and
-an example.
+The rules are in the `core-typescript` Ruleset (`modules` group).
 
 - **`import type` / `export type`** (or an inline `type` on the name) keeps types out of the emitted build. Under `verbatimModuleSyntax`, an unmarked type
   import is emitted as a real runtime import and can pull a whole module graph — or crash — at load.

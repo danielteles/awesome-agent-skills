@@ -1,7 +1,6 @@
 # Locale Routing and Negotiation — why
 
-The rules are in the `i18n-and-localization` Ruleset (`locale-routing` group). This file is the
-reasoning and a `❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `i18n-and-localization` Ruleset (`locale-routing` group).
 
 - **The locale belongs in the URL.** A path prefix (`/de/pricing`) or a subdomain makes each
   localized page independently linkable, bookmarkable, CDN-cacheable, and crawlable. A cookie- or

@@ -1,7 +1,6 @@
 # Narrowing: Type Guards and Assertion Functions — why, and examples
 
-The rules are in the `core-typescript` Ruleset (`narrowing` group). This file is the reasoning and
-examples.
+The rules are in the `core-typescript` Ruleset (`narrowing` group).
 
 | Tool | Shape | Use |
 |---|---|---|

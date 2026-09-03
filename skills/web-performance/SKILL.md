@@ -23,17 +23,14 @@ against a budget. Framework-neutral — the metrics and diagnoses are the same f
 are HTML plus a little TSX for where a framework changes the fix.
 
 > **Builds on.** `react`, `angular`, or `vue` for the framework rendering and hydration API (their
-> rendering and SSR groups), and `architecture-and-design` for data fetching, caching, and state strategy. On
-> a conflict, this skill sets the budget and the diagnosis and the framework skill
-> decides the API that meets it. The Ruleset below is complete on its own; load a named skill only
-> when the task turns on its layer, not by default. If a named sibling skill is not loaded, apply
-> that layer from general knowledge and do not block.
+> rendering and SSR groups), and `architecture-and-design` for data fetching, caching, and state
+> strategy. On a conflict, this skill sets the budget and the diagnosis and the framework skill
+> decides the API that meets it. Load a sibling only when the task turns on its layer; if it is
+> not loaded, apply that layer from general knowledge and do not block.
 
-This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, with the
-target numbers inline, and nothing here depends on a `references/` file being read. Each
-`references/<topic>.md` holds the *reasoning* and `❌ / ✅` code for one Ruleset group
-(`references/lcp.md`, `references/javascript.md`, …), plus `references/worked-example.md` for a full
-review pass. Open them for depth when your runtime allows.
+This SKILL.md is self-sufficient: the **Ruleset** below is the complete, enforceable list. Each
+`references/<topic>.md` holds that group's reasoning and `❌ / ✅` code, and
+`references/worked-example.md` a full review pass; open them for depth when your runtime allows.
 
 ---
 
@@ -83,9 +80,6 @@ Supporting: **TTFB** ≤ 800 ms, and lab **TBT** ≤ 200 ms as the pre-release p
 
 ## Ruleset
 
-The complete rule list. Read it top to bottom when generating; tick each box against a diff when
-reviewing. Each group links to its `references/` file for rationale and examples.
-
 ### budgets → `references/budgets.md`
 
 - [ ] Each route has a written budget: LCP, INP, CLS targets plus a ceiling for JS transfer size and request count.
@@ -101,7 +95,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] The LCP element is server-rendered in the initial HTML — not injected by client JavaScript, not inside a client-only component.
 - [ ] The LCP image or its font is not lazy-loaded, not behind `content-visibility`, and carries `fetchpriority="high"`; a `<link rel="preload">` is used only
       when the resource is discovered late.
-- [ ] Render-blocking CSS is minimal and critical; non-critical CSS and all non-essential JS are deferred so they do not delay first render.
+- [ ] Render-blocking CSS is minimal and critical; non-critical CSS and all non-essential JS are deferred.
 - [ ] TTFB is within budget — cached/streamed HTML, no slow synchronous work in the server render path.
 - [ ] No above-the-fold web font blocks text for more than 100 ms; `font-display: swap` or `optional`, with a metric-matched fallback to limit the swap shift.
 
@@ -113,13 +107,13 @@ reviewing. Each group links to its `references/` file for rationale and examples
       with the framework's deferred-update API (`react`, data-fetching).
 - [ ] Input handlers on high-frequency events (`input`, `scroll`, `pointermove`) are debounced or throttled and do no layout-thrashing reads-then-writes.
 - [ ] Hydration does not block the first interaction — it is deferred, chunked, or scoped to interactive islands (see `javascript`).
-- [ ] A large list is virtualized; expensive derived data is memoized so a keystroke does not recompute it.
+- [ ] A large list is virtualized; expensive derived data is memoized.
 
 ### cls → `references/cls.md`
 
 - [ ] Every `<img>`, `<video>`, `<iframe>`, and embed has explicit `width` and `height` (or a reserved `aspect-ratio` box).
-- [ ] Space is reserved for anything that arrives late — ads, embeds, cookie banners, async content — so it does not push content down.
-- [ ] Web fonts use `size-adjust` / `ascent-override` or a metric-compatible fallback so the swap does not reflow.
+- [ ] Space is reserved for anything that arrives late — ads, embeds, cookie banners, async content.
+- [ ] Web fonts use `size-adjust` / `ascent-override` or a metric-compatible fallback.
 - [ ] Content is never inserted above existing content in the viewport except in response to a user interaction.
 - [ ] A region whose height changes (accordion, skeleton → content) animates with `transform`, or reserves its final height with `min-height`.
 
@@ -131,7 +125,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] Imports are tree-shakeable — named imports from ES modules, no default-importing a whole utility or icon library for one function; a heavy dependency is
       replaced with a platform API or a smaller one where the need is small.
 - [ ] Polyfills and transpilation target the supported browser baseline only (`browserslist`), with a modern build served to modern browsers.
-- [ ] `modulepreload` (or the framework's equivalent) is used for the critical chunk graph so splitting does not create a request waterfall.
+- [ ] `modulepreload` (or the framework's equivalent) is used for the critical chunk graph.
 
 ### assets → `references/assets.md`
 
@@ -145,7 +139,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 ### rum → `references/rum.md`
 
 - [ ] Field data is collected in production with the `web-vitals` library (or a RUM provider) and read at p75, segmented by route and device class.
-- [ ] INP and LCP are captured with attribution (which element, which script) so a regression points at a cause.
+- [ ] INP and LCP are captured with attribution (which element, which script).
 - [ ] A dashboard tracks the three metrics over time; an alert fires when p75 crosses the target.
 - [ ] Lab tools (Lighthouse, WebPageTest) are used for diagnosis and pre-release gating, never as the source of truth for how users experience the page.
 - [ ] A/B tests and experiments report their performance delta, not only the conversion delta.

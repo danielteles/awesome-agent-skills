@@ -1,7 +1,6 @@
 # Signal Inputs, Outputs, and Queries — why, and the mapping
 
-The rules are in the `angular` Ruleset (`inputs-outputs` group). This file is the reasoning and the
-decorator → function mapping.
+The rules are in the `angular` Ruleset (`inputs-outputs` group).
 
 | Decorator form | Function form |
 |---|---|

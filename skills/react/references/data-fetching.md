@@ -1,6 +1,6 @@
 # React — Data Fetching and Suspense: why, and an example
 
-The rules are in the `react` Ruleset (`data-fetching` group). This file is the reasoning and an example.
+The rules are in the `react` Ruleset (`data-fetching` group).
 
 - **Not a bare `useEffect`.** A hand-rolled Effect fetch has no cache, no dedup, and no invalidation; it refetches on every mount, races when the input prop
   changes, and turns a parent/child pair into a request waterfall. A framework loader, a cache library (TanStack Query, SWR), or `use(promise)` with a promise a

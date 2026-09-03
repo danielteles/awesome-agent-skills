@@ -1,7 +1,6 @@
 # Standalone and Bootstrap — why, and the config
 
-The rules are in the `angular` Ruleset (`bootstrap` group). This file is the reasoning and the
-config blocks.
+The rules are in the `angular` Ruleset (`bootstrap` group).
 
 - **No `NgModule`.** Standalone is the default on current Angular; an `NgModule` adds a wiring layer with no gain. A component lists what it uses in its own
   `imports` array. Do not write `standalone: true` where it is already the default.

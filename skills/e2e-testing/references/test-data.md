@@ -1,7 +1,6 @@
 # Per-Worker and Per-Test Data — why
 
-The rules are in the `e2e-testing` Ruleset (`test-data` group). This file is the reasoning and a
-`❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `e2e-testing` Ruleset (`test-data` group).
 
 - **Shared seed data makes tests order-dependent.** If test A edits "Acme Corp" and test B asserts
   on it, they pass in one order and fail in another, and neither can run alone. Each test creating

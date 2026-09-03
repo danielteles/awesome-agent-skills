@@ -1,7 +1,6 @@
 # Clean Code — why, and examples
 
-The rules are in the `architecture-and-design` Ruleset (`clean-code` group). This file is the
-reasoning and examples.
+The rules are in the `architecture-and-design` Ruleset (`clean-code` group).
 
 - **Names carry the type and the effect.** A boolean named `is` / `has` / `should` / `can` reads as a fact; a function named with a verb reads as an action.
   `cfg` / `usr` abbreviations and `user` / `account` synonyms for one concept cost the reader time on every encounter.

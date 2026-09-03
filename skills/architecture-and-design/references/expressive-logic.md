@@ -1,7 +1,6 @@
 # Expressive Logic — why, and examples
 
-The rules are in the `architecture-and-design` Ruleset (`expressive-logic` group). This file is the
-reasoning and examples. These patterns dominate pull-request review comments.
+The rules are in the `architecture-and-design` Ruleset (`expressive-logic` group). These patterns dominate pull-request review comments.
 
 - **The condition is already the value.** `status === 'active' ? true : false` and `if (c) return true; else return false` both wrap a boolean in a boolean.
   Comparing against a boolean literal (`=== true`, `!== false`) adds a redundant operation.
@@ -145,24 +144,5 @@ submit(): void {
 ```
 
 `Record<EditorMode, () => void>` forces a handler for every union member, so a missing case fails to
-compile, and a new mode adds one entry instead of editing the `submit` flow. Use a `switch` with an
-`assertNever` default when a branch needs local variables or fall-through:
-
-```ts
-function runMode(mode: EditorMode): void {
-  switch (mode) {
-    case 'CREATE_DRAFT':
-      return createDraft();
-    case 'PUBLISH_DOC':
-      return publishDoc();
-    case 'ARCHIVE_DOC':
-      return archiveDoc();
-    default:
-      return assertNever(mode);
-  }
-}
-
-function assertNever(value: never): never {
-  throw new Error(`Unhandled mode: ${value}`);
-}
-```
+compile, and a new mode adds one entry instead of editing the `submit` flow. When a branch needs local
+variables or fall-through, use a `switch` with an `assertNever` default (`core-typescript`, narrowing).

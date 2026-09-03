@@ -1,7 +1,6 @@
 # Interaction to Next Paint — why
 
-The rules are in the `web-performance` Ruleset (`inp` group). This file is the reasoning and a
-`❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `web-performance` Ruleset (`inp` group).
 
 - **INP is the worst interaction, not the average.** One 400 ms tap during the visit sets the
   score. The cause is almost always a long task blocking the main thread: the browser cannot paint

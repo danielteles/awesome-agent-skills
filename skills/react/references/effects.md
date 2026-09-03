@@ -1,6 +1,6 @@
 # React — Effects: why, and the decision aid
 
-The rules are in the `react` Ruleset (`effects` group). This file is the reasoning and an example.
+The rules are in the `react` Ruleset (`effects` group).
 
 ## Why most Effects are a mistake
 

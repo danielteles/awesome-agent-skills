@@ -1,7 +1,6 @@
 # Locale-Aware Formatting — why
 
-The rules are in the `i18n-and-localization` Ruleset (`formatting` group). This file is the
-reasoning and a `❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `i18n-and-localization` Ruleset (`formatting` group).
 
 - **`Intl` already knows.** Date order (`MM/DD` vs `DD.MM` vs `YYYY年MM月`), decimal and grouping
   separators (`1,234.56` vs `1.234,56` vs `1 234,56`), currency symbol placement, and the

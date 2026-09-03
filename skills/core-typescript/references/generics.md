@@ -1,7 +1,6 @@
 # Generics with Restraint — why, and examples
 
-The rules are in the `core-typescript` Ruleset (`generics` group). This file is the reasoning and
-examples.
+The rules are in the `core-typescript` Ruleset (`generics` group).
 
 - **Add a generic only when two types move together** — an input type and a return type, say. A type parameter used once is just `unknown` with extra syntax and
   no added safety.

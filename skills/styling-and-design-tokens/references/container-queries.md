@@ -1,7 +1,6 @@
 # Container Queries — why
 
-The rules are in the `styling-and-design-tokens` Ruleset (`container-queries` group). This file is
-the reasoning and a `❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `styling-and-design-tokens` Ruleset (`container-queries` group).
 
 - **A component does not know the viewport.** The same card sits in a full-width hero, a
   three-column grid, and a narrow sidebar. A `@media (min-width: 700px)` rule switches it to its

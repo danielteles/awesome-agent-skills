@@ -23,16 +23,13 @@ how it is named and structured, what it fakes, and whether it runs the same way 
 rules hold for any runner (Vitest, Jest, `node:test`) and any framework; examples use TypeScript.
 
 > **Builds on.** `core-typescript` (test code is code), `architecture-and-design` for suite
-> *strategy* (the pyramid, unit vs integration), and `react` / `angular` / `vue` for the mechanics of
-> rendering and querying a component. The Ruleset below is complete on its own; load these when the
-> task turns on their layer. If a named skill is not loaded, apply that layer from general
-> knowledge and do not block.
+> *strategy* (the pyramid, unit vs integration), and `react` / `angular` / `vue` for the mechanics
+> of rendering and querying a component. Load a sibling only when the task turns on its layer; if
+> it is not loaded, apply that layer from general knowledge and do not block.
 
-This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, and
-nothing here depends on a `references/` file being read. Each `references/<topic>.md` holds the
-*reasoning* and `❌ / ✅` code for one Ruleset group (`references/assertions.md`,
-`references/test-doubles.md`, …), plus `references/worked-example.md` for a full review pass. Open
-them for depth when your runtime allows.
+This SKILL.md is self-sufficient: the **Ruleset** below is the complete, enforceable list. Each
+`references/<topic>.md` holds that group's reasoning and `❌ / ✅` code, and
+`references/worked-example.md` a full review pass; open them for depth when your runtime allows.
 
 ---
 
@@ -83,9 +80,6 @@ shared fixture trades away maintainability. Every rule below follows from protec
 
 ## Ruleset
 
-The complete rule list. Read it top to bottom when writing; tick each box against the test diff when
-reviewing. Each group links to its `references/` file for rationale and examples.
-
 ### behavior-not-implementation → `references/behavior-not-implementation.md`
 
 - [ ] The test asserts on observable output — a return value, rendered result, a message published, a persisted record — never on a private field or an internal
@@ -125,10 +119,10 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] The test name states the scenario and the expected result ("returns 0 for an empty cart"), not the method name ("test getTotal").
 - [ ] Arrange / act / assert are visually distinct; the act step is a single call.
 - [ ] No production logic in the test body — no `if` / `for` / `switch` / arithmetic that mirrors the implementation.
-- [ ] Repeated cases are a data-driven table (`it.each`) so a failure names the case; one reason to fail per test.
+- [ ] Repeated cases are a data-driven table (`it.each`); one reason to fail per test.
 - [ ] `beforeEach` holds only setup that every test in the file needs; anything scenario-specific stays in the test.
 - [ ] No dependence on execution order or on state left by a previous test.
-- [ ] No `.only` / `fit` / `fdescribe` committed, and no `.skip` / `xit` without a tracked ticket in a comment — a silently disabled test reads as passing.
+- [ ] No `.only` / `fit` / `fdescribe` committed, and no `.skip` / `xit` without a tracked ticket in a comment.
 
 ### test-data → `references/test-data.md`
 

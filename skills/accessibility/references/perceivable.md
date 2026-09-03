@@ -1,7 +1,6 @@
 # Perceivable Content — why
 
-The rules are in the `accessibility` Ruleset (`perceivable` group). This file is the reasoning and
-the finer criteria.
+The rules are in the `accessibility` Ruleset (`perceivable` group).
 
 - **Text alternatives.** Every image that carries meaning has an `alt` that conveys it; a decorative image has `alt=""`; an icon inside an already-labeled
   control has `alt=""` or `aria-hidden="true"`. A missing `alt` reads the file name; a decorative one that is not empty adds noise (WCAG 1.1.1).

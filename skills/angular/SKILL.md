@@ -23,14 +23,12 @@ providers. It gives the Angular form of rules that `core-typescript` and `archit
 set in general terms.
 
 > **Builds on.** `core-typescript` (language rules) and `architecture-and-design` (design), plus
-> `accessibility` for UI work. The Ruleset below is complete on its own; load one of these when the
-> task turns on its layer, not by default. If a named skill is not loaded, apply that layer from
-> general knowledge and do not block.
+> `accessibility` for UI work. Load a sibling only when the task turns on its layer; if it is not
+> loaded, apply that layer from general knowledge and do not block.
 
-This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, and
-nothing here depends on a `references/` file being read. Each `references/<topic>.md` holds the
-*reasoning* and code for one Ruleset group (`references/signals.md`, `references/rxjs.md`, …), plus
-`references/worked-example.md` for a full review pass. Open them for depth when your runtime allows.
+This SKILL.md is self-sufficient: the **Ruleset** below is the complete, enforceable list. Each
+`references/<topic>.md` holds that group's reasoning and `❌ / ✅` code, and
+`references/worked-example.md` a full review pass; open them for depth when your runtime allows.
 
 ---
 
@@ -65,9 +63,6 @@ Write one finding per line:
 
 ## Ruleset
 
-The complete rule list. Read it top to bottom when generating; tick each box against a diff when
-reviewing. Each group links to its `references/` file for rationale and examples.
-
 ### bootstrap → `references/bootstrap.md`
 
 - [ ] No `NgModule` — every component, directive, and pipe is standalone; no redundant `standalone: true` where it is already the default. Each component lists
@@ -100,8 +95,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] No signal write inside `effect()` — use `computed()` or `linkedSignal()`. An `effect()` only pushes a signal value into a non-reactive API (logging,
       `localStorage`, a canvas, a widget) and releases its resource in `onCleanup`.
 - [ ] `untracked()` wraps a read that must not become a dependency.
-- [ ] No `cdr.detectChanges()` or `markForCheck()` after a signal write — the write schedules the update itself; `cdr.detectChanges()` is left only for an
-      imperative non-signal change Angular cannot observe (and that field should become a signal).
+- [ ] No `cdr.detectChanges()` or `markForCheck()` after a signal write; `cdr.detectChanges()` only for an imperative non-signal change Angular cannot
+      observe (and that field should become a signal).
 - [ ] Shared state is a `providedIn: 'root'` service exposing `signal` / `computed` members; a store library only once that service grows entities, effects, and
       derived collections (`architecture-and-design`, state-and-data).
 

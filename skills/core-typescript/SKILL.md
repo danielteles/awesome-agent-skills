@@ -24,10 +24,9 @@ extend it; `architecture-and-design` composes with it. Every rule assumes the co
 
 > **Builds on.** Nothing — this is a base skill.
 
-This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, and
-nothing here depends on a `references/` file being read. Each `references/<topic>.md` holds the
-*reasoning* and code for one Ruleset group (`references/narrowing.md`, `references/async.md`, …),
-plus `references/worked-example.md`. Open them for depth when your runtime allows.
+This SKILL.md is self-sufficient: the **Ruleset** below is the complete, enforceable list. Each
+`references/<topic>.md` holds that group's reasoning and `❌ / ✅` code, and
+`references/worked-example.md` a full review pass; open them for depth when your runtime allows.
 
 ---
 
@@ -62,9 +61,6 @@ Write one finding per line:
 
 ## Ruleset
 
-The complete rule list. Read it top to bottom when generating; tick each box against a diff when
-reviewing. Each group links to its `references/` file for rationale and examples.
-
 ### compiler-config → `references/compiler-config.md`
 
 - [ ] `strict` is on, plus `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, `noImplicitOverride`, `noFallthroughCasesInSwitch`, `noImplicitReturns`,
@@ -76,7 +72,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] No `any`: an unknown input is typed `unknown` and narrowed. No `as any`, no `as unknown as T`.
 - [ ] No `as` to force a type, and no `!`, unless the value is proven present on the line above — each such use has a guard or a comment that proves it safe.
 - [ ] No `Function`, `Object`, or `{}` as a type (`object` for a non-primitive is fine).
-- [ ] No `@ts-ignore` — `@ts-expect-error` with a comment, so it fails the build once fixed.
+- [ ] No `@ts-ignore` — `@ts-expect-error` with a comment.
 
 ### inference → `references/inference.md`
 
@@ -93,7 +89,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 ### narrowing → `references/narrowing.md`
 
 - [ ] `unknown` and unions are narrowed with a type guard (`v is T`) or an assertion function (`asserts v is T`), not a cast.
-- [ ] Every `switch` on a union ends with an `assertNever` default, so a new member fails to compile.
+- [ ] Every `switch` on a union ends with an `assertNever` default.
 
 ### generics → `references/generics.md`
 

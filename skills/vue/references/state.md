@@ -1,7 +1,6 @@
 # Vue — State and Pinia in the Tiers: why
 
-The rules are in the `vue` Ruleset (`state` group). This file is the reasoning and a `❌ / ✅`
-example — it adds no rule the Ruleset does not state.
+The rules are in the `vue` Ruleset (`state` group).
 
 The tiers, cheapest first (`architecture-and-design`, state-and-data):
 

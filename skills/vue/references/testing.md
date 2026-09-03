@@ -1,7 +1,6 @@
 # Vue — Testing by Role: why
 
-The rules are in the `vue` Ruleset (`testing` group). This file is the reasoning and a `❌ / ✅`
-example — it adds no rule the Ruleset does not state.
+The rules are in the `vue` Ruleset (`testing` group).
 
 - **Query the way a user perceives.** `@testing-library/vue` (or `mount`, never `shallowMount`)
   plus `getByRole('button', { name: 'Save' })` asserts on the accessible UI. A selector on

@@ -1,7 +1,6 @@
 # Frontend Best Practices — why, and examples
 
-The rules are in the `architecture-and-design` Ruleset (`frontend-practices` group). This file is
-the reasoning and examples.
+The rules are in the `architecture-and-design` Ruleset (`frontend-practices` group).
 
 - **Computation out of the template.** Filters, maps, and chains in the render body rerun on every render and hide intent. Compute a named value first. Angular:
   a field or a pure pipe. Vue: a `computed`.

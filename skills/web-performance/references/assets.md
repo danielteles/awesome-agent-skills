@@ -1,7 +1,6 @@
 # Image and Font Loading — why
 
-The rules are in the `web-performance` Ruleset (`assets` group). This file is the reasoning and a
-`❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `web-performance` Ruleset (`assets` group).
 
 - **Serve the image the device needs.** A 2000px JPEG scaled to a 375px column wastes most of its
   bytes and delays LCP. `srcset` + `sizes` lets the browser pick; AVIF or WebP cuts 30–50% over

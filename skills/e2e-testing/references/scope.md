@@ -1,7 +1,6 @@
 # What Belongs in an E2E Suite — why
 
-The rules are in the `e2e-testing` Ruleset (`scope` group). This file is the reasoning and a
-`❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `e2e-testing` Ruleset (`scope` group).
 
 - **E2E is the top of the pyramid — keep it thin.** Each test drives a real browser through the
   real stack: it is slow, resource-heavy, and the most flake-prone layer. Reserve it for journeys

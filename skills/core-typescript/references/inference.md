@@ -1,7 +1,6 @@
 # Let Inference Work; Use `satisfies` — why, and an example
 
-The rules are in the `core-typescript` Ruleset (`inference` group). This file is the reasoning and
-an example.
+The rules are in the `core-typescript` Ruleset (`inference` group).
 
 - **Do not re-annotate what the compiler already infers exactly.** A repeated annotation is noise, and a wider annotation than the inferred type throws away
   precision (`Record<string, string>` on a literal loses the exact keys and values). The exception is an exported API boundary, where the annotation is the

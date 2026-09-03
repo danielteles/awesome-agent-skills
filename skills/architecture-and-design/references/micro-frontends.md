@@ -1,7 +1,6 @@
 # Micro-Frontends — why, and the contract
 
-The rules are in the `architecture-and-design` Ruleset (`micro-frontends` group). This file is the
-reasoning.
+The rules are in the `architecture-and-design` Ruleset (`micro-frontends` group).
 
 A micro-frontend splits one app into pieces that are built and deployed on their own, one per team.
 It is the frontend form of service decomposition, and it trades build simplicity for team autonomy.

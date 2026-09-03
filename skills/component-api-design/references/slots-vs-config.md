@@ -1,7 +1,6 @@
 # Slots vs Configuration Props — why
 
-The rules are in the `component-api-design` Ruleset (`slots-vs-config` group). This file is the
-reasoning and a `❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `component-api-design` Ruleset (`slots-vs-config` group).
 
 - **Config props do not scale to structure.** Every new layout need adds a prop —
   `showFooter`, `headerActions`, `leftIcon`, `rightAddon`, `renderTitle` — and the component's

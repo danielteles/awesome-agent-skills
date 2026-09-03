@@ -1,6 +1,6 @@
 # Testing — why
 
-The rules are in the `accessibility` Ruleset (`testing` group). This file is the reasoning.
+The rules are in the `accessibility` Ruleset (`testing` group).
 
 - **Automated checks in CI** — `axe-core` (Playwright or Jest integration), `eslint-plugin-jsx-a11y` for React, the `angular-eslint` template accessibility
   rules for Angular, `eslint-plugin-vuejs-accessibility` for Vue. They are cheap and catch roughly a third of issues before review, but no more than a third.

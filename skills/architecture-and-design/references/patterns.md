@@ -1,7 +1,6 @@
 # Design Patterns for Frontend Engineering — why, and examples
 
-The rules are in the `architecture-and-design` Ruleset (`patterns` group). This file is the
-reasoning and examples.
+The rules are in the `architecture-and-design` Ruleset (`patterns` group).
 
 | Pattern | Use it to | Shape |
 |---|---|---|

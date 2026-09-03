@@ -1,6 +1,6 @@
 # RxJS and Async — why, and an example
 
-The rules are in the `angular` Ruleset (`rxjs` group). This file is the reasoning and an example.
+The rules are in the `angular` Ruleset (`rxjs` group).
 
 - **Signal for state, Observable for a stream over time** — HTTP, router events, WebSocket, DOM events. Convert the stream to a signal at the edge with
   `toSignal()` and render the signal, so the component holds a value, not a subscription.

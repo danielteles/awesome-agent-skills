@@ -48,12 +48,10 @@ terms, and the language or framework the examples use.>
      "> **Builds on.** Nothing — this is a base skill."
      and drops the conflict and fallback sentences. -->
 
-This SKILL.md is self-sufficient — the **Ruleset** below is the complete,
-enforceable list, and nothing here depends on a `references/` file being read.
-Each `references/<topic>.md` holds the *reasoning* and `❌ / ✅` code for one
-Ruleset group (`references/<topic-a>.md`, `references/<topic-b>.md`, …), plus
-`references/worked-example.md` for a full review pass. Open them for depth when
-your runtime allows.
+This SKILL.md is self-sufficient: the **Ruleset** below is the complete,
+enforceable list. Each `references/<topic>.md` holds that group's reasoning and
+`❌ / ✅` code, and `references/worked-example.md` a full review pass; open them
+for depth when your runtime allows.
 
 ---
 
@@ -100,10 +98,6 @@ Write one finding per line:
 ---
 
 ## Ruleset
-
-The complete rule list. Read it top to bottom when generating; tick each box
-against a diff when reviewing. Each group links to its `references/` file for
-rationale and examples.
 
 ### <topic-a> → `references/<topic-a>.md`
 

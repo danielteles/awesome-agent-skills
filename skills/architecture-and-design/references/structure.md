@@ -1,7 +1,6 @@
 # Structural Organization and Boundaries — why, and examples
 
-The rules are in the `architecture-and-design` Ruleset (`structure` group). This file is the
-reasoning and examples.
+The rules are in the `architecture-and-design` Ruleset (`structure` group).
 
 ## Feature-first layout
 

@@ -1,7 +1,6 @@
 # React — Components and Purity: why, and examples
 
-The rules are in the `react` Ruleset (`purity` group). This file is the reasoning and a code
-example; if it ever disagrees with the Ruleset, the Ruleset wins.
+The rules are in the `react` Ruleset (`purity` group).
 
 ## Why render must be pure
 

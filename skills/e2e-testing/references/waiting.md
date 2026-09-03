@@ -1,7 +1,6 @@
 # Waiting and Assertions — why
 
-The rules are in the `e2e-testing` Ruleset (`waiting` group). This file is the reasoning and a
-`❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `e2e-testing` Ruleset (`waiting` group).
 
 - **Fixed waits are the number one flake source.** `waitForTimeout(1000)` is too long on a fast
   run (wastes minutes across a suite) and too short on a slow CI machine (fails intermittently).

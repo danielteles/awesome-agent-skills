@@ -1,7 +1,6 @@
 # Right-to-Left and Bidirectional Text — why
 
-The rules are in the `i18n-and-localization` Ruleset (`rtl-bidi` group). This file is the reasoning
-and a `❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `i18n-and-localization` Ruleset (`rtl-bidi` group).
 
 - **RTL is a layout flip, not a text tweak.** Arabic, Hebrew, Persian, and Urdu read right-to-left:
   the whole UI mirrors — navigation, icons, progress, the side a drawer slides from. Setting `dir`

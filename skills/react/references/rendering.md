@@ -1,6 +1,6 @@
 # React — Performance and Rendering: why, and an example
 
-The rules are in the `react` Ruleset (`rendering` group). This file is the reasoning and an example.
+The rules are in the `react` Ruleset (`rendering` group).
 
 - **React Compiler first.** It memoizes automatically and more completely than hand code, and it does not drift when the surrounding code changes. Where it is
   on, `memo` / `useMemo` / `useCallback` for referential identity alone are noise.

@@ -1,7 +1,6 @@
 # Fluid Type and Spacing — why
 
-The rules are in the `styling-and-design-tokens` Ruleset (`fluid-type` group). This file is the
-reasoning and a `❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `styling-and-design-tokens` Ruleset (`fluid-type` group).
 
 - **`clamp()` over stepped breakpoints.** Setting `font-size` at three breakpoints gives three jumps
   and three rules to maintain. `clamp(min, preferred, max)` scales smoothly between a floor and a

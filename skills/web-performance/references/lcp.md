@@ -1,7 +1,6 @@
 # Largest Contentful Paint — why
 
-The rules are in the `web-performance` Ruleset (`lcp` group). This file is the reasoning and a
-`❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `web-performance` Ruleset (`lcp` group).
 
 - **The LCP element must be in the HTML.** If the hero image or headline is rendered by client
   JavaScript, LCP cannot happen until the bundle downloads, parses, and executes — often seconds on

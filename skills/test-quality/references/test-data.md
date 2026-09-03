@@ -1,6 +1,6 @@
 # Test Quality — Test Data: why, and examples
 
-The rules are in the `test-quality` Ruleset (`test-data` group). This file is the reasoning and code.
+The rules are in the `test-quality` Ruleset (`test-data` group).
 
 ## Builders over literals and shared fixtures
 

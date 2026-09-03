@@ -1,6 +1,6 @@
 # Test Quality — Determinism: why, and examples
 
-The rules are in the `test-quality` Ruleset (`determinism` group). This file is the reasoning and code.
+The rules are in the `test-quality` Ruleset (`determinism` group).
 
 ## Why
 

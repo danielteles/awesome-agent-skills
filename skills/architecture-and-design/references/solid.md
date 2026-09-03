@@ -1,7 +1,6 @@
 # Applied SOLID — why, and examples
 
-The rules are in the `architecture-and-design` Ruleset (`solid` group). This file is the reasoning
-and one example per principle; if it disagrees with the Ruleset, the Ruleset wins.
+The rules are in the `architecture-and-design` Ruleset (`solid` group).
 
 | Principle | Apply it by | Why |
 |---|---|---|

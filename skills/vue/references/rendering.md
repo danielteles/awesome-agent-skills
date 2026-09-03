@@ -1,7 +1,6 @@
 # Vue — Rendering and Async: why
 
-The rules are in the `vue` Ruleset (`rendering` group). This file is the reasoning and a `❌ / ✅`
-example — it adds no rule the Ruleset does not state.
+The rules are in the `vue` Ruleset (`rendering` group).
 
 - **Top-level `await` needs `<Suspense>`.** A component whose `setup` awaits data does not render
   until the promise resolves; without a `<Suspense>` ancestor there is no fallback and no defined

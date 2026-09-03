@@ -23,18 +23,16 @@ layout and type respond to space and user preference. Framework-neutral — the 
 CSS, CSS Modules, a utility system, or CSS-in-JS; examples are CSS with a little TSX for where styles
 attach.
 
-> **Builds on.** `architecture-and-design` (where the design system sits, the feature boundary) and
-> `accessibility` (the perceptual thresholds — contrast, motion, reflow, forced colors), plus
-> `react`, `angular`, or `vue` for how styles attach to a component. On a conflict, `accessibility` decides
-> the requirement and this skill decides the CSS that meets it. The Ruleset below is complete on its
-> own; load a named skill only when the task turns on its layer, not by default. If a named sibling
-> skill is not loaded, apply that layer from general knowledge and do not block.
+> **Builds on.** `architecture-and-design` (where the design system sits, the feature boundary)
+> and `accessibility` (the perceptual thresholds — contrast, motion, reflow, forced colors), plus
+> `react`, `angular`, or `vue` for how styles attach to a component. On a conflict,
+> `accessibility` decides the requirement and this skill decides the CSS that meets it. Load a
+> sibling only when the task turns on its layer; if it is not loaded, apply that layer from
+> general knowledge and do not block.
 
-This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, and
-nothing here depends on a `references/` file being read. Each `references/<topic>.md` holds the
-*reasoning* and `❌ / ✅` code for one Ruleset group (`references/tokens.md`, `references/theming.md`,
-…), plus `references/worked-example.md` for a full review pass. Open them for depth when your runtime
-allows.
+This SKILL.md is self-sufficient: the **Ruleset** below is the complete, enforceable list. Each
+`references/<topic>.md` holds that group's reasoning and `❌ / ✅` code, and
+`references/worked-example.md` a full review pass; open them for depth when your runtime allows.
 
 ---
 
@@ -70,9 +68,6 @@ Write one finding per line:
 
 ## Ruleset
 
-The complete rule list. Read it top to bottom when generating; tick each box against a diff when
-reviewing. Each group links to its `references/` file for rationale and examples.
-
 ### architecture → `references/architecture.md`
 
 - [ ] Every declaration sits in a cascade layer; the layer order is declared once, up front (`@layer reset, base, tokens, components, utilities;`). Unlayered
@@ -100,11 +95,11 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 - [ ] A theme (dark mode, brand, density) changes only token values, redefined on a scope (`:root`, `[data-theme="dark"]`,
       `@media (prefers-color-scheme: dark)`); component rules never branch on the theme.
-- [ ] `color-scheme` is declared so native controls, scrollbars, and the canvas follow the theme.
+- [ ] `color-scheme` is declared on every theme scope.
 - [ ] Both an automatic path (`prefers-color-scheme`) and a persisted user override (an attribute on `<html>`) exist, and the override wins in both directions.
 - [ ] Where the theme axis is only light / dark, each token is one `light-dark()` declaration under `color-scheme: light dark`, and the user override sets
       `color-scheme` on the root scope instead of redefining tokens.
-- [ ] The active theme is applied before first paint — an inline script or an SSR attribute — so there is no theme flash.
+- [ ] The active theme is applied before first paint — an inline script or an SSR attribute.
 - [ ] Forced-colors mode is handled: no meaning carried only by `background-image`, `forced-color-adjust` used deliberately, checked under
       `@media (forced-colors: active)` (thresholds: `accessibility`, perceivable).
 - [ ] Every foreground/background token pair meets the contrast `accessibility` requires, in every theme.
@@ -115,13 +110,13 @@ reviewing. Each group links to its `references/` file for rationale and examples
       three.
 - [ ] Styling carries zero or build-time runtime cost: no per-render style recalculation, and no runtime CSS-in-JS in a Server Component or a long list.
 - [ ] Utilities and arbitrary values express tokens (`p-4`, not `p-[13px]`); an arbitrary value is a missing token.
-- [ ] Unused CSS is eliminated at build (module scoping, utility JIT, or coverage) — the global surface does not grow unbounded.
+- [ ] Unused CSS is eliminated at build (module scoping, utility JIT, or coverage).
 - [ ] A one-off style is a local scoped rule or a token-backed utility, not an inline `style` attribute with a literal value.
 
 ### responsive-layout → `references/responsive-layout.md`
 
-- [ ] Layout is intrinsic — flex/grid with wrapping, `minmax()`, `auto-fit`/`auto-fill`, and `min()`/`max()`/`clamp()` sizing — so content decides the
-      breakpoint, not a device width.
+- [ ] Layout is intrinsic — flex/grid with wrapping, `minmax()`, `auto-fit`/`auto-fill`, and `min()`/`max()`/`clamp()` sizing — not device-width
+      breakpoints.
 - [ ] No fixed `px` width or height on a content container; use `max-width` in `rem`/`ch` with `width: 100%`.
 - [ ] Space between siblings is `gap`, not margins on the children.
 - [ ] Flow-relative logical properties (`margin-inline`, `padding-block`, `inset`, `border-start-start-radius`) instead of physical
@@ -133,18 +128,18 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 - [ ] A component that appears in more than one column width adapts via `@container`, not `@media`.
 - [ ] The wrapper sets `container-type` (usually `inline-size`), and `container-name` when containers nest.
-- [ ] `@container` rules name the container they query, so an unrelated ancestor gaining `container-type` cannot change the outcome.
+- [ ] `@container` rules name the container they query.
 - [ ] Values that should scale with the container use container units (`cqi`, `cqw`), not viewport units (`vw`).
 - [ ] Before adding `container-type`, its containment side effects (layout, and `size` containment needing an explicit height) are checked.
 
 ### fluid-type → `references/fluid-type.md`
 
 - [ ] Font sizes and the major spacing steps use `clamp()` from a documented scale, not a fixed `px` value re-set at each breakpoint.
-- [ ] Font sizes are `rem` (spacing may be `rem` or `em`); no `px` font size — it overrides the user's browser setting.
+- [ ] Font sizes are `rem` (spacing may be `rem` or `em`); no `px` font size.
 - [ ] `line-height` is unitless.
 - [ ] Body text is at least `1rem`, the `clamp()` minimum never resolves below ~16px, and line length is capped near `66ch` via `max-width` in `ch`.
-- [ ] The `clamp()` expression includes a `rem` term (not only `vw`) so the text still scales at 200% zoom (reflow: `accessibility`, perceivable).
-- [ ] Query breakpoints are in `em`/`rem` so layout and type respond to the user's font size.
+- [ ] The `clamp()` expression includes a `rem` term, not only `vw` (reflow: `accessibility`, perceivable).
+- [ ] Query breakpoints are in `em`/`rem`, not `px`.
 
 ---
 

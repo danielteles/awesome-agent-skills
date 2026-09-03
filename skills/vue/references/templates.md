@@ -1,7 +1,6 @@
 # Vue — Templates and Keyed Lists: why
 
-The rules are in the `vue` Ruleset (`templates` group). This file is the reasoning and a `❌ / ✅`
-example — it adds no rule the Ruleset does not state.
+The rules are in the `vue` Ruleset (`templates` group).
 
 - **Key on a stable id.** Vue uses `:key` to match old and new nodes. An array-index key means that
   when the list reorders or an item is removed, Vue keeps the wrong DOM node and its state — a

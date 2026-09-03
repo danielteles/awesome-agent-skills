@@ -1,7 +1,6 @@
 # The Message Catalog Lifecycle — why
 
-The rules are in the `i18n-and-localization` Ruleset (`catalog` group). This file is the reasoning
-and a `❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `i18n-and-localization` Ruleset (`catalog` group).
 
 - **A missing translation must degrade, not break.** A key rendered raw (`checkout.payButton`) or
   an empty string in the UI is worse than English text a user can still act on. Fall back down a

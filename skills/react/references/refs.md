@@ -1,6 +1,6 @@
 # React — Refs: why, and an example
 
-The rules are in the `react` Ruleset (`refs` group). This file is the reasoning and an example.
+The rules are in the `react` Ruleset (`refs` group).
 
 - **What a ref is for.** A value that must survive renders but must not trigger one: a DOM node, a timer id, the previous value of something. Writing
   `ref.current` does not re-render — that is the point, and also why a rendered value must not live in a ref.

@@ -1,7 +1,6 @@
 # Vue — Composables: why
 
-The rules are in the `vue` Ruleset (`composables` group). This file is the reasoning and a `❌ / ✅`
-example — it adds no rule the Ruleset does not state.
+The rules are in the `vue` Ruleset (`composables` group).
 
 - **Composables replace mixins.** A `useX()` function composes explicitly — you see what it returns
   and what it needs — where a mixin merges names into the component silently and two mixins can

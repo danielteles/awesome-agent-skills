@@ -1,7 +1,6 @@
 # CSS Architecture — why
 
-The rules are in the `styling-and-design-tokens` Ruleset (`architecture` group). This file is the
-reasoning and `❌ / ✅` examples — it adds no rule the Ruleset does not state.
+The rules are in the `styling-and-design-tokens` Ruleset (`architecture` group).
 
 - **Cascade layers.** `@layer` makes the winning rule a function of *layer order*, not selector
   specificity or source order. Declaring the order once at the top means a later, more specific

@@ -1,7 +1,6 @@
 # Dependency Injection — why, and an example
 
-The rules are in the `angular` Ruleset (`dependency-injection` group). This file is the reasoning
-and an example.
+The rules are in the `angular` Ruleset (`dependency-injection` group).
 
 - **`@Injectable({ providedIn: 'root' })`** — a tree-shakable singleton with no provider array. Provide a narrower scope only when the instance must be
   per-route or per-component.

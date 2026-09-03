@@ -26,17 +26,14 @@ examples use ICU MessageFormat and the `Intl` API.
 > **Builds on.** `react` / `angular` / `vue` for the i18n library that implements these rules
 > (FormatJS, @angular/localize, vue-i18n), `accessibility` for the lang and dir semantics and
 > screen-reader language switching, and `styling-and-design-tokens` for the logical CSS properties
-> that make a layout work in RTL. On a conflict, this skill sets the i18n requirement, the framework
-> skill picks the API, `accessibility` owns the lang semantics, and `styling-and-design-tokens` owns
-> the CSS mechanism. The Ruleset below is complete on its own; load
-> a named skill only when the task turns on its layer, not by default. If a named sibling skill is
-> not loaded, apply that layer from general knowledge and do not block.
+> that make a layout work in RTL. On a conflict, this skill sets the i18n requirement, the
+> framework skill picks the API, `accessibility` owns the lang semantics, and
+> `styling-and-design-tokens` owns the CSS mechanism. Load a sibling only when the task turns on
+> its layer; if it is not loaded, apply that layer from general knowledge and do not block.
 
-This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, and
-nothing here depends on a `references/` file being read. Each `references/<topic>.md` holds the
-*reasoning* and `❌ / ✅` code for one Ruleset group (`references/messages.md`,
-`references/formatting.md`, …), plus `references/worked-example.md` for a full review pass. Open them
-for depth when your runtime allows.
+This SKILL.md is self-sufficient: the **Ruleset** below is the complete, enforceable list. Each
+`references/<topic>.md` holds that group's reasoning and `❌ / ✅` code, and
+`references/worked-example.md` a full review pass; open them for depth when your runtime allows.
 
 ---
 
@@ -72,15 +69,12 @@ Write one finding per line:
 
 ## Ruleset
 
-The complete rule list. Read it top to bottom when generating; tick each box against a diff when
-reviewing. Each group links to its `references/` file for rationale and examples.
-
 ### messages → `references/messages.md`
 
 - [ ] Every user-facing string is an externalized message, not a literal in the component or a hardcoded attribute.
 - [ ] A message is one complete sentence or phrase with named ICU placeholders (`{name}`, `{count}`) — never assembled from concatenated or interpolated
       sub-strings.
-- [ ] Messages are keyed by meaning or location (`checkout.payButton`), not by their English text, so fixing a typo does not orphan every translation.
+- [ ] Messages are keyed by meaning or location (`checkout.payButton`), not by their English text.
 - [ ] Each message ships a description / context note for translators, and a screenshot or usage where the tool supports it.
 - [ ] Inline formatting (bold, a link) inside a message uses ICU rich-text tags or the library's component interpolation, not HTML strings spliced together.
 - [ ] Strings are extracted by a tool from the source of truth; there is no separate hand-maintained list that drifts.
@@ -91,8 +85,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
       `count === 1 ? 'item' : 'items'`.
 - [ ] Ordinals ("1st", "2nd") use `selectordinal`, not a suffix table.
 - [ ] Text that varies by gender or another enum uses ICU `select` with an `other` branch, not string branching in code.
-- [ ] The number that drives the plural is passed as an argument to the message, so the translator controls the whole sentence around it (`#` inside the
-      message).
+- [ ] The number that drives the plural is passed as a message argument and rendered with `#` inside the message.
 - [ ] An `=0` / `=1` exact match is used only for a genuinely special sentence, with the category branches still present.
 
 ### formatting → `references/formatting.md`
@@ -103,12 +96,11 @@ reviewing. Each group links to its `references/` file for rationale and examples
       not a float.
 - [ ] Relative time ("in 3 days") uses `Intl.RelativeTimeFormat`; lists ("A, B, and C") use `Intl.ListFormat` — not a hand-joined string with a hardcoded
       conjunction.
-- [ ] `toLocaleString()` / `toLocaleDateString()` are never called without an explicit locale argument (they use the runtime's, which on a server is arbitrary).
+- [ ] `toLocaleString()` / `toLocaleDateString()` are never called without an explicit locale argument.
 - [ ] Server-rendered formatted values are produced with the request's locale and time zone, not the server's, and match what the client would render (no
       hydration mismatch).
 - [ ] Collation-sensitive sorting of user-visible lists uses `Intl.Collator`, not the default code-unit sort.
-- [ ] String length, truncation, and character counts use `Intl.Segmenter` (grapheme clusters), never `.length` / `slice`, which split surrogate pairs and
-      combining marks.
+- [ ] String length, truncation, and character counts use `Intl.Segmenter` (grapheme clusters), never `.length` / `slice`.
 - [ ] Language, region, and currency names shown to the user (a locale switcher) come from `Intl.DisplayNames`, not a hand-written map.
 
 ### rtl-bidi → `references/rtl-bidi.md`
@@ -116,16 +108,14 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] `dir` is set (on `<html>`, from the locale) and flips to `rtl` for RTL locales; the app is verified in at least one RTL locale.
 - [ ] Layout uses flow-relative logical properties and values (`margin-inline`, `inset-inline-start`, `text-align: start`) — no physical `left` / `right` in
       directional layout (mechanism: `styling-and-design-tokens`).
-- [ ] A value interpolated into a sentence (a name, an ID, a file path) is bidi-isolated — `<bdi>`, the library's isolate, or Unicode isolate characters — so a
-      Hebrew name in an English sentence does not scramble punctuation.
+- [ ] A value interpolated into a sentence (a name, an ID, a file path) is bidi-isolated — `<bdi>`, the library's isolate, or Unicode isolate characters.
 - [ ] User-generated content of unknown direction is rendered with `dir="auto"`.
 - [ ] Directional icons (back / forward arrows, send, undo) are mirrored in RTL; a logo or a play button is not.
 - [ ] No layout math assumes LTR (e.g. computing an offset from the left edge, or `text-align: left` for "start").
 
 ### locale-routing → `references/locale-routing.md`
 
-- [ ] The active locale is in the URL — a path segment (`/de/…`) or a subdomain — so a page is linkable, cacheable, and crawlable per locale; a cookie alone is
-      not enough.
+- [ ] The active locale is in the URL — a path segment (`/de/…`) or a subdomain; a cookie alone is not enough.
 - [ ] First-visit locale is negotiated from `Accept-Language` against the supported set, with a defined default fallback; the user's explicit choice is then
       persisted and wins.
 - [ ] Each localized page has `hreflang` alternates (including `x-default`) and a self-referential canonical.
