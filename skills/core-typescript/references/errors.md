@@ -1,7 +1,6 @@
 # Errors are `unknown` — why, and examples
 
-The rules are in the `core-typescript` Ruleset (`errors` group). This file is the reasoning and
-examples.
+The rules are in the `core-typescript` Ruleset (`errors` group).
 
 - **A `catch` binding is `unknown`** (from `useUnknownInCatchVariables`). `.message` does not type-check on `unknown` and may not exist at runtime — a thrown
   non-`Error` has no such field. Narrow first: `error instanceof Error ? error.message : String(error)`.

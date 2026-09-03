@@ -126,7 +126,7 @@ One `references/<topic>.md` per Ruleset group, named for the group's slug. A
 reference file:
 
 - opens with `# <Group> — why` and the line "The rules are in the `<skill>`
-  Ruleset (`<topic>` group). This file is the reasoning…";
+  Ruleset (`<topic>` group).";
 - carries no rule the Ruleset does not already state — only the *why* and the
   `❌ / ✅` code that makes each rule concrete;
 - has at least one `❌ / ✅` pair (prose-only is acceptable only for a group that

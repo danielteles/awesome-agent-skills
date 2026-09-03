@@ -1,7 +1,6 @@
 # State Management and Data Fetching — why, and examples
 
-The rules are in the `architecture-and-design` Ruleset (`state-and-data` group). This file is the
-reasoning and examples. Most state bugs come from too much state in the wrong place.
+The rules are in the `architecture-and-design` Ruleset (`state-and-data` group). Most state bugs come from too much state in the wrong place.
 
 - **Colocate.** State held higher than its readers re-renders the whole subtree between and couples unrelated parts. Lift only when a second component needs the
   same value.

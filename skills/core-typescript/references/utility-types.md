@@ -1,7 +1,6 @@
 # Utility and Type-Level Tools — why, and examples
 
-The rules are in the `core-typescript` Ruleset (`utility-types` group). This file is the reasoning
-and examples. Derive a related type; do not hand-copy a shape — a copy drifts the moment the
+The rules are in the `core-typescript` Ruleset (`utility-types` group). Derive a related type; do not hand-copy a shape — a copy drifts the moment the
 original changes.
 
 | Need | Tool |

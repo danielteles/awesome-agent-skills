@@ -1,7 +1,6 @@
 # ICU Messages — why
 
-The rules are in the `i18n-and-localization` Ruleset (`messages` group). This file is the reasoning
-and a `❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `i18n-and-localization` Ruleset (`messages` group).
 
 - **Concatenation destroys grammar.** `"You have " + n + " new " + noun` assumes English word order,
   no gendered article, no case inflection, and that the count sits where English puts it. A single

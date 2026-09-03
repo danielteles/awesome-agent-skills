@@ -1,7 +1,6 @@
 # Versioning a Shared Component — why
 
-The rules are in the `component-api-design` Ruleset (`versioning` group). This file is the reasoning
-and a `❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `component-api-design` Ruleset (`versioning` group).
 
 - **The API is bigger than the props type.** Consumers depend on the prop names, the default
   values, the rendered DOM structure, and the class or slot names they style and query against. Any

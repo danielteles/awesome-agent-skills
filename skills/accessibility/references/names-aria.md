@@ -1,7 +1,6 @@
 # Accessible Names, Roles, and ARIA — why
 
-The rules are in the `accessibility` Ruleset (`names-aria` group). This file is the reasoning and
-the finer criteria.
+The rules are in the `accessibility` Ruleset (`names-aria` group).
 
 - **Every interactive element has an accessible name** — visible text, `aria-label`, or `aria-labelledby`. Without one, an icon-only button is announced as just
   "button" (WCAG 4.1.2). When the visible label is text, the accessible name must *contain* that text, because voice-control users speak the visible word (WCAG

@@ -1,6 +1,6 @@
 # Change Detection, Rendering, and SSR — why
 
-The rules are in the `angular` Ruleset (`rendering-ssr` group). This file is the reasoning.
+The rules are in the `angular` Ruleset (`rendering-ssr` group).
 
 - **Zoneless-ready code never depends on a side effect to trigger change detection** — drive the view from signals or the `async` pipe. Signal-driven code works
   with Zone.js and without it.

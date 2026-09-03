@@ -61,6 +61,9 @@ move independently; this file tracks the repository as a whole.
   not loaded.
 - CONTRIBUTING sharpens `must-fix` / `consider` (behavior versus shape) and names
   the concerns the set leaves out on purpose.
+- Token pass: the self-sufficiency paragraph, the Ruleset intro, and the Builds-on
+  fallback sentence are one compact form in every skill; rationale clauses leave
+  Ruleset lines; the reference marker is one sentence; two oversized examples cut.
 - README reworked for discoverability — tagline, badges, quick start, a
   "which skills for which task" matrix — with the Skills table and structure
   tree generated from frontmatter.

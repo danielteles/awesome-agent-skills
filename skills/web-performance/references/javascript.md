@@ -1,7 +1,6 @@
 # JavaScript Cost and Code Splitting — why
 
-The rules are in the `web-performance` Ruleset (`javascript` group). This file is the reasoning and
-a `❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `web-performance` Ruleset (`javascript` group).
 
 - **JavaScript is the most expensive byte.** A KB of JS costs more than a KB of image: it downloads,
   parses, compiles, and executes, all on the main thread, all before the page is interactive. The

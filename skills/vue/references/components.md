@@ -1,7 +1,6 @@
 # Vue — Components and `<script setup>`: why
 
-The rules are in the `vue` Ruleset (`components` group). This file is the reasoning and a `❌ / ✅`
-example — it adds no rule the Ruleset does not state.
+The rules are in the `vue` Ruleset (`components` group).
 
 - **`<script setup>` is the modern SFC.** It is less boilerplate than `defineComponent` with an
   `options` object, gives better type inference for props and emits, and compiles to a more

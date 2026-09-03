@@ -1,7 +1,6 @@
 # Vue — The Nuxt / SSR Boundary: why
 
-The rules are in the `vue` Ruleset (`server` group). This file is the reasoning and a `❌ / ✅`
-example — it adds no rule the Ruleset does not state.
+The rules are in the `vue` Ruleset (`server` group).
 
 - **`setup` runs on the server.** Reading `window`, `document`, or `localStorage` at the top level
   of `<script setup>` throws during SSR or during the server render pass of hydration. Put that code

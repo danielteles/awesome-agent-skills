@@ -1,7 +1,6 @@
 # Keyboard and Focus — why
 
-The rules are in the `accessibility` Ruleset (`keyboard-focus` group). This file is the reasoning
-and the finer criteria.
+The rules are in the `accessibility` Ruleset (`keyboard-focus` group).
 
 - **Everything works by keyboard alone, and no step traps focus.** Many users never use a pointer (WCAG 2.1.1, 2.1.2).
 - **Tab order follows reading order.** No positive `tabindex` — it fights the DOM and drifts out of sync; `tabindex="0"` adds an element to the order,

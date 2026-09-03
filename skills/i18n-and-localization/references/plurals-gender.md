@@ -1,7 +1,6 @@
 # Plural Rules and Selection — why
 
-The rules are in the `i18n-and-localization` Ruleset (`plurals-gender` group). This file is the
-reasoning and a `❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `i18n-and-localization` Ruleset (`plurals-gender` group).
 
 - **English has two plural forms; many languages have more.** Arabic has six (`zero`, `one`, `two`,
   `few`, `many`, `other`); Polish and Russian have four; Japanese has one. `count === 1 ? x : y`

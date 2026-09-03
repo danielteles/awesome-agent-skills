@@ -1,6 +1,6 @@
 # React — State: why, and examples
 
-The rules are in the `react` Ruleset (`state` group). This file is the reasoning and an example.
+The rules are in the `react` Ruleset (`state` group).
 
 - **Colocate.** State held higher than its readers re-renders everything in between on every change and couples unrelated parts of the tree. Lift only when a
   second component genuinely needs the same value.

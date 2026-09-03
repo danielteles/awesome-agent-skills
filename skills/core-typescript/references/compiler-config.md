@@ -1,7 +1,6 @@
 # Compiler Configuration — why, and the block
 
-The rules are in the `core-typescript` Ruleset (`compiler-config` group). This file is the reasoning
-and the config. Type safety starts in `tsconfig.json` — a loose configuration makes every later rule
+The rules are in the `core-typescript` Ruleset (`compiler-config` group). Type safety starts in `tsconfig.json` — a loose configuration makes every later rule
 optional.
 
 ```jsonc

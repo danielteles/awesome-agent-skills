@@ -1,7 +1,6 @@
 # Domain Modeling with DDD Tactical Patterns — why, and an example
 
-The rules are in the `architecture-and-design` Ruleset (`ddd` group). This file is the reasoning
-and an example. These patterns name the parts of the domain core (`clean-architecture`). Use the
+The rules are in the `architecture-and-design` Ruleset (`ddd` group). These patterns name the parts of the domain core (`clean-architecture`). Use the
 words the domain experts use.
 
 | Pattern | What it is | In this codebase |

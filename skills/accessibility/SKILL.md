@@ -23,15 +23,12 @@ The target is **WCAG 2.2, conformance level AA** — the technical bar behind EN
 Section 508, and the European Accessibility Act.
 
 > **Builds on.** `architecture-and-design`, and `react`, `angular`, or `vue` for the framework
-> mechanism behind each rule. The Ruleset below is complete on its own; load these when you need the design
-> rationale or the framework API, not by default. If a named skill is not loaded, apply that layer
-> from general knowledge and do not block.
+> mechanism behind each rule. Load a sibling only when the task turns on its layer; if it is not
+> loaded, apply that layer from general knowledge and do not block.
 
-This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, with the
-key WCAG criteria inline, and nothing here depends on a `references/` file being read. Each
-`references/<topic>.md` holds the *reasoning*, the finer criteria, and code for one Ruleset group
-(`references/keyboard-focus.md`, `references/forms.md`, …), plus `references/worked-example.md`.
-Open them for depth when your runtime allows.
+This SKILL.md is self-sufficient: the **Ruleset** below is the complete, enforceable list. Each
+`references/<topic>.md` holds that group's reasoning and `❌ / ✅` code, and
+`references/worked-example.md` a full review pass; open them for depth when your runtime allows.
 
 WCAG is organized by four principles — **POUR**:
 
@@ -80,10 +77,6 @@ Write one finding per line:
 ---
 
 ## Ruleset
-
-The complete rule list. Read it top to bottom when generating; tick each box against a diff when
-reviewing. Each group links to its `references/` file for rationale, the finer WCAG criteria, and
-code.
 
 ### structure → `references/structure.md`
 

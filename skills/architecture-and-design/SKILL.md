@@ -25,16 +25,13 @@ framework. Code examples use React/TSX for one concrete syntax; each principle h
 an Angular template or a Vue SFC.
 
 > **Builds on.** `core-typescript` (language syntax). On a shared topic this skill decides the
-> design and `core-typescript` decides the syntax. `react`, `angular`, or `vue` gives the framework
-> form and `accessibility` the UI lens. The Ruleset below is complete on its own; load a companion
-> skill when the task turns on its layer, not by default. If a named skill is not loaded, apply that
-> layer from general knowledge and do not block.
+> design and `core-typescript` decides the syntax. `react`, `angular`, or `vue` gives the
+> framework form and `accessibility` the UI lens. Load a sibling only when the task turns on its
+> layer; if it is not loaded, apply that layer from general knowledge and do not block.
 
-This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, and
-nothing here depends on a `references/` file being read. Each `references/<topic>.md` holds the
-*reasoning*, diagrams, and code for one Ruleset group (`references/state-and-data.md`,
-`references/security.md`, …), plus `references/worked-example.md`. Open them for depth when your
-runtime allows.
+This SKILL.md is self-sufficient: the **Ruleset** below is the complete, enforceable list. Each
+`references/<topic>.md` holds that group's reasoning and `❌ / ✅` code, and
+`references/worked-example.md` a full review pass; open them for depth when your runtime allows.
 
 ---
 
@@ -71,11 +68,6 @@ Write one finding per line:
 ---
 
 ## Ruleset
-
-The complete rule list. Read it top to bottom when generating; tick each box against a diff when
-reviewing. Each group links to its `references/` file for rationale and examples. On a shared topic
-such as discriminated unions or branded ids, this skill decides the design and `core-typescript`
-decides the syntax.
 
 ### solid → `references/solid.md`
 

@@ -29,10 +29,9 @@ engineering rules — every finding still comes from another skill's Ruleset.
 > named skill is not loaded, apply its layer from general knowledge and do not block. On a conflict
 > between two skills' findings, this skill's de-duplication rules decide which one is reported.
 
-This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list. Each
-`references/<topic>.md` holds the *reasoning* and an example for one Ruleset group
-(`references/routing.md`, `references/dedup.md`, …), plus `references/worked-example.md` for a full
-review pass. Open them for depth when your runtime allows.
+This SKILL.md is self-sufficient: the **Ruleset** below is the complete, enforceable list. Each
+`references/<topic>.md` holds that group's reasoning and `❌ / ✅` code, and
+`references/worked-example.md` a full review pass; open them for depth when your runtime allows.
 
 ---
 
@@ -68,9 +67,6 @@ The merged review. Each finding keeps the Output Format of the skill that produc
 
 ## Ruleset
 
-The complete rule list. Read it top to bottom when reviewing; tick each box against the merged
-result. Each group links to its `references/` file for rationale and an example.
-
 ### routing → `references/routing.md`
 
 - [ ] Every changed file is classified and mapped to the skills that apply — `.ts`/`.tsx` to `core-typescript`; a component or hook to the matching framework
@@ -91,7 +87,7 @@ result. Each group links to its `references/` file for rationale and an example.
       `component-api-design` for a props contract, `architecture-and-design` for a design call, `core-typescript` for a type or syntax point, `test-quality`
       for what a test asserts, `e2e-testing` for a locator, wait, or suite-isolation issue in an e2e spec; a physical CSS property in a directional layout
       is `i18n-and-localization`'s requirement and `styling-and-design-tokens`'s fix.
-- [ ] The kept finding names the other skill that also flagged it, so the author sees it matters on two axes.
+- [ ] The kept finding names the other skill that also flagged it.
 - [ ] Two findings on the same line for *different* issues are both kept.
 - [ ] A genuine conflict — two skills prescribing incompatible fixes — is surfaced explicitly with the recommended resolution, not silently resolved.
 

@@ -24,17 +24,15 @@ rules hold for Playwright and Cypress; examples use Playwright syntax with the C
 noted where it differs.
 
 > **Builds on.** `test-quality` for whether an individual test is worth keeping (one outcome per
-> test, a meaningful assertion, determinism) and `architecture-and-design` for suite strategy — how
-> thin the e2e layer should be relative to integration and unit. On a conflict, `test-quality`
-> decides the individual test and this skill decides the e2e mechanics. The Ruleset below is
-> complete on its own; load a named skill only when the task turns on its layer, not by default. If
-> a named sibling skill is not loaded, apply that layer from general knowledge and do not block.
+> test, a meaningful assertion, determinism) and `architecture-and-design` for suite strategy —
+> how thin the e2e layer should be relative to integration and unit. On a conflict, `test-quality`
+> decides the individual test and this skill decides the e2e mechanics. Load a sibling only when
+> the task turns on its layer; if it is not loaded, apply that layer from general knowledge and do
+> not block.
 
-This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, and
-nothing here depends on a `references/` file being read. Each `references/<topic>.md` holds the
-*reasoning* and `❌ / ✅` code for one Ruleset group (`references/selectors.md`,
-`references/network.md`, …), plus `references/worked-example.md` for a full review pass. Open them
-for depth when your runtime allows.
+This SKILL.md is self-sufficient: the **Ruleset** below is the complete, enforceable list. Each
+`references/<topic>.md` holds that group's reasoning and `❌ / ✅` code, and
+`references/worked-example.md` a full review pass; open them for depth when your runtime allows.
 
 ---
 
@@ -70,9 +68,6 @@ Write one finding per line:
 
 ## Ruleset
 
-The complete rule list. Read it top to bottom when writing; tick each box against a diff when
-reviewing. Each group links to its `references/` file for rationale and examples.
-
 ### selectors → `references/selectors.md`
 
 - [ ] Elements are found by user-facing locators — role + accessible name (`getByRole`), label, placeholder, or visible text — in that order of preference.
@@ -86,7 +81,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 - [ ] Each test creates the data it needs through the application's API or a factory, and tears it down or uses a unique namespace — no reliance on a shared
       seeded record.
-- [ ] Identifiers are unique per test run (a run id or UUID prefix) so parallel workers do not collide.
+- [ ] Identifiers are unique per test run (a run id or UUID prefix).
 - [ ] Authentication is done once per worker and reused via a stored session (`storageState` / `cy.session`), not by logging in through the UI in every test.
 - [ ] No test mutates global or account-wide state (feature flags, settings) that another test reads, unless that state is scoped to the test's own tenant or
       user.
@@ -98,7 +93,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
       such.
 - [ ] A stubbed response matches the real contract's shape; a contract test or type guards the fixture against drift.
 - [ ] The test waits on a specific request or response (`waitForResponse`, `cy.intercept` alias) when it needs one, not a blind delay.
-- [ ] Interception is scoped and cleaned up so a stub from one test does not leak into the next.
+- [ ] Interception is registered per test and cleared in teardown.
 
 ### waiting → `references/waiting.md`
 
@@ -110,7 +105,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 ### reliability → `references/reliability.md`
 
-- [ ] Retries are enabled only in CI and capped at one or two; local runs do not retry, so flakes surface in development.
+- [ ] Retries are enabled only in CI and capped at one or two; local runs do not retry.
 - [ ] A test that passes only on retry is recorded as a flake and triaged — it is not treated as green.
 - [ ] The suite runs fully parallel and is sharded across CI machines; wall-clock time is kept to a few minutes.
 - [ ] A trace, screenshot, and video are captured on failure (and on first retry) and published as CI artifacts.
@@ -121,7 +116,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] A flake is reproduced before it is fixed — `--repeat-each` / a loop, with the trace retained — not fixed by guesswork.
 - [ ] The cause is named: fixed timeout, animation/transition race, network race, shared or leftover data, test-order coupling, non-deterministic
       clock/locale/timezone, or a real product bug.
-- [ ] Animations and transitions are disabled in the test environment (reduced motion, or a CSS override) so they cannot race the assertions.
+- [ ] Animations and transitions are disabled in the test environment (reduced motion, or a CSS override).
 - [ ] Time, timezone, locale, and viewport are pinned in the config; a test that needs "now" controls the clock.
 - [ ] The fix removes the root cause; adding a wait or a retry to make it pass is not a fix.
 

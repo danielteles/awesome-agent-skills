@@ -1,7 +1,6 @@
 # Forms — why
 
-The rules are in the `accessibility` Ruleset (`forms` group). This file is the reasoning and the
-finer criteria.
+The rules are in the `accessibility` Ruleset (`forms` group).
 
 - **Every field has a programmatically associated `<label>`** — `for` and `id`, or the input wrapped in the label. A placeholder is not a label: it disappears
   on input and usually fails contrast (WCAG 1.3.1, 3.3.2).

@@ -1,7 +1,6 @@
 # Vue — Forms: why
 
-The rules are in the `vue` Ruleset (`forms` group). This file is the reasoning and a `❌ / ✅`
-example — it adds no rule the Ruleset does not state.
+The rules are in the `vue` Ruleset (`forms` group).
 
 - **`v-model` and its modifiers do the plumbing.** `.number` coerces, `.trim` trims, `.lazy` syncs
   on `change` not `input`. A custom field component exposes `defineModel()` so the parent binds it

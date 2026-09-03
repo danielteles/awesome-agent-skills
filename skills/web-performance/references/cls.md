@@ -1,7 +1,6 @@
 # Cumulative Layout Shift — why
 
-The rules are in the `web-performance` Ruleset (`cls` group). This file is the reasoning and a
-`❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `web-performance` Ruleset (`cls` group).
 
 - **Every shift comes from unreserved space.** A media element with no dimensions, a late-arriving
   ad or banner, or a font swap that changes line height all move content that was already painted.

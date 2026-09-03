@@ -1,6 +1,6 @@
 # Status Messages and Route Changes — why
 
-The rules are in the `accessibility` Ruleset (`live-regions` group). This file is the reasoning.
+The rules are in the `accessibility` Ruleset (`live-regions` group).
 
 - **A screen-reader user does not see a toast appear.** An async result — a toast, a validation summary, a search-result count, a save state — is announced
   through a live region: `role="status"` or `aria-live="polite"`, and `role="alert"` for an error (WCAG 4.1.3).

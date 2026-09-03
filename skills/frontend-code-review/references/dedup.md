@@ -1,7 +1,6 @@
 # De-duplicating Findings — why
 
-The rules are in the `frontend-code-review` Ruleset (`dedup` group). This file is the reasoning and
-an example — it adds no rule the Ruleset does not state.
+The rules are in the `frontend-code-review` Ruleset (`dedup` group).
 
 - **The same line, the same issue, one finding.** A `<div onClick>` will be flagged by
   `accessibility` (no role, not focusable) and by the framework skill (use a `<button>`). Reporting

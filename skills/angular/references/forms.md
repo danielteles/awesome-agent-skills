@@ -1,6 +1,6 @@
 # Reactive Forms — why
 
-The rules are in the `angular` Ruleset (`forms` group). This file is the reasoning.
+The rules are in the `angular` Ruleset (`forms` group).
 
 - **Signal Forms for a new form in a signal-based component** (stable since v22) — the form is built from a signal model with validation declared once in a
   schema, and the template reads field state as signals, so there is no `FormControl` to keep in sync with a signal. Reactive forms stay where a codebase

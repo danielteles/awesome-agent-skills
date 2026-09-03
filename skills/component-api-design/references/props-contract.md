@@ -1,7 +1,6 @@
 # The Props Contract — why
 
-The rules are in the `component-api-design` Ruleset (`props-contract` group). This file is the
-reasoning and a `❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `component-api-design` Ruleset (`props-contract` group).
 
 - **Every prop is permanent.** Once a consumer uses it, removing or changing it is a breaking
   change. A prop is also a test case, a line of docs, and a branch the next maintainer must reason

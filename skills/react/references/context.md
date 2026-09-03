@@ -1,6 +1,6 @@
 # React — Context: why, and an example
 
-The rules are in the `react` Ruleset (`context` group). This file is the reasoning and an example.
+The rules are in the `react` Ruleset (`context` group).
 
 - **Low-frequency data only.** Every consumer of a context re-renders when its `value` changes. That is fine for theme, locale, the current user, or a DI
   container, which change rarely. A value that changes on keystroke or scroll in a wide context re-renders half the tree each time — put it in local state, or a

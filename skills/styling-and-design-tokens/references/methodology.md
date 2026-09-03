@@ -1,7 +1,6 @@
 # CSS Modules vs Utility vs CSS-in-JS — why
 
-The rules are in the `styling-and-design-tokens` Ruleset (`methodology` group). This file is the
-reasoning and a `❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `styling-and-design-tokens` Ruleset (`methodology` group).
 
 | Approach | Reach for it when | Watch out for |
 |---|---|---|

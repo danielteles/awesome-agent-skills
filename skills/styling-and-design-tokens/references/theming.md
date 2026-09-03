@@ -1,7 +1,6 @@
 # Theming and Dark Mode — why
 
-The rules are in the `styling-and-design-tokens` Ruleset (`theming` group). This file is the
-reasoning and `❌ / ✅` examples — it adds no rule the Ruleset does not state.
+The rules are in the `styling-and-design-tokens` Ruleset (`theming` group).
 
 - **A theme is a set of token values.** If component rules carry `[data-theme="dark"] &` branches,
   every new component has to remember to add them and every theme multiplies the CSS. Redefine the

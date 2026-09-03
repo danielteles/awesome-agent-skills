@@ -1,7 +1,6 @@
 # Asynchronous Code — why, and examples
 
-The rules are in the `core-typescript` Ruleset (`async` group). This file is the reasoning and
-examples.
+The rules are in the `core-typescript` Ruleset (`async` group).
 
 - **Never leave a promise unhandled.** A floating promise swallows its rejection — the error vanishes with no stack. `await` it, or mark it `void` to say the
   fire-and-forget is deliberate.

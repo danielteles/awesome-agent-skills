@@ -1,7 +1,6 @@
 # Compound Components — why
 
-The rules are in the `component-api-design` Ruleset (`compound-components` group). This file is the
-reasoning and a `❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `component-api-design` Ruleset (`compound-components` group).
 
 - **What the pattern buys.** `<Tabs><Tabs.List><Tabs.Tab/></Tabs.List><Tabs.Panel/></Tabs>` lets the
   caller arrange, reorder, and omit parts while the parts still share `selectedTab` without the

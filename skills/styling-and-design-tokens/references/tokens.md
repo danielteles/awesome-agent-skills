@@ -1,7 +1,6 @@
 # Design Tokens — why
 
-The rules are in the `styling-and-design-tokens` Ruleset (`tokens` group). This file is the
-reasoning and `❌ / ✅` examples — it adds no rule the Ruleset does not state.
+The rules are in the `styling-and-design-tokens` Ruleset (`tokens` group).
 
 | Tier | Example | Who reads it |
 |---|---|---|

@@ -1,7 +1,6 @@
 # Forms and Validation — why, and an example
 
-The rules are in the `architecture-and-design` Ruleset (`forms` group). This file is the reasoning
-and an example. A form bundles three concerns — draft state, validation, submission — kept separate
+The rules are in the `architecture-and-design` Ruleset (`forms` group). A form bundles three concerns — draft state, validation, submission — kept separate
 and each where it belongs.
 
 - **Draft state is local UI state** (`state-and-data`). Keep it in the form or a form library; a global draft leaks between screens.

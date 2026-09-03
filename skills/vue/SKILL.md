@@ -23,15 +23,12 @@ API, composables, Pinia, and SSR with Nuxt. It gives the Vue form of rules that 
 and `architecture-and-design` set in general terms.
 
 > **Builds on.** `core-typescript` (language rules) and `architecture-and-design` (design), plus
-> `accessibility` for UI work. The Ruleset below is complete on its own; load one of these when the
-> task turns on its layer, not by default. If a named skill is not loaded, apply that layer from
-> general knowledge and do not block.
+> `accessibility` for UI work. Load a sibling only when the task turns on its layer; if it is not
+> loaded, apply that layer from general knowledge and do not block.
 
-This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, and
-nothing here depends on a `references/` file being read. Each `references/<topic>.md` holds the
-*reasoning* and `❌ / ✅` code for one Ruleset group (`references/reactivity.md`,
-`references/composables.md`, …), plus `references/worked-example.md` for a full review pass. Open
-them for depth when your runtime allows.
+This SKILL.md is self-sufficient: the **Ruleset** below is the complete, enforceable list. Each
+`references/<topic>.md` holds that group's reasoning and `❌ / ✅` code, and
+`references/worked-example.md` a full review pass; open them for depth when your runtime allows.
 
 ---
 
@@ -67,9 +64,6 @@ Write one finding per line:
 
 ## Ruleset
 
-The complete rule list. Read it top to bottom when generating; tick each box against a diff when
-reviewing. Each group links to its `references/` file for rationale and examples.
-
 ### components → `references/components.md`
 
 - [ ] `<script setup lang="ts">` for a new component; no Options API and no `export default defineComponent({ ... })` with an options object.
@@ -85,7 +79,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 - [ ] `ref` is the default for state; `reactive` only for a genuinely object-shaped local group, and it is never destructured or reassigned (that drops
       reactivity — use `toRefs` / `toRef`).
-- [ ] `.value` is read and written in script; a template auto-unwraps a top-level ref, so no `.value` there.
+- [ ] `.value` in script; no `.value` on a top-level ref in a template.
 - [ ] `computed` is pure — no side effect, no async, no mutation of another ref inside it.
 - [ ] `watch` lists its source explicitly and does the minimum; `watchEffect` only when the dependencies are truly dynamic; neither is used to derive a value
       that `computed` can (`state`).
@@ -95,11 +89,11 @@ reviewing. Each group links to its `references/` file for rationale and examples
 ### composables → `references/composables.md`
 
 - [ ] Shared stateful logic is a `useX()` composable in its own file that returns refs / computeds (and functions), not a mixin and not a renderless component.
-- [ ] A composable that takes reactive input accepts a ref or a getter and reads it with `toValue()`, so the caller is not forced to unwrap.
-- [ ] Lifecycle hooks and `watch` inside a composable are registered synchronously at call time (no `await` before them) so cleanup is bound to the owner.
+- [ ] A composable that takes reactive input accepts a ref or a getter and reads it with `toValue()`.
+- [ ] Lifecycle hooks and `watch` inside a composable are registered synchronously at call time (no `await` before them).
 - [ ] The composable has no module-scope mutable state unless it is a deliberate singleton — that state is shared across every caller and leaks across requests
       in SSR (`server`).
-- [ ] It returns a plain object of named values, not a single `reactive` bag, so callers can destructure without losing reactivity.
+- [ ] It returns a plain object of named values, not a single `reactive` bag.
 
 ### templates → `references/templates.md`
 
@@ -136,15 +130,15 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] A component with a top-level `await` in `setup` is rendered inside `<Suspense>` with a fallback and an error boundary (`onErrorCaptured` or a wrapper).
 - [ ] Route components and heavy below-the-fold components are code-split with `defineAsyncComponent` / the router's lazy import.
 - [ ] `<KeepAlive>` is scoped to a small `:include` list, not wrapped around a whole router view by default.
-- [ ] A list past a few hundred rows is virtualized; no object / array / function literal is created in the template as a child prop — a new identity
-      re-renders the child on every parent render, so it is hoisted or a `computed`.
+- [ ] A list past a few hundred rows is virtualized; no object / array / function literal is created in the template as a child prop — it is hoisted or
+      a `computed`.
 - [ ] A deep `watch` over a large structure, and a `watchEffect` that re-runs too often, are replaced with a targeted `watch` on the specific field.
 
 ### server → `references/server.md`
 
-- [ ] No `window` / `document` / `localStorage` at the top level of `setup` — that code runs on the server; it goes in `onMounted` or behind
-      `import.meta.client` (Nuxt) / `!import.meta.env.SSR` (Vite SSR).
-- [ ] SSR-shared state uses the framework primitive (`useState` in Nuxt), never a module-scope `ref` — a module ref is shared across all requests on the server.
+- [ ] No `window` / `document` / `localStorage` at the top level of `setup`; it goes in `onMounted` or behind `import.meta.client` (Nuxt) /
+      `!import.meta.env.SSR` (Vite SSR).
+- [ ] SSR-shared state uses the framework primitive (`useState` in Nuxt), never a module-scope `ref`.
 - [ ] `useAsyncData` / `useFetch` have an explicit, stable key and run the fetch once across server and client, not again on hydration.
 - [ ] A hydration mismatch is fixed at its cause (non-deterministic render, `Date.now()`, random, browser-only branch), not silenced; genuinely client-only UI
       is wrapped in `<ClientOnly>`.

@@ -1,7 +1,6 @@
 # Vue — Reactivity Caveats: why
 
-The rules are in the `vue` Ruleset (`reactivity` group). This file is the reasoning and a `❌ / ✅`
-example — it adds no rule the Ruleset does not state.
+The rules are in the `vue` Ruleset (`reactivity` group).
 
 - **`ref` over `reactive`.** `reactive` breaks the moment you destructure it or reassign the whole
   object — the new binding is a plain value with no tracking. `ref` survives destructuring of the

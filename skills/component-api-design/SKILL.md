@@ -21,19 +21,16 @@ Standards for the surface a reusable component exposes to the code that uses it:
 how variation is expressed, who owns the state, and how the API changes over time. Framework-neutral
 — the principles hold for React, Vue, and Angular; examples are TSX with the slot equivalent noted.
 
-> **Builds on.** `architecture-and-design` for the design principles underneath (SOLID — especially
-> open/closed, cohesion, dependency direction) and `react` / `angular` / `vue` for the framework's
-> actual props, slots, and ref API. On a conflict, `architecture-and-design` decides the principle,
-> the framework skill decides the API syntax, and this skill decides the shape of the component's
-> public contract. The Ruleset below is complete on its own; load a named skill only when the task
-> turns on its layer, not by default. If a named sibling skill is not loaded, apply that layer from
-> general knowledge and do not block.
+> **Builds on.** `architecture-and-design` for the design principles underneath (SOLID —
+> especially open/closed, cohesion, dependency direction) and `react` / `angular` / `vue` for the
+> framework's actual props, slots, and ref API. On a conflict, `architecture-and-design` decides
+> the principle, the framework skill decides the API syntax, and this skill decides the shape of
+> the component's public contract. Load a sibling only when the task turns on its layer; if it is
+> not loaded, apply that layer from general knowledge and do not block.
 
-This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, and
-nothing here depends on a `references/` file being read. Each `references/<topic>.md` holds the
-*reasoning* and `❌ / ✅` code for one Ruleset group (`references/props-contract.md`,
-`references/compound-components.md`, …), plus `references/worked-example.md` for a full review pass.
-Open them for depth when your runtime allows.
+This SKILL.md is self-sufficient: the **Ruleset** below is the complete, enforceable list. Each
+`references/<topic>.md` holds that group's reasoning and `❌ / ✅` code, and
+`references/worked-example.md` a full review pass; open them for depth when your runtime allows.
 
 ---
 
@@ -67,9 +64,6 @@ Write one finding per line:
 ---
 
 ## Ruleset
-
-The complete rule list. Read it top to bottom when designing; tick each box against a diff when
-reviewing. Each group links to its `references/` file for rationale and examples.
 
 ### props-contract → `references/props-contract.md`
 

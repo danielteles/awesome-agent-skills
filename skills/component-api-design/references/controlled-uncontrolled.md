@@ -1,7 +1,6 @@
 # Controlled and Uncontrolled Pairs — why
 
-The rules are in the `component-api-design` Ruleset (`controlled-uncontrolled` group). This file is
-the reasoning and a `❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `component-api-design` Ruleset (`controlled-uncontrolled` group).
 
 - **Two clean modes, never a hybrid.** *Uncontrolled*: the component owns the value, the caller
   seeds it with `defaultValue` and reads it via `ref` or `onChange`. *Controlled*: the caller owns

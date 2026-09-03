@@ -1,7 +1,6 @@
 # Network Interception — why
 
-The rules are in the `e2e-testing` Ruleset (`network` group). This file is the reasoning and a
-`❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `e2e-testing` Ruleset (`network` group).
 
 - **Mock what you do not own or cannot control.** Payment providers, maps, analytics, email,
   weather, "trending now" feeds — these are slow, cost money, rate-limit, or return different data

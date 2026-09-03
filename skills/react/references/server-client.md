@@ -1,6 +1,6 @@
 # React — Server and Client Components: why, and an example
 
-The rules are in the `react` Ruleset (`server-client` group). This file is the reasoning and an example.
+The rules are in the `react` Ruleset (`server-client` group).
 
 - **Server Component is the default** in a framework that supports RSC — there is no directive for it. It runs once on the server, does not re-render, does not
   hydrate, and only its rendered output reaches the browser, so it has no state, no Effects, no browser APIs, and no event handlers.

@@ -1,6 +1,6 @@
 # Routing and Lazy Loading — why, and an example
 
-The rules are in the `angular` Ruleset (`routing` group). This file is the reasoning and an example.
+The rules are in the `angular` Ruleset (`routing` group).
 
 - **`provideRouter(routes)`; lazy-load a feature** with `loadComponent` or `loadChildren` so each feature ships in its own chunk. **A route maps to a feature
   folder** (`architecture-and-design`, structure) — the route tree and the source tree stay parallel.

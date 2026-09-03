@@ -1,7 +1,6 @@
 # Responsive Layout — why
 
-The rules are in the `styling-and-design-tokens` Ruleset (`responsive-layout` group). This file is
-the reasoning and a `❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `styling-and-design-tokens` Ruleset (`responsive-layout` group).
 
 - **Intrinsic over breakpoint-driven.** A grid of `repeat(auto-fit, minmax(16rem, 1fr))` re-columns
   itself at every width with no media query. Breakpoints chosen from a device list (`768px`,

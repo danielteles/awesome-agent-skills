@@ -1,7 +1,6 @@
 # Security by Design — why
 
-The rules are in the `architecture-and-design` Ruleset (`security` group). This file is the
-reasoning. The browser runs your code next to the user's session, so a small gap becomes account
+The rules are in the `architecture-and-design` Ruleset (`security` group). The browser runs your code next to the user's session, so a small gap becomes account
 access.
 
 - **Never build HTML from untrusted input.** Injected markup runs as script. Sanitize with DOMPurify; avoid `dangerouslySetInnerHTML` (React), `[innerHTML]`

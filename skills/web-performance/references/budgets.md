@@ -1,7 +1,6 @@
 # Performance Budgets — why
 
-The rules are in the `web-performance` Ruleset (`budgets` group). This file is the reasoning and a
-`❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `web-performance` Ruleset (`budgets` group).
 
 - **A budget makes performance a check, not a vibe.** Without a written number, "is this fast
   enough?" is re-litigated in every review and regressions land unnoticed. A budget per route —

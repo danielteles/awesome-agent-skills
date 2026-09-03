@@ -1,7 +1,6 @@
 # Component Authoring — why, and an example
 
-The rules are in the `angular` Ruleset (`components` group). This file is the reasoning and an
-example.
+The rules are in the `angular` Ruleset (`components` group).
 
 - **`OnPush` on every component.** `OnPush` plus signals is the fast, zoneless-ready default; default change detection re-checks the whole tree on every event.
 - **`inject()` over constructor parameters** — better type inference, works outside a constructor, easier to annotate. Group injected members, inputs, outputs,

@@ -1,7 +1,6 @@
 # Language Hygiene — why
 
-The rules are in the `core-typescript` Ruleset (`language-hygiene` group). This file is the
-reasoning.
+The rules are in the `core-typescript` Ruleset (`language-hygiene` group).
 
 - **`===` / `!==` only.** `==` runs type coercion with results few people can predict (`'' == 0`, `[] == false`). The one carve-out is `x == null`, an idiom
   that tests `null` and `undefined` together.

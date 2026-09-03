@@ -1,7 +1,6 @@
 # Merging into One Review — why
 
-The rules are in the `frontend-code-review` Ruleset (`merging` group). This file is the reasoning
-and an example — it adds no rule the Ruleset does not state.
+The rules are in the `frontend-code-review` Ruleset (`merging` group).
 
 - **One list, one order.** An author fixes a file top to bottom. Grouping by file and sorting by
   line number lets them walk the diff once. Sorting `must-fix` above `consider` within that means

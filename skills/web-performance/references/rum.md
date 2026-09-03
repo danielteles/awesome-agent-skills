@@ -1,7 +1,6 @@
 # Field Measurement (RUM) — why
 
-The rules are in the `web-performance` Ruleset (`rum` group). This file is the reasoning and a
-`❌ / ✅` example — it adds no rule the Ruleset does not state.
+The rules are in the `web-performance` Ruleset (`rum` group).
 
 - **Lab data is a prediction; field data is the result.** Lighthouse runs one profile on one
   machine on one network. Real users are on old phones, flaky connections, and cold caches. INP in

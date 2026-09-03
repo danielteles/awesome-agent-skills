@@ -1,7 +1,6 @@
 # Model Data with Precise Types — why, and examples
 
-The rules are in the `core-typescript` Ruleset (`data-modeling` group). This file is the reasoning
-and examples. On the design of these shapes, `architecture-and-design` (patterns, type-safety)
+The rules are in the `core-typescript` Ruleset (`data-modeling` group). On the design of these shapes, `architecture-and-design` (patterns, type-safety)
 decides; this skill decides the syntax.
 
 - **Union of string literals, not `enum`.** A TypeScript `enum` emits runtime code and has surprising nominal rules (a plain string is not assignable to it).

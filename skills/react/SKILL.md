@@ -20,15 +20,13 @@ React-specific rules for modern React: function components, hooks, Server Compon
 React Compiler. It gives the React form of rules that `core-typescript` and `architecture-and-design`
 set in general terms.
 
-> **Builds on.** `core-typescript` (language rules) and `architecture-and-design` (design). The
-> Ruleset below is complete on its own; load a base skill when the task turns on its layer — a
-> type-modeling question, an architecture decision — not by default. If a named skill is not
-> loaded, apply that layer from general knowledge and do not block.
+> **Builds on.** `core-typescript` (language rules) and `architecture-and-design` (design). Load a
+> sibling only when the task turns on its layer; if it is not loaded, apply that layer from
+> general knowledge and do not block.
 
-This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, and
-nothing here depends on a `references/` file being read. Each `references/<topic>.md` holds the
-*reasoning* and code for one Ruleset group (`references/effects.md`, `references/state.md`, …), plus
-`references/worked-example.md` for a full review pass. Open them for depth when your runtime allows.
+This SKILL.md is self-sufficient: the **Ruleset** below is the complete, enforceable list. Each
+`references/<topic>.md` holds that group's reasoning and `❌ / ✅` code, and
+`references/worked-example.md` a full review pass; open them for depth when your runtime allows.
 
 ---
 
@@ -65,9 +63,6 @@ Write one finding per line:
 
 ## Ruleset
 
-The complete rule list. Read it top to bottom when generating; tick each box against a diff when
-reviewing. Each group links to its `references/` file for rationale and examples.
-
 ### purity → `references/purity.md`
 
 - [ ] Render is pure: no mutation of props, state, or a prior render's value; no side effect in the render body; the app tree is wrapped in `<StrictMode>`.
@@ -76,8 +71,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] `ref` is accepted as a plain prop — no `forwardRef` on a new component.
 - [ ] One component per file, file name matching the component; no `import React` just for JSX (`"jsx": "react-jsx"`).
 - [ ] `useId()` supplies a label / `aria-*` id, never a list key; element choice and accessible names follow `accessibility`.
-- [ ] `eslint-plugin-react` and `eslint-plugin-react-hooks` (v6 or later, `recommended`, which includes the React Compiler rules) are on and every
-      warning fixed, not disabled.
+- [ ] `eslint-plugin-react` and `eslint-plugin-react-hooks` (v6+, `recommended`) are on and every warning fixed, not disabled.
 
 ### hooks → `references/hooks.md`
 

@@ -1,7 +1,6 @@
 # Nullability — why, and an example
 
-The rules are in the `core-typescript` Ruleset (`nullability` group). This file is the reasoning and
-an example.
+The rules are in the `core-typescript` Ruleset (`nullability` group).
 
 - **One empty value: `undefined`.** Reserve `null` for an external contract that actually sends it. One convention removes the "which empty is this" branch
   everywhere.

@@ -1,6 +1,6 @@
 # Signals for State — why, and an example
 
-The rules are in the `angular` Ruleset (`signals` group). This file is the reasoning and an example.
+The rules are in the `angular` Ruleset (`signals` group).
 
 - **State in `signal()`, derived values in `computed()`.** Signals update only what changed and make the component zoneless-ready. Keep `computed()` pure — it
   is lazy and memoized and may not run when you expect, so a side effect inside it fires unpredictably.

@@ -1,7 +1,6 @@
 # Functions and Signatures — why, and examples
 
-The rules are in the `core-typescript` Ruleset (`functions` group). This file is the reasoning and
-examples.
+The rules are in the `core-typescript` Ruleset (`functions` group).
 
 - **Annotate the return type of every exported function.** It fixes the contract and stops an accidental widening when the body changes. A local, non-exported
   function can infer it — the annotation adds nothing inside one file.

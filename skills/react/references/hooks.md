@@ -1,6 +1,6 @@
 # React — Rules of Hooks: why, and an example
 
-The rules are in the `react` Ruleset (`hooks` group). This file is the reasoning and an example.
+The rules are in the `react` Ruleset (`hooks` group).
 
 - **Top level, unconditional.** React identifies each hook by its call order within a render. A hook skipped by a condition or an early `return` shifts every
   later hook onto the wrong slot, so state and effects from one hook leak into another. This is why a hook cannot go in a condition, loop, nested function,

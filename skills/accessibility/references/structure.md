@@ -1,7 +1,6 @@
 # Semantic HTML and Structure — why
 
-The rules are in the `accessibility` Ruleset (`structure` group). This file is the reasoning and the
-finer criteria.
+The rules are in the `accessibility` Ruleset (`structure` group).
 
 - **The native element for the job** — `<button>`, `<a href>`, `<input>`, `<nav>`, `<table>` — brings the role, the keyboard behavior, and focus with it. A
   `<div>` with a handler brings none: the keyboard skips it and a screen reader does not announce it (WCAG 4.1.2, 2.1.1).

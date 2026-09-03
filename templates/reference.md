@@ -9,8 +9,7 @@
 
 # <Group> — why
 
-The rules are in the `<skill>` Ruleset (`<topic>` group). This file is the
-reasoning and `❌ / ✅` examples — it adds no rule the Ruleset does not state.
+The rules are in the `<skill>` Ruleset (`<topic>` group).
 
 - **<Rule, in a few words>.** <Why it exists: the bug it prevents or the cost it
   avoids. Two or three sentences. Name the sibling skill and group when the

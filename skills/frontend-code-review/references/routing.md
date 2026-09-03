@@ -1,7 +1,6 @@
 # Routing a Diff to Skills — why
 
-The rules are in the `frontend-code-review` Ruleset (`routing` group). This file is the reasoning
-and an example — it adds no rule the Ruleset does not state.
+The rules are in the `frontend-code-review` Ruleset (`routing` group).
 
 - **Classify by file, then by change.** The file extension picks the baseline (`.ts` → language,
   `.vue`/`.tsx` → a component); what the change *does* adds lenses — a new `<img>` or CSS pulls in

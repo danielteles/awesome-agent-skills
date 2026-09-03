@@ -1,7 +1,6 @@
 # Type Safety as Design — why, and examples
 
-The rules are in the `architecture-and-design` Ruleset (`type-safety` group). This file is the
-reasoning and examples. For the syntax, see `core-typescript` (Ban Unsafe Types, Model Data with
+The rules are in the `architecture-and-design` Ruleset (`type-safety` group). For the syntax, see `core-typescript` (Ban Unsafe Types, Model Data with
 Precise Types, Narrowing).
 
 A type is a design tool, not paperwork. A precise type stops a class of bugs before the code runs.

@@ -1,7 +1,6 @@
 # Test Quality — Behavior, Not Implementation: why, and examples
 
-The rules are in the `test-quality` Ruleset (`behavior-not-implementation` group). This file is the
-reasoning and code; if it ever disagrees with the Ruleset, the Ruleset wins.
+The rules are in the `test-quality` Ruleset (`behavior-not-implementation` group).
 
 ## Why
 
@@ -93,18 +92,3 @@ A test that only checks that React re-renders on `setState`, that the router mat
 that `Array.prototype.map` maps, verifies someone else's suite. It adds run time and breaks on
 their upgrades while catching none of your bugs. Test *your* logic at *your* boundary: given this
 input to your reducer, this output; given this response from the (stubbed) API, this domain model.
-
-```ts
-// ❌ Asserts that useState works
-const { result } = renderHook(() => useState(0));
-act(() => result.current[1](5));
-expect(result.current[0]).toBe(5);
-
-// ✅ Asserts your hook's behavior
-const { result } = renderHook(() => useStepper({ max: 3 }));
-act(() => result.current.increment());
-act(() => result.current.increment());
-act(() => result.current.increment());
-act(() => result.current.increment()); // past max
-expect(result.current.value).toBe(3);
-```

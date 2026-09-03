@@ -1,6 +1,6 @@
 # React — Forms and Actions: why, and an example
 
-The rules are in the `react` Ruleset (`forms` group). This file is the reasoning and an example.
+The rules are in the `react` Ruleset (`forms` group).
 
 - **`<form action>` + `useActionState`.** React manages the pending flag, the returned error/state, and the form reset. `useActionState` gives
   `[state, submitAction, isPending]` with no manual `useState` juggling and no submit `useEffect`.

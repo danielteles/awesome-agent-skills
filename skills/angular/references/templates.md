@@ -1,7 +1,6 @@
 # Templates and Control Flow — why, and an example
 
-The rules are in the `angular` Ruleset (`templates` group). This file is the reasoning and an
-example.
+The rules are in the `angular` Ruleset (`templates` group).
 
 - **`@if` / `@for` / `@switch`**, not the `*ng*` structural directives — the block syntax is the default, faster, and needs no import. **Every `@for` has a
   `track`** on a stable id, not `$index`; a wrong key rebuilds the wrong DOM and loses state.
