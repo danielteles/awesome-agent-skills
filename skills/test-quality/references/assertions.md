@@ -87,13 +87,6 @@ nobody reads the diff, `--update` is reflexive, and it breaks on every unrelated
 snapshots for small output a human will actually review, and assert on the specific fields
 everywhere else.
 
-## See it fail
-
-A test that has only ever been green is not known to test anything — the assertion could be
-unreachable, the matcher wrong, the `await` missing. Run it red first: against the unfixed code for
-a bug-fix test, or by breaking the relevant line, then restore. A test you have watched fail for
-the right reason is the one you can trust.
-
 ## Async: assert after it settles
 
 An assertion inside an un-awaited `.then` (or after a floating promise) can run after the test has

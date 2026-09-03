@@ -45,7 +45,7 @@ Pick the mode that matches the task. Do the steps in order.
 | Mode | Steps |
 |---|---|
 | **Generate** — write a new component, hook, or module | 1. Apply `solid`, `clean-code`, `expressive-logic`, `type-safety`, and `state-and-data` as you write. 2. Model async state as a discriminated union (`patterns`). 3. Validate external data at the boundary (`type-safety`). 4. Run the Ruleset as a checklist. Fix each fail before you hand off. |
-| **Review** — check a pull request or a diff | 1. Run the Ruleset against the diff. 2. Write one finding per fail, in the Output Format below. 3. Order the findings: `must-fix` first, then `consider`. 4. If nothing fails, say so in one line. Do not invent findings. 5. Flag the problem and suggest the fix — do not rewrite the author's code in silence. |
+| **Review** — check a pull request or a diff | 1. Run the Ruleset against the diff. 2. Write one finding per fail, in the Output Format below. 3. Order the findings: `must-fix` first, then `consider`. 4. If nothing fails, say so in one line. Do not invent findings. |
 | **Refactor** — restructure existing code | 1. Change the structure, keep the behavior. 2. Lean on `clean-code`, `expressive-logic`, and `state-and-data`. 3. One kind of change per commit. 4. Keep the tests green (`testing`). |
 
 ### Output Format
@@ -63,6 +63,7 @@ Write one finding per line:
 
 - Name the Ruleset topic when you enforce a rule.
 - State the reason, not only the rule. "This re-renders the whole tree" beats "move state down".
+- Name the rule and the change; do not rewrite the author's code in silence.
 - A principle serves the code. When two principles conflict, pick the one that makes the code simpler to read and change, and say why.
 - When the task is a decision, not a diff, weigh the options against `solid`, `clean-architecture`, `structure`, `state-and-data`, and `micro-frontends`, and
   record the choice as an ADR in the repo using `assets/adr-template.md` (context, options, decision, consequences).
@@ -87,7 +88,7 @@ decides the syntax.
 ### clean-code → `references/clean-code.md`
 
 - [ ] Booleans named `is` / `has` / `should` / `can`; functions named with a verb; one term per concept, no unclear abbreviations.
-- [ ] Functions short enough to read without scrolling; an options object past three parameters.
+- [ ] Functions short enough to read without scrolling; the parameter-list shape is `core-typescript`, functions.
 - [ ] No boolean flag parameter that switches behavior — two functions instead.
 - [ ] Comments say *why*, not *what*; no dead code (commented blocks, unused exports, unreachable branches).
 - [ ] No mutation of a parameter, prop, or state in place — a new value is built and returned.
@@ -98,13 +99,13 @@ decides the syntax.
 - [ ] No `x ? true : false`, no `if (c) return true; else return false`, no comparison against a boolean literal.
 - [ ] Guard clauses over nested conditionals; every condition stated in the positive.
 - [ ] A long boolean chain is given a name (a variable or a predicate function).
-- [ ] `?.` / `??` over a manual `&&` null chain; `??` (not `||`) where `0` or `''` is valid.
+- [ ] `?.` / `??` over a manual `&&` null chain (when `??` beats `||` is `core-typescript`, nullability).
 - [ ] Magic numbers and strings have named constants.
 - [ ] An `if/else if` ladder on one value is a typed lookup or an exhaustive `switch` with an `assertNever` default.
 
 ### type-safety → `references/type-safety.md`
 
-- [ ] No `any`; an unknown input is typed `unknown` and narrowed; every `as` cast has a clear reason.
+- [ ] External input enters as `unknown` and is narrowed at the boundary; the `any` and cast syntax rules are `core-typescript`, unsafe-types.
 - [ ] Mutually exclusive states are a discriminated union, not an object of optional fields.
 - [ ] Illegal values are unrepresentable: `readonly`, `as const`, branded id types.
 - [ ] Network data is parsed against a schema at the adapter, then mapped to the domain model.
@@ -146,7 +147,7 @@ decides the syntax.
 - [ ] Filters, maps, and chains are computed before the return, out of the template.
 - [ ] Every async state is modeled: loading, empty, error, success.
 - [ ] List keys are stable ids, never the array index for a list that can reorder.
-- [ ] One effect per concern with every dependency listed; a derived value or an event handler preferred.
+- [ ] A derived value or an event handler over a lifecycle side effect; a side effect that remains has one concern and a cleanup.
 - [ ] Each independent region has its own error boundary and fallback, not only the app root.
 - [ ] A stale async result is cancelled or ignored (`AbortController` or an ignore flag).
 - [ ] A caught error is sent to a tracker with the source map, the release tag, and session context.
@@ -155,7 +156,8 @@ decides the syntax.
 
 ### security → `references/security.md`
 
-- [ ] No HTML built from untrusted input; sanitize with DOMPurify; avoid `dangerouslySetInnerHTML` / `[innerHTML]` / `v-html`.
+- [ ] No HTML is built from untrusted input; what must render as HTML is sanitized (DOMPurify) first.
+- [ ] `dangerouslySetInnerHTML` / `[innerHTML]` / `v-html` and every `bypassSecurityTrust*` are avoided; each remaining use is reviewed.
 - [ ] No secrets in the bundle — a third-party key lives on a server.
 - [ ] `rel="noopener noreferrer"` on every `target="_blank"` link.
 - [ ] A redirect URL from a query param is checked against an allowlist; a `javascript:` or `data:` URL from user data is rejected.
@@ -170,8 +172,7 @@ decides the syntax.
 - [ ] The suite is weighted toward integration: a static-analysis base, unit tests for pure logic, a thick layer of component-plus-collaborator tests with the
       network mocked at the edge, a thin top of end-to-end tests for critical paths.
 - [ ] Domain and use cases: fast unit tests on plain functions, no DOM or network.
-- [ ] Components: queried by role and label, asserted on what the user sees.
-- [ ] The network is mocked at the boundary (MSW), not by replacing modules.
+- [ ] Components: queried by role and label, asserted on what the user sees; a `data-testid` only when no accessible name fits.
 - [ ] Coverage is enforced on the lines a change touches, not a global percentage.
 - [ ] Every bug fix ships with a test that fails before the fix.
 - [ ] The API boundary is contract-tested, or types are generated from the contract and the payload validated.
@@ -202,7 +203,7 @@ decides the syntax.
 - [ ] Draft state is local to the form or a form library — never lifted into global state.
 - [ ] One validation schema, next to the domain model, reused on client and server.
 - [ ] `isValid` / `isDirty` / per-field errors are derived from form state, not stored.
-- [ ] Uncontrolled inputs with a form library for a large form; a controlled input only when its value drives other UI.
+- [ ] Uncontrolled inputs with a form library for a large form; a field component's controlled / uncontrolled contract is `component-api-design`.
 - [ ] A server validation error is mapped back onto its field.
 - [ ] Submit is disabled while a submit is in flight; entered values survive a failed submit.
 
@@ -213,16 +214,14 @@ decides the syntax.
 This skill covers frontend architecture and design. It does not cover:
 
 - Backend, database, or infrastructure design.
-- Distributed system architecture: microservices, event-driven backends, message brokers, sagas, distributed consistency. `ddd` covers tactical
-  patterns inside one app, not strategic or cross-service design; `micro-frontends` covers the frontend split only.
+- Distributed systems — microservices, event-driven backends, sagas. `ddd` covers tactical patterns inside one app; `micro-frontends` the frontend split
+  only.
 - Styling, tokens, and CSS architecture — `styling-and-design-tokens`.
-- Accessibility beyond "use a semantic element and a label". Focus management, ARIA, live regions, keyboard operability, and a11y testing live in
-  `accessibility`.
+- Accessibility beyond "a semantic element and a label" — `accessibility`.
 - Performance budgets, Core Web Vitals, and bundle analysis — `web-performance`.
 - A reusable component's public API (`component-api-design`) and internationalization (`i18n-and-localization`).
 - CI configuration, dependency bots, release tooling, and monorepo setup.
-- Framework-specific rules: Rules of Hooks, `useMemo` / `useCallback` policy, Angular change detection and signals, Vue reactivity caveats. These live in the
-  framework skills.
+- Framework-specific rules (hooks, memoization, change detection, reactivity) — `react` / `angular` / `vue`.
 
 This skill states principles. It is not a substitute for reading the code and understanding the domain.
 

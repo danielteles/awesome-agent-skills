@@ -17,6 +17,7 @@ optional.
     "noUnusedParameters": true,
     "forceConsistentCasingInFileNames": true,
     "verbatimModuleSyntax": true,
+    "erasableSyntaxOnly": true,
     "isolatedModules": true,
     "skipLibCheck": true,
     "moduleResolution": "bundler",
@@ -34,6 +35,7 @@ optional.
 | `noImplicitOverride`, `noFallthroughCasesInSwitch`, `noImplicitReturns` | Separate flags, not part of `strict`. Turn each on. |
 | `noUnusedLocals`, `noUnusedParameters` | Fail the build on dead bindings. Prefix a deliberately unused parameter with `_`. |
 | `verbatimModuleSyntax` | Emits imports and exports as written. An unmarked type import stays in the output (see `modules`). |
+| `erasableSyntaxOnly` | Rejects `enum`, a runtime `namespace`, parameter properties, and `import =` — the syntax a type-stripping runtime cannot erase. Mechanizes `data-modeling`. |
 | `skipLibCheck` | Skips the type check of every `.d.ts`, including your own, not only `node_modules`. Faster build. A fault in a hand-written `.d.ts` can pass unseen. |
 
 Never relax a flag to clear an error. Fix the code; if a flag genuinely cannot go on yet, leave a

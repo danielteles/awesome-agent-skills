@@ -26,9 +26,14 @@ const roles = await getRoles(id);
 // ✅ Parallel
 const [user, roles] = await Promise.all([getUser(id), getRoles(id)]);
 
-// ✅ Deterministic cleanup with `using`
+// ✅ Deterministic cleanup with `using` — the resource implements Symbol.dispose
+function subscribe(onValue: (value: number) => void): Disposable {
+  const unsubscribe = source.subscribe(onValue);
+  return { [Symbol.dispose]: unsubscribe };
+}
+
 {
-  using sub = source.subscribe(onValue); // sub[Symbol.dispose]() runs at end of block
+  using sub = subscribe(onValue); // sub[Symbol.dispose]() runs at end of block
   await process();
 } // unsubscribed here, even if process() threw
 ```

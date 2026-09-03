@@ -88,7 +88,6 @@ reviewing. Each group links to its `references/` file for rationale and examples
       seeded record.
 - [ ] Identifiers are unique per test run (a run id or UUID prefix) so parallel workers do not collide.
 - [ ] Authentication is done once per worker and reused via a stored session (`storageState` / `cy.session`), not by logging in through the UI in every test.
-- [ ] Tests pass when run in isolation, in any order, and fully parallel; none depends on a previous test's side effect.
 - [ ] No test mutates global or account-wide state (feature flags, settings) that another test reads, unless that state is scoped to the test's own tenant or
       user.
 

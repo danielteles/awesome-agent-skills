@@ -1,4 +1,4 @@
-# React — Context and Composition: why, and an example
+# React — Context: why, and an example
 
 The rules are in the `react` Ruleset (`context` group). This file is the reasoning and an example.
 
@@ -10,10 +10,6 @@ The rules are in the `react` Ruleset (`context` group). This file is the reasoni
   the conditional call.
 - **Memoize `value`.** An inline object literal (`value={{ user, setUser }}`) is a fresh reference every parent render, so every consumer re-renders even when
   nothing changed. Memoize it, or let the React Compiler do it.
-- **Compose, don't configure.** A component that grows a boolean prop per variant is closed to extension only by editing it. `children` and named slot props
-  (`header`, `footer`) let a caller extend it without touching it.
-- **Portals stay in the tree.** `createPortal` renders a modal, tooltip, or toast into a different DOM node (escaping `overflow` and stacking-context traps)
-  while keeping it in the React tree, so context and event bubbling still work.
 
 ```tsx
 // ❌ Inline object literal — a fresh reference every render re-renders every consumer

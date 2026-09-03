@@ -5,7 +5,7 @@ examples.
 
 - **Annotate the return type of every exported function.** It fixes the contract and stops an accidental widening when the body changes. A local, non-exported
   function can infer it — the annotation adds nothing inside one file.
-- **One options object past a few parameters.** A long positional list, especially with booleans, is unreadable at the call site
+- **One options object past three parameters.** A long positional list, especially with booleans, is unreadable at the call site
   (`createUser('Ada', true, false)` — which flag is which?).
 - **A union parameter over an overload set** when the bodies are the same — fewer signatures to keep in sync.
 

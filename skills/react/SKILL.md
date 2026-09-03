@@ -75,8 +75,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] Props are a `type` or `interface`, not `React.FC`; children typed as `ReactNode`; event handlers typed with their React event type.
 - [ ] `ref` is accepted as a plain prop — no `forwardRef` on a new component.
 - [ ] One component per file, file name matching the component; no `import React` just for JSX (`"jsx": "react-jsx"`).
-- [ ] A semantic element (`button`, `nav`, `label`) over a `div` with a handler; every control has an accessible name; `useId()` for label / `aria-*` ids, never
-      as a list key.
+- [ ] `useId()` supplies a label / `aria-*` id, never a list key; element choice and accessible names follow `accessibility`.
 - [ ] `eslint-plugin-react` and `eslint-plugin-react-hooks` (v6 or later, `recommended`, which includes the React Compiler rules) are on and every
       warning fixed, not disabled.
 
@@ -126,8 +125,6 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] The provider is `<Context value={…}>` (React 19), not `<Context.Provider>`.
 - [ ] Context is read with `useContext`; `use(Context)` only where the read must be conditional.
 - [ ] The context `value` is memoized (or the React Compiler is on) — never an inline object literal.
-- [ ] A component extends via `children` and slot props, not a growing list of boolean config props.
-- [ ] A modal / tooltip / toast renders through `createPortal`, staying in the React tree.
 
 ### data-fetching → `references/data-fetching.md`
 
@@ -142,7 +139,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 - [ ] Submit is `<form action={submitAction}>` driven by `useActionState`; child pending state via `useFormStatus`.
 - [ ] An optimistic row uses `useOptimistic` (which reverts on failure), not hand-rolled optimistic state.
-- [ ] Inputs are uncontrolled by default; controlled only when the value drives other UI; never switched between the two.
+- [ ] An input is never switched between controlled and uncontrolled mid-life; which mode a field defaults to is `component-api-design`,
+      controlled-uncontrolled.
 - [ ] Validators are built from the same schema the server uses, and the server re-validates.
 - [ ] Entered values survive a failed submit; each field error maps back to its field.
 
@@ -161,15 +159,16 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 - [ ] The React Compiler is on; where it is not, `memo` / `useMemo` / `useCallback` appear only on a path measured with the Profiler.
 - [ ] No fresh object / array / function built in render and passed to a memoized child.
-- [ ] List keys are stable ids, never the array index for a list that can reorder, grow, or shrink.
+- [ ] `key` is a stable id from the data, never the array index (`architecture-and-design`, frontend-practices).
 - [ ] Routes are code-split with `lazy()` + `<Suspense>`; a list beyond a few hundred rows is virtualized.
 - [ ] `<title>` / `<meta>` / `<link rel>` are rendered in the component that owns them (React 19 hoists them).
+- [ ] A modal / tooltip / toast renders through `createPortal`, staying in the React tree.
 
 ### testing → `references/testing.md`
 
 - [ ] Rendered with React Testing Library; queried by role and accessible name.
 - [ ] Interaction driven by `@testing-library/user-event` (awaited), not `fireEvent`.
-- [ ] Network mocked with MSW — not a mocked module or hook.
+- [ ] No mocked module or hook stands in for data; the boundary rule (MSW) is `test-quality`, test-doubles.
 - [ ] Assertions are on rendered output, not state, props, or call counts; async via `findBy*` / `waitFor`.
 - [ ] A custom hook is tested through a component that uses it; `renderHook` only when there is none.
 - [ ] `createPortal` content is queried through `screen` (document-wide), not the `render()` return value.

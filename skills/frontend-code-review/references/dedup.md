@@ -20,6 +20,7 @@ an example — it adds no rule the Ruleset does not state.
   | A type, `any`, narrowing, or syntax point | `core-typescript` |
   | What a test asserts or fakes | `test-quality` |
   | A locator, a wait, or suite isolation in an e2e spec | `e2e-testing` |
+  | A physical CSS property in a directional layout | `i18n-and-localization` states the requirement; `styling-and-design-tokens` owns the fix |
 
 - **Credit the other skill.** The kept finding says "…also flagged by `react`" so the author sees
   it fails on two axes and is not tempted to fix only one.

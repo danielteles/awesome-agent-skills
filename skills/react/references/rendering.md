@@ -13,6 +13,8 @@ The rules are in the `react` Ruleset (`rendering` group). This file is the reaso
   rows — the DOM node count, not the data, is the cost.
 - **Document metadata** (`<title>`, `<meta>`, `<link rel>`) rendered in the component that owns it is hoisted to `<head>` and deduped by React 19, so it lives
   with the view instead of a separate head-manager.
+- **Portals stay in the tree.** `createPortal` renders a modal, tooltip, or toast into a different DOM node (escaping `overflow` and stacking-context traps)
+  while keeping it in the React tree, so context and event bubbling still work.
 
 ```tsx
 // ❌ Array index as key on a list that can reorder — React reuses the wrong node, state leaks

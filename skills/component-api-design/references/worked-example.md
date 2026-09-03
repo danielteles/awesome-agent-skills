@@ -13,7 +13,7 @@ Input diff:
 5     isPrimary?: boolean;
 6     isCompact?: boolean;
 7     showClearButton?: boolean;
-8     renderOptionRow?: (o: InternalOption) => JSX.Element;
+8     renderOptionRow?: (o: InternalOption) => React.ReactNode;
 9     config?: Record<string, unknown>;
 10  };
 11

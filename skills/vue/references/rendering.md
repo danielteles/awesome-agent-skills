@@ -12,9 +12,9 @@ example — it adds no rule the Ruleset does not state.
 - **`<KeepAlive>` is targeted.** Wrapping the whole `<RouterView>` in `<KeepAlive>` holds every
   visited page's component tree in memory. Scope it with `:include` to the few views where
   preserving scroll and form state actually matters.
-- **Do not hand a memoized child fresh references.** An object or arrow function created in the
-  template is a new identity every render; hoist it or make it a `computed`. Virtualize a list past
-  a few hundred rows — the node count is the cost.
+- **Do not hand a child fresh references.** An object or arrow function created in the template is
+  a new identity every render, so the child re-renders each time; hoist it or make it a `computed`.
+  Virtualize a list past a few hundred rows — the node count is the cost.
 - **Watchers cost.** A deep `watch` over a big structure re-diffs it on every change; a
   `watchEffect` that reads too much re-runs too often. Watch the one field that matters.
 

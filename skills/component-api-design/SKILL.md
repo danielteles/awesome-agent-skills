@@ -76,10 +76,11 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] The props type is the minimal set that covers real use cases; a speculative "might need it" prop is not added until a caller needs it.
 - [ ] Illegal combinations are unrepresentable — a discriminated union over a `variant` prop, not four independent booleans that can all be true.
 - [ ] A `variant` / `size` / `tone` axis is a string-literal union, not a boolean per value (`primary` / `secondary`, not `isPrimary` + `isSecondary`).
-- [ ] Props are named for intent, stable, and consistent with the library's vocabulary (one name for one concept across every component); a handler
-      follows the framework's event convention (`onChange` in React, a `valueChange` output in Angular, a `change` / `update:value` emit in Vue), and a
-      boolean reads as a state (`disabled`, `loading`).
-- [ ] Props carry data and behaviour, not the component's private implementation types; the type is exported and documented, and `children` is typed explicitly.
+- [ ] Props are named for intent, stable, and consistent with the library's vocabulary — one name for one concept across every component.
+- [ ] A handler follows the framework's event convention (`onChange` in React, a `valueChange` output in Angular, a `change` / `update:value` emit in Vue).
+- [ ] A boolean prop reads as a state (`disabled`, `loading`), not a negated setting (`enabled={false}`).
+- [ ] A prop's type is a deliberate public type, never the component's private implementation type.
+- [ ] The props type is exported and documented, and `children` is typed explicitly.
 - [ ] There is no single `config` / `options` object prop standing in for a real API; sensible defaults mean the common case needs almost no props.
 - [ ] A prop that passes through to a DOM node (`className`, `aria-*`, `data-*`, `id`) is forwarded, and the component spreads remaining props onto its root or
       a named element deliberately.

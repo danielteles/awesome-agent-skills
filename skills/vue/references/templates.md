@@ -15,8 +15,8 @@ example — it adds no rule the Ruleset does not state.
   cached and testable.
 - **`v-html` is an XSS sink.** Only ever bind sanitized or fully trusted HTML
   (`architecture-and-design`, security).
-- **Semantic elements.** `<div @click>` has no role, no keyboard behavior, no focusability. Use
-  `<button>` / `<a>` / `<label>` and give every control a name (`accessibility`).
+- **Accessibility mechanism.** Element choice and names are the `accessibility` rules; Vue's own
+  tool is `useId()`, which gives a label or `aria-*` id that matches between server and client render.
 
 ```vue
 <!-- ❌ index key, v-if on the v-for element, logic in the binding -->

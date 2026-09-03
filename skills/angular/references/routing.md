@@ -8,7 +8,6 @@ The rules are in the `angular` Ruleset (`routing` group). This file is the reaso
   for the whole session.
 - **Bind route params, query params, and data to inputs** with `withComponentInputBinding()`, so the component reads an `input()` rather than injecting
   `ActivatedRoute`.
-- **Guard a route with a functional `CanActivateFn`** that uses `inject()` — no guard class, no module.
 - **Keep filters, the current tab, and pagination in the URL** (`architecture-and-design`, state-and-data) — shareable, and it survives a reload.
 
 ```ts

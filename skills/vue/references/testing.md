@@ -10,7 +10,7 @@ example — it adds no rule the Ruleset does not state.
 - **`emitted()` counts are not behavior.** Asserting "emitted `save` once" is testing the
   implementation. Assert the effect the emit produces — the parent updated, the row appeared —
   unless the event *is* the contract at that boundary.
-- **Mock at the network boundary.** MSW intercepts the request; stubbing `fetch` or mocking the
+- **Mock at the network boundary** (`test-quality`, test-doubles). MSW intercepts the request; stubbing `fetch` or mocking the
   composable couples the test to how data is loaded rather than what renders.
 - **Await async updates.** `await nextTick()`, `await flushPromises()`, or a `findBy*` query before
   the assertion — a synchronous `expect` right after an interaction races the re-render.

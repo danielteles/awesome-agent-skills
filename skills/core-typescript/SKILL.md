@@ -22,7 +22,7 @@ The language-level TypeScript rules for every project, framework or not. `react`
 extend it; `architecture-and-design` composes with it. Every rule assumes the compiler runs in
 `strict` mode (`compiler-config`). Examples are plain TypeScript, no framework.
 
-> **Builds on.** Nothing — this is the base skill.
+> **Builds on.** Nothing — this is a base skill.
 
 This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, and
 nothing here depends on a `references/` file being read. Each `references/<topic>.md` holds the
@@ -68,7 +68,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 ### compiler-config → `references/compiler-config.md`
 
 - [ ] `strict` is on, plus `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, `noImplicitOverride`, `noFallthroughCasesInSwitch`, `noImplicitReturns`,
-      `noUnusedLocals`, `noUnusedParameters`, and `verbatimModuleSyntax`.
+      `noUnusedLocals`, `noUnusedParameters`, `verbatimModuleSyntax`, and `erasableSyntaxOnly`.
 - [ ] A flag is never relaxed to clear an error — the code is fixed instead.
 
 ### unsafe-types → `references/unsafe-types.md`
@@ -114,7 +114,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 ### functions → `references/functions.md`
 
 - [ ] Every exported function annotates its return type; a local, non-exported function infers it.
-- [ ] One options object past a few parameters — no long list of order-dependent, especially boolean, arguments.
+- [ ] One options object past three parameters — no long list of order-dependent, especially boolean, arguments.
 - [ ] A union parameter over an overload set when the bodies match.
 
 ### async → `references/async.md`

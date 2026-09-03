@@ -41,6 +41,8 @@ class Cart {
 
   addLine(product: ProductId, quantity: number): Cart {
     // the root enforces the invariant: no duplicate product, quantity > 0
+    if (quantity <= 0) throw new Error('quantity must be positive');
+    if (this.lines.some((line) => line.product === product)) throw new Error('product already in cart');
     return new Cart(this.id, [...this.lines, CartLine.of(product, quantity)]);
   }
 

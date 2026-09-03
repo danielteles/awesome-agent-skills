@@ -110,7 +110,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] No task on the main thread runs longer than 50 ms during or after load; long work is chunked, yielded (`await scheduler.yield()` / `setTimeout`), or moved
       to a Web Worker.
 - [ ] An event handler does the minimum synchronously (update state, show feedback) and defers the rest; a non-urgent re-render is marked as such
-      (`useTransition`, `startTransition`).
+      with the framework's deferred-update API (`react`, data-fetching).
 - [ ] Input handlers on high-frequency events (`input`, `scroll`, `pointermove`) are debounced or throttled and do no layout-thrashing reads-then-writes.
 - [ ] Hydration does not block the first interaction — it is deferred, chunked, or scoped to interactive islands (see `javascript`).
 - [ ] A large list is virtualized; expensive derived data is memoized so a keystroke does not recompute it.

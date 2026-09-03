@@ -36,6 +36,6 @@ must-fix · reactivity · UserPanel.vue:6 — `const { user } = state` destructu
 must-fix · server · UserPanel.vue:5 — `localStorage.getItem` runs at setup top level and throws during SSR. Read it in `onMounted`, or use `useState` seeded on the client.
 must-fix · state · UserPanel.vue:7 — bare `fetch` in `setup`: no cache, no dedup, no loading or error state, refetches every mount. Use a query cache (`useQuery` / `useAsyncData`) keyed by `userId`.
 must-fix · templates · UserPanel.vue:16 — `v-if` and `v-for` on one element, and `:key="i"` is the array index. Compute `activeRoles` and use `:key="role.id"`.
-must-fix · templates · UserPanel.vue:15 — `<div @click>` is not a control. Use `<button type="button">` with an accessible name.
+must-fix · templates · UserPanel.vue:15 — `<div @click>` is not a control (`accessibility`, structure). Use `<button type="button">` with an accessible name.
 consider · reactivity · UserPanel.vue:8 — `fullName` renders "undefined undefined" until the fetch resolves. Guard the block with `v-if="user"` or return a placeholder from the computed.
 ```

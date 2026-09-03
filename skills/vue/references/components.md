@@ -11,11 +11,13 @@ example — it adds no rule the Ruleset does not state.
   `defineEmits<{ save: [id: string] }>()`.
 - **`defineModel` over the manual pair.** A custom field used to need a `modelValue` prop and an
   `update:modelValue` emit wired by hand. `defineModel()` is one line and stays in sync.
+- **Defaults by destructure.** `const { size = 'md' } = defineProps<Props>()` is reactive since Vue 3.5 and
+  reads as plain JavaScript; `withDefaults` is the older, noisier form.
 - **One component per file, named.** The file name is the component name (`PascalCase`), and a
   resolvable `name` is what `<KeepAlive :include>`, `<component :is>`, and the devtools use.
-- **Slots over config props.** A component that grows a boolean per variant is closed to extension
-  only by editing it (`architecture-and-design`, solid — OCP). Named and scoped slots let a caller
-  compose it.
+- **Slots are Vue's composition mechanism.** Named and scoped slots (`<template #header>`,
+  `v-slot="{ row }"`) let a caller supply markup; when a slot beats a prop is decided in
+  `component-api-design`, slots-vs-config.
 
 ```vue
 <!-- ❌ options object, runtime props, manual v-model pair -->

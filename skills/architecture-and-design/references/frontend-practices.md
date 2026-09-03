@@ -7,12 +7,13 @@ the reasoning and examples.
   a field or a pure pipe. Vue: a `computed`.
 - **Model every async state** — loading, empty, error, success (the union from `patterns`). A success-only path leaves the UI stuck on a failure.
 - **Stable list keys**, never the array index for a list that can reorder — an index key reuses the wrong DOM node and its state.
-- **One effect per concern, every dependency listed.** A stacked effect with a silenced linter is a bug source. Prefer a derived value or an event handler.
+- **A derived value or an event handler over a side effect.** A lifecycle side effect that stacks several concerns is a bug source; the one that remains does
+  one thing and cleans up after itself (the framework mechanics: `react`, effects; `angular`, signals; `vue`, reactivity).
 - **State tiers.** Server, URL, global, and local state each in their tier (`state-and-data`). One misplaced tier is a class of state bug.
 - **Error boundaries per region.** One handler at the app root turns a small failure into a blank page. React boundary, Angular `ErrorHandler`, Vue
   `onErrorCaptured`.
 - **Cancel stale async.** A late response overwrites newer data — use an `AbortController` or an ignore flag.
-- **Ship errors to a tracker** (Sentry, Datadog) with the source map, the release tag, and session context. An error with no stack and no version is not
+- **Ship errors to a tracker** with the source map, the release tag, and session context. An error with no stack and no version is not
   actionable.
 - **No `console.log` in production.** Lint it out; log structured events through one logger.
 - **Accessibility:** this skill checks only that a semantic element and a label are present. Focus management, ARIA, live regions, and a11y testing are the

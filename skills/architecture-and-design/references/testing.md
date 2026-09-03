@@ -16,8 +16,8 @@ and a thin top of end-to-end tests for critical paths.
 | Network | Mocking HTTP at the boundary (MSW), not by replacing modules. | The test then exercises the real adapter and mapping code. |
 | Critical paths | A few end-to-end tests (Playwright or Cypress) against a production build, isolated data per worker. | It proves the whole path once; it is too slow to carry broad coverage. |
 
-- **Query by role and label first.** Fall back to a `data-testid` only when no accessible name fits — a last resort for a unit test (it often flags a real a11y
-  gap), a stability choice for an E2E one (a selector that breaks on a copy edit is its own cost).
+- **Query by role and label first.** Fall back to a `data-testid` only when no accessible name fits — it often flags a real a11y gap. The e2e locator policy
+  is `e2e-testing`, selectors.
 - **Enforce coverage on changed lines**, not a global percentage — a global number rewards testing the easy code and hides the gap in the change.
 - **Every bug fix ships with a test that fails before the fix** — it proves the fix and stops the regression returning.
 - **Contract-test the API boundary**, or generate types from the contract and validate the payload — it catches front/back drift before production.

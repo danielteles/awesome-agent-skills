@@ -119,7 +119,7 @@ export interface AnalyticsService {
   trackEvent(event: string, payload?: Record<string, unknown>): void;
 }
 
-export class PostHogAnalyticsService implements AnalyticsService {
+export class VendorAnalyticsService implements AnalyticsService {
   trackEvent(event: string, payload?: Record<string, unknown>) {
     // Concrete vendor implementation
   }

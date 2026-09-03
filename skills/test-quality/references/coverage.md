@@ -24,11 +24,6 @@ it('rejects a negative price', () => {
 });
 ```
 
-## Enforce on the diff, not a global number
-
-A global threshold rewards piling tests onto easy code and says nothing about the risky lines in
-the current change. Gate the pull request on coverage of the lines it touches.
-
 ## Line coverage misses branches and boundaries
 
 One test through a function marks every line green while leaving the `else`, the empty input, the
@@ -41,11 +36,6 @@ For logic where a wrong answer is expensive — money, tax, auth, permissions, d
 mutation tester (Stryker) flips `+` to `-`, `<` to `<=`, `&&` to `||`, and reports which mutants
 your suite fails to catch. A surviving mutant is a real gap a coverage report cannot show. It is
 slow, so point it at the critical modules, not the whole repo.
-
-## Every bug fix ships with a test
-
-Write the test first, watch it fail on the current code, then fix. That proves the fix addresses
-the reported bug and stops the regression from returning unnoticed.
 
 ## Characterization tests: a net before you touch legacy code
 
