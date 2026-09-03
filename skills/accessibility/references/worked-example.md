@@ -32,6 +32,5 @@ must-fix · structure · filter-bar.tsx:10 — the Apply control is a `<div>`. U
 must-fix · forms · filter-bar.tsx:8 — the input has only a placeholder. Add an associated `<label>`. [WCAG 3.3.2]
 must-fix · forms · filter-bar.tsx:9 — the error is carried by red color alone and is not linked to the input. Keep the text, link it with `aria-describedby`, set `aria-invalid`. [WCAG 1.4.1, 3.3.1]
 must-fix · keyboard-focus · filter-bar.tsx:10 — `outline: none` removes the focus indicator with no replacement. [WCAG 2.4.7]
-must-fix · keyboard-focus · filter-bar.tsx:6 — opening the panel does not move focus into it; closing does not restore focus to the toggle.
 consider · perceivable · filter-bar.tsx:5 — `⚙` is a decorative glyph a screen reader may read as "gear". Wrap it `aria-hidden="true"` and rely on the button's `aria-label`. [WCAG 1.1.1]
 ```

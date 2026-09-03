@@ -41,6 +41,6 @@ must-fix · data-fetching · user-list.tsx:7 — data fetched in a bare `useEffe
 must-fix · effects · user-list.tsx:13 — `sorted` is state derived from `users` through an Effect. Compute it in render: `const sorted = useMemo(() => [...users].sort(byName), [users])`.
 must-fix · rendering · user-list.tsx:20 — `key={i}` is the array index. Use `key={u.id}`.
 consider · purity · user-list.tsx:3 — `React.FC`. Type the props directly: `function UserList({ teamId }: { teamId: string })`.
-consider · purity · user-list.tsx:1 — the `React` import is unused with the automatic JSX runtime. Remove it.
+consider · purity · user-list.tsx:1 — once `React.FC` goes, the `React` import is unused under the automatic JSX runtime. Remove it.
 consider · context · user-list.tsx:21 — `config` is a bag passed to a child. Pass an `onRemove` prop, or `children` (composition over config).
 ```

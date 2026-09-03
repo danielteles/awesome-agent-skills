@@ -6,7 +6,7 @@ description: >-
   primitive/semantic/component token pipeline, theming and dark mode by token
   redefinition, the CSS Modules vs utility vs CSS-in-JS decision, intrinsic
   responsive layout, container queries, and fluid type and spacing. Composes
-  with `react`, `angular`, and `accessibility`. Use it when the user mentions
+  with `react`, `angular`, `vue`, and `accessibility`. Use it when the user mentions
   CSS, styling, design tokens, theming, dark mode, a design system, container
   queries, media queries, responsive layout, fluid type, "clamp", Tailwind,
   CSS Modules, CSS-in-JS, cascade layers, or "@layer".
@@ -25,7 +25,7 @@ attach.
 
 > **Builds on.** `architecture-and-design` (where the design system sits, the feature boundary) and
 > `accessibility` (the perceptual thresholds — contrast, motion, reflow, forced colors), plus
-> `react` or `angular` for how styles attach to a component. On a conflict, `accessibility` decides
+> `react`, `angular`, or `vue` for how styles attach to a component. On a conflict, `accessibility` decides
 > the requirement and this skill decides the CSS that meets it. The Ruleset below is complete on its
 > own; load a named skill only when the task turns on its layer, not by default. If a named sibling
 > skill is not loaded, apply that layer from general knowledge and do not block.
@@ -169,5 +169,5 @@ This skill composes with:
 - **`architecture-and-design`** — owns where the design system and its tokens live and the feature boundary; this skill owns the CSS inside it.
 - **`accessibility`** — owns the perceptual thresholds (contrast, motion, reflow, forced colors). This skill positions the tokens and queries; on a conflict
   `accessibility` decides the requirement.
-- **`react`** / **`angular`** — how styles attach to a component (CSS Modules, scoped styles, `styleUrls`, the `class` / `style` binding) and the Server
-  Component runtime constraint on CSS-in-JS.
+- **`react`** / **`angular`** / **`vue`** — how styles attach to a component (CSS Modules, `styleUrls`, `<style scoped>`, the `class` / `style` binding) and
+  the Server Component runtime constraint on CSS-in-JS.

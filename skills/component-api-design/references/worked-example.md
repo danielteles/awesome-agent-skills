@@ -31,7 +31,7 @@ must-fix · props-contract · select-field.tsx:2 — `options: InternalOption[]`
 must-fix · props-contract · select-field.tsx:5 — `isPrimary` + `isCompact` are booleans for what are really axes. Use `variant?: 'primary' | 'default'` and `size?: 'sm' | 'md'`.
 must-fix · props-contract · select-field.tsx:9 — `config?: Record<string, unknown>` is an untyped god-object prop. Replace with named, typed props.
 must-fix · slots-vs-config · select-field.tsx:7 — `showClearButton` plus `renderOptionRow` is config for structure. Take a `clear` action slot and an `option` render slot with a typed argument.
-must-fix · props-contract · select-field.tsx:4 — `onValueChanged` breaks the library's `on<Event>` convention. Name it `onChange`.
+must-fix · props-contract · select-field.tsx:4 — `onValueChanged` breaks this React library's `on<Event>` handler convention. Name it `onChange`.
 consider · props-contract · select-field.tsx:1 — no `className` / `id` / `aria-*` passthrough. Forward the standard DOM props to the control.
 consider · versioning · select-field.tsx:1 — if this replaces an existing `Select`, ship it additively with a deprecation on the old props, not as a drop-in rename.
 ```

@@ -23,7 +23,7 @@ how it is named and structured, what it fakes, and whether it runs the same way 
 rules hold for any runner (Vitest, Jest, `node:test`) and any framework; examples use TypeScript.
 
 > **Builds on.** `core-typescript` (test code is code), `architecture-and-design` for suite
-> *strategy* (the pyramid, unit vs integration), and `react` / `angular` for the mechanics of
+> *strategy* (the pyramid, unit vs integration), and `react` / `angular` / `vue` for the mechanics of
 > rendering and querying a component. The Ruleset below is complete on its own; load these when the
 > task turns on their layer. If a named skill is not loaded, apply that layer from general
 > knowledge and do not block.
@@ -180,7 +180,7 @@ This skill judges the individual test. It does not cover:
   `testing` group in `architecture-and-design`.
 - Framework mechanics — React Testing Library queries and `user-event`, Angular `TestBed` and `HttpTestingController`, Vue Testing Library and
   `@vue/test-utils`, component harnesses. Those live in the `testing` group of `react`, `angular`, and `vue`.
-- End-to-end test design (Playwright, Cypress): selectors, per-worker data, retries, sharding.
+- End-to-end test design (Playwright, Cypress): selectors, per-worker data, retries, sharding. That is `e2e-testing`.
 - Performance and load testing.
 - Accessibility testing — a component test that queries by role doubles as an a11y check, but the full lens is in `accessibility`.
 - Choosing and configuring a runner (Vitest, Jest, `node:test`), and CI parallelization.

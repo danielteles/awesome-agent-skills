@@ -27,7 +27,7 @@ import fr from './locales/fr.json'; // ...×40, all in the entry chunk
 const t = (k: string) => messages[locale][k] ?? k; // shows "checkout.payButton" to the user
 
 // ✅ lazy per-locale load, fallback chain, pseudo in CI
-const messages = await import(`./locales/${locale}.json`);
+const messages = (await import(`./locales/${locale}.json`)).default;
 const t = (k: string) => messages[k] ?? fallback['en'][k] ?? reportMissing(k, locale);
 // build: `LOCALE=pseudo` run renders padded/accented text; CI fails on untranslated keys in shipping locales
 ```

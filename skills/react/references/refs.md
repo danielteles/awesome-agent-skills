@@ -22,13 +22,14 @@ function Views() {
   return <span>{count.current}</span>; // a rendered value living in a ref
 }
 
-// ✅ Mutate in an Effect; keep rendered values in state
-function Views() {
-  const [count, setCount] = useState(0);
+// ✅ The rendered value lives in state; the ref holds only what must survive renders (the timer id)
+function Timer() {
+  const [seconds, setSeconds] = useState(0);
+  const intervalId = useRef<number | undefined>(undefined);
   useEffect(() => {
-    const id = setInterval(() => setCount((c) => c + 1), 1000);
-    return () => clearInterval(id);
+    intervalId.current = window.setInterval(() => setSeconds((s) => s + 1), 1000);
+    return () => window.clearInterval(intervalId.current);
   }, []);
-  return <span>{count}</span>;
+  return <span>{seconds}</span>;
 }
 ```

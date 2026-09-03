@@ -5,8 +5,8 @@ description: >-
   web UI: Core Web Vitals budgets, diagnosing and fixing LCP, INP, and CLS,
   JavaScript bundle analysis and a code-splitting policy, image and font
   loading, hydration cost, and field measurement (RUM) with regression gating.
-  Composes with `react` and `angular` for the framework rendering API and with
-  `architecture-and-design` for data and state strategy. Use it when the user
+  Composes with `react`, `angular`, and `vue` for the framework rendering API and
+  with `architecture-and-design` for data and state strategy. Use it when the user
   mentions performance, Core Web Vitals, LCP, INP, CLS, Lighthouse, bundle size,
   code splitting, lazy loading, hydration, "slow page", "large bundle",
   web-vitals, or RUM.
@@ -22,8 +22,8 @@ The performance review lens for web UI: what the page costs to load and to inter
 against a budget. Framework-neutral — the metrics and diagnoses are the same for any stack; examples
 are HTML plus a little TSX for where a framework changes the fix.
 
-> **Builds on.** `react` or `angular` for the framework rendering and hydration API (their rendering
-> and SSR groups), and `architecture-and-design` for data fetching, caching, and state strategy. On
+> **Builds on.** `react`, `angular`, or `vue` for the framework rendering and hydration API (their
+> rendering and SSR groups), and `architecture-and-design` for data fetching, caching, and state strategy. On
 > a conflict, this skill sets the budget and the diagnosis and the framework skill
 > decides the API that meets it. The Ruleset below is complete on its own; load a named skill only
 > when the task turns on its layer, not by default. If a named sibling skill is not loaded, apply
@@ -34,19 +34,6 @@ target numbers inline, and nothing here depends on a `references/` file being re
 `references/<topic>.md` holds the *reasoning* and `❌ / ✅` code for one Ruleset group
 (`references/lcp.md`, `references/javascript.md`, …), plus `references/worked-example.md` for a full
 review pass. Open them for depth when your runtime allows.
-
-## The targets
-
-Core Web Vitals, measured at the **75th percentile** of real users, **on mobile**, from **field
-data**:
-
-| Metric | Good | Meaning |
-|---|---|---|
-| **LCP** — Largest Contentful Paint | ≤ 2.5 s | When the main content has rendered. |
-| **INP** — Interaction to Next Paint | ≤ 200 ms | Worst-case tap/keypress-to-paint latency across the visit. |
-| **CLS** — Cumulative Layout Shift | ≤ 0.1 | How much visible content jumps during load. |
-
-Supporting: **TTFB** ≤ 800 ms, and lab **TBT** ≤ 200 ms as the pre-release proxy for INP.
 
 ---
 
@@ -70,6 +57,19 @@ Write one finding per line:
 
 - `<severity>` is `must-fix` (breaks a budget, or a rule in this skill or a lint rule) or `consider` (a real cost that is under the line or unmeasured).
 - `<topic>` is a Ruleset topic slug (`budgets`, `lcp`, `inp`, `cls`, `javascript`, `assets`, `rum`).
+
+### The targets
+
+Core Web Vitals, measured at the **75th percentile** of real users, **on mobile**, from **field
+data**:
+
+| Metric | Good | Meaning |
+|---|---|---|
+| **LCP** — Largest Contentful Paint | ≤ 2.5 s | When the main content has rendered. |
+| **INP** — Interaction to Next Paint | ≤ 200 ms | Worst-case tap/keypress-to-paint latency across the visit. |
+| **CLS** — Cumulative Layout Shift | ≤ 0.1 | How much visible content jumps during load. |
+
+Supporting: **TTFB** ≤ 800 ms, and lab **TBT** ≤ 200 ms as the pre-release proxy for INP.
 
 ### Rules for Every Mode
 
@@ -175,5 +175,7 @@ This skill composes with:
   `fetchpriority` on `<img>`. On a conflict this skill sets the budget, `react` picks the API.
 - **`angular`** — `@defer` blocks, `NgOptimizedImage`, route-level lazy loading, `provideClientHydration()` and incremental hydration, zoneless change
   detection.
+- **`vue`** — `defineAsyncComponent` and the router's lazy import, `<Suspense>`, Nuxt `<NuxtImg>` / `useAsyncData`, and the lazy hydration strategies
+  (`hydrateOnVisible`, `hydrateOnIdle`).
 - **`architecture-and-design`** — data fetching, caching, and the state tiers that decide what renders when and how much ships to the client.
 - **`accessibility`** — `prefers-reduced-motion` and the reflow/zoom requirements that a CLS or font fix must also satisfy.

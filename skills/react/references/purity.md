@@ -12,8 +12,9 @@ example; if it ever disagrees with the Ruleset, the Ruleset wins.
 
 ## Why not `React.FC`
 
-It injects an implicit `children` (so a component that takes none still type-checks with children passed), and it blocks generic components. A plain `type` or
-`interface` on the props is more precise. Type `children` explicitly as `ReactNode` when the component takes them.
+It blocks a generic component (a type parameter cannot be expressed on `React.FC`) and hides the props type behind a wrapper, and it no longer adds anything
+— the types stopped injecting an implicit `children` in React 18. A plain `type` or `interface` on the props is more precise. Type `children` explicitly as
+`ReactNode` when the component takes them.
 
 ## Why `ref` as a prop
 
@@ -39,8 +40,8 @@ export function UserCard({ user, onRemove, ref }: UserCardProps) {
 ## Why the JSX/lint setup
 
 `"jsx": "react-jsx"` enables the automatic runtime, so no `import React` is needed for JSX. `eslint-plugin-react` catches JSX-level mistakes (an array-index
-`key`, a missing `key`, an unstable nested component); `eslint-plugin-react-hooks` (v5) catches conditional hooks and broken dependency arrays that no type
-checker sees — a suppressed warning in either is a latent bug.
+`key`, a missing `key`, an unstable nested component); `eslint-plugin-react-hooks` (v6 or later, `recommended`, which includes the React Compiler rules) catches
+conditional hooks, broken dependency arrays, and state set during render — none of which a type checker sees. A suppressed warning in either is a latent bug.
 
 ## Accessibility
 

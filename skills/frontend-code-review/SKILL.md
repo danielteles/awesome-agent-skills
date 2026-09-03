@@ -23,8 +23,9 @@ engineering rules — every finding still comes from another skill's Ruleset.
 
 > **Builds on.** Every other skill in this repository: `core-typescript` and
 > `architecture-and-design` (the base), `react` / `angular` / `vue` (framework), and
-> `accessibility` / `styling-and-design-tokens` / `web-performance` / `test-quality` / `e2e-testing`
-> (the lenses). This skill only routes; each finding's authority is the skill it came from. If a
+> `accessibility` / `styling-and-design-tokens` / `web-performance` / `i18n-and-localization` /
+> `test-quality` / `e2e-testing` (the lenses), and `component-api-design` for a shared component's
+> public contract. This skill only routes; each finding's authority is the skill it came from. If a
 > named skill is not loaded, apply its layer from general knowledge and do not block. On a conflict
 > between two skills' findings, this skill's de-duplication rules decide which one is reported.
 
@@ -41,7 +42,7 @@ Pick the mode that matches the task. Do the steps in order.
 
 | Mode | Steps |
 |---|---|
-| **Review** — run a full review of a diff | 1. Classify each changed file and pick the skills that apply (`routing`). 2. Apply them in order: `core-typescript` → `architecture-and-design` → the framework skill → the lenses → this skill's checks. 3. Collect every skill's findings in its own Output Format. 4. De-duplicate across skills (`dedup`). 5. Merge into one list — `must-fix` before `consider`, grouped by file, in file order (`merging`). 6. Write the summary line and hand off. |
+| **Review** — run a full review of a diff | 1. Classify each changed file and pick the skills that apply (`routing`). 2. Apply them in order: `core-typescript` → `architecture-and-design` → the framework skill → the lenses → this skill's checks. 3. Collect every skill's findings in its own Output Format. 4. De-duplicate across skills (`dedup`). 5. Merge into one list — grouped by file, `must-fix` before `consider` within each file, ascending line order within each severity (`merging`). 6. Write the summary line and hand off. |
 | **Scope** — decide which skills a change needs | 1. Classify the changed files (`routing`). 2. List the skills that apply and why, and the ones that do not. 3. Flag any gap — a changed concern with no skill loaded to cover it. Do not do the full review. |
 
 ### Output Format
@@ -73,8 +74,10 @@ result. Each group links to its `references/` file for rationale and an example.
 ### routing → `references/routing.md`
 
 - [ ] Every changed file is classified and mapped to the skills that apply — `.ts`/`.tsx` to `core-typescript`; a component or hook to the matching framework
-      skill; any UI to `accessibility` and, if it touches CSS or tokens, `styling-and-design-tokens`; a change to loading, bundling, or rendering to
-      `web-performance`; a test file to `test-quality`, an e2e spec to `e2e-testing`; a cross-cutting or structural change to `architecture-and-design`.
+      skill; any UI to `accessibility` and, if it touches CSS or tokens, `styling-and-design-tokens`; user-facing text or a formatted value to
+      `i18n-and-localization`; a change to loading, bundling, or rendering to `web-performance`; a shared or library component's props to
+      `component-api-design`; a test file to `test-quality`, an e2e spec to `e2e-testing`; a cross-cutting or structural change to
+      `architecture-and-design`.
 - [ ] Skills are applied base-first: `core-typescript`, then `architecture-and-design`, then the one framework skill, then the lenses, then this skill's own
       checks.
 - [ ] Only the framework skill for the codebase runs — not `react` and `angular` and `vue` on the same file.
@@ -84,15 +87,17 @@ result. Each group links to its `references/` file for rationale and an example.
 
 - [ ] When two skills flag the same line for the same underlying issue, one finding is reported, not two.
 - [ ] The finding is kept from the skill that owns that decision: `accessibility` for an a11y requirement, the framework skill for its API,
-      `styling-and-design-tokens` for a CSS value, `web-performance` for a budget, `architecture-and-design` for a design call, `core-typescript` for a type or
-      syntax point, `test-quality` for what a test asserts.
+      `styling-and-design-tokens` for a CSS value, `web-performance` for a budget, `i18n-and-localization` for a translatable string or a locale format,
+      `component-api-design` for a props contract, `architecture-and-design` for a design call, `core-typescript` for a type or syntax point, `test-quality`
+      for what a test asserts, `e2e-testing` for a locator, wait, or suite-isolation issue in an e2e spec.
 - [ ] The kept finding names the other skill that also flagged it, so the author sees it matters on two axes.
 - [ ] Two findings on the same line for *different* issues are both kept.
 - [ ] A genuine conflict — two skills prescribing incompatible fixes — is surfaced explicitly with the recommended resolution, not silently resolved.
 
 ### merging → `references/merging.md`
 
-- [ ] The merged list is ordered `must-fix` before `consider`, then grouped by file, then by ascending line number.
+- [ ] The merged list is grouped by file; within a file `must-fix` comes before `consider`, and within each severity the findings are in ascending line
+      order.
 - [ ] Each finding is one line in the Output Format, carrying its originating skill and topic.
 - [ ] The review opens with a summary line: files reviewed, `must-fix` count, `consider` count, and whether it blocks merge (any `must-fix` blocks).
 - [ ] If no skill produced a finding, the review says so in one line and does not manufacture nits.
@@ -121,8 +126,9 @@ to them:
 
 - **`core-typescript`**, **`architecture-and-design`** — the base layers, applied first.
 - **`react`** / **`angular`** / **`vue`** — the one framework skill for the codebase.
-- **`accessibility`**, **`styling-and-design-tokens`**, **`web-performance`**, **`test-quality`**, **`e2e-testing`** — the lenses, applied after the framework
-  skill.
+- **`accessibility`**, **`styling-and-design-tokens`**, **`web-performance`**, **`i18n-and-localization`**, **`test-quality`**, **`e2e-testing`** — the
+  lenses, applied after the framework skill.
+- **`component-api-design`** — the public contract of a shared component, applied with the framework skill when the diff touches a library component.
 
 On a conflict between two skills' findings, the `dedup` group decides which is reported; on a
 conflict about a rule's substance, the owning skill named there wins.

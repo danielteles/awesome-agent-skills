@@ -14,7 +14,6 @@ the reasoning and examples.
 - **Cancel stale async.** A late response overwrites newer data — use an `AbortController` or an ignore flag.
 - **Ship errors to a tracker** (Sentry, Datadog) with the source map, the release tag, and session context. An error with no stack and no version is not
   actionable.
-- **Field RUM.** Measure Core Web Vitals (LCP, INP, CLS) on real devices and networks, not only in Lighthouse.
 - **No `console.log` in production.** Lint it out; log structured events through one logger.
 - **Accessibility:** this skill checks only that a semantic element and a label are present. Focus management, ARIA, live regions, and a11y testing are the
   `accessibility` lens.

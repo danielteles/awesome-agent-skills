@@ -25,6 +25,21 @@ move independently; this file tracks the repository as a whole.
   between design and the framework skills.
 - `frontend-code-review` — a meta skill that routes a diff to the other skills
   and merges their findings.
+- Review pass over the new skills: Vue 3 `v-if` / `v-for` precedence and the
+  Pinia write-path rule corrected; `frontend-code-review` now routes to
+  `i18n-and-localization` and `component-api-design`, and its `merging` order
+  rule matches its reference (file, then severity, then line); invented findings
+  removed from worked examples; the original skills' Limits name the lens that
+  owns each concern they defer.
+- Currency and contract pass: `angular` adopts `resource()` / `httpResource()`
+  (stable in v22), `afterEveryRender()`, and zoneless-by-default; `react` targets
+  `eslint-plugin-react-hooks` v6+ with the Compiler rules and calls the Compiler
+  stable; `architecture-and-design` is a Base Engineering Skill, scopes
+  normalization to a client store, and uses ESLint flat config;
+  `component-api-design` handler naming follows each framework's convention;
+  `vue` corrects the Pinia write-path rationale; `frontend-code-review` routes e2e
+  specs by folder and de-duplicates with `e2e-testing`; every skill names `vue`
+  beside `react` and `angular`.
 
 ### Structure and docs
 
@@ -52,6 +67,8 @@ move independently; this file tracks the repository as a whole.
 - `bin/sync-readme.mjs` — regenerates the README Skills table and structure tree;
   `--check` runs in `npm test`.
 - `bin/bump-version.mjs` — bump a skill's `metadata.version`.
+- `test/validate-skills.test.mjs` — a `node:test` suite that runs the validator
+  against fixture skill directories, one case per check; part of `npm test`.
 - `npm test` runs the validator, the README check, and `markdownlint-cli2`
   (a 160-character ceiling on prose and list-item lines).
 - CI (`pull_request` only): Node 22, action commit SHAs pinned with Dependabot

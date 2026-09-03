@@ -114,8 +114,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] State is local (`ref` in the component) until a second component needs it; then `provide` / `inject` with a typed `InjectionKey`, and only then a store.
 - [ ] Pinia is the store for cross-view client state, sized against the `architecture-and-design` state tiers — reach for it when a composable plus `provide`
       would not scale, not by default.
-- [ ] A Pinia store is defined with the setup syntax, exposes `readonly` state or getters, and mutates through actions; components do not reassign
-      `store.$state`.
+- [ ] A Pinia store is defined with the setup syntax and is written through its actions (or one `$patch`); a component never assigns store state directly
+      or reassigns `store.$state`.
 - [ ] Server data (fetch, cache, revalidate) is not held in Pinia or a `ref` — it uses a query cache (TanStack Query, or Nuxt `useAsyncData` / `useFetch`) keyed
       by its inputs (`architecture-and-design`, state-and-data).
 - [ ] URL-owned state — filters, tab, pagination, page — lives in the route query, not a store (`architecture-and-design`, state-and-data).
@@ -141,7 +141,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 ### server → `references/server.md`
 
 - [ ] No `window` / `document` / `localStorage` at the top level of `setup` — that code runs on the server; it goes in `onMounted` or behind
-      `import.meta.client`.
+      `import.meta.client` (Nuxt) / `!import.meta.env.SSR` (Vite SSR).
 - [ ] SSR-shared state uses the framework primitive (`useState` in Nuxt), never a module-scope `ref` — a module ref is shared across all requests on the server.
 - [ ] `useAsyncData` / `useFetch` have an explicit, stable key and run the fetch once across server and client, not again on hydration.
 - [ ] A hydration mismatch is fixed at its cause (non-deterministic render, `Date.now()`, random, browser-only branch), not silenced; genuinely client-only UI
@@ -171,7 +171,9 @@ This skill is Vue framework rules. It does not cover:
 - A meta-framework's routing, data layer, and deployment specifics beyond the SSR boundary here — Nuxt modules, Nitro, route rules, `server/` API design.
 - The Options API in depth — new code uses `<script setup>`; for a legacy Options API app, migrate first (the Migrate mode above).
 - Vuex (superseded by Pinia), and store internals beyond the state tiers in `architecture-and-design`.
-- Vue 2, the pre-`<script setup>` Composition API `setup()` return style, styling systems, animation (`<Transition>` choreography), and i18n.
+- Vue 2, the pre-`<script setup>` Composition API `setup()` return style, and animation (`<Transition>` choreography).
+- Styling is `styling-and-design-tokens`; i18n (`vue-i18n` policy) is `i18n-and-localization`; loading and interaction cost is
+  `web-performance`.
 - Accessibility depth — semantic elements and names are noted where they fit; the full lens is `accessibility`.
 
 This skill decides the Vue API. It does not replace reading the component and understanding the domain.
@@ -184,6 +186,7 @@ This skill composes with:
 
 - **`core-typescript`** — the language base; SFCs and `<script setup>` macros do not exempt code from it.
 - **`architecture-and-design`** — the design layer. On a conflict it decides the design, this skill decides the Vue API.
-- **`accessibility`** — the review lens for UI; Vue's tools are semantic templates, `useId()`, and primitive libraries (Radix Vue, Headless UI).
+- **`accessibility`** — the review lens for UI; Vue's tools are semantic templates, `useId()`, and primitive libraries (Reka UI, formerly Radix Vue,
+  and Headless UI).
 - **`test-quality`** — judges the individual test this skill's `testing` group produces.
 - **`react`** / **`angular`** — the sibling framework skills.

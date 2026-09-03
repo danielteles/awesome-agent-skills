@@ -18,12 +18,12 @@ The rules are in the `web-performance` Ruleset (`budgets` group). This file is t
 - **Verify in the field.** A green Lighthouse run is a prediction. Confirm the change moved p75 in
   CrUX/RUM after release.
 
-```yaml
-# ❌ no budget — bundle grows one PR at a time until the page is slow
-# (nothing in CI checks size or Lighthouse)
+```jsonc
+// ❌ no budget — bundle grows one PR at a time until the page is slow
+// (nothing in CI checks size or Lighthouse)
 
-# ✅ a size budget enforced on every PR (e.g. size-limit)
-# .size-limit.json
+// ✅ a size budget enforced on every PR (e.g. size-limit)
+// .size-limit.json
 [
   { "path": "dist/assets/entry-*.js", "limit": "160 kB" },
   { "path": "dist/assets/route-checkout-*.js", "limit": "90 kB" }

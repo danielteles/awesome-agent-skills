@@ -6,7 +6,8 @@ reasoning and examples. Most state bugs come from too much state in the wrong pl
 - **Colocate.** State held higher than its readers re-renders the whole subtree between and couples unrelated parts. Lift only when a second component needs the
   same value.
 - **Derive, don't store.** A stored copy of something computable goes stale when its input changes.
-- **Normalize a server collection** — each entity once, keyed by id. Three copies of a user means three places to update.
+- **Normalize a server collection held in a client store** — each entity once, keyed by id; three copies of a user means three places to update. A
+  query cache is keyed by request and does not normalize, so data it holds stays as fetched.
 - **Match the tool to the state kind.** Each kind has a home that handles its lifecycle:
 
 | State kind | Home |

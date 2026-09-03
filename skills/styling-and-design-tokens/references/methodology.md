@@ -31,6 +31,6 @@ const Bar = styled.div<{ pct: number }>`
 // .bar { inline-size: var(--pct); background: var(--bar-color); }
 <div
   className={styles.bar}
-  style={{ '--pct': `${pct}%`, '--bar-color': pct > 80 ? 'var(--color-danger)' : 'var(--color-success)' }}
+  style={{ '--pct': `${pct}%`, '--bar-color': pct > 80 ? 'var(--color-danger)' : 'var(--color-success)' } as React.CSSProperties}
 />;
 ```

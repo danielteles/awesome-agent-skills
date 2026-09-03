@@ -72,8 +72,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 - [ ] No `NgModule` — every component, directive, and pipe is standalone; no redundant `standalone: true` where it is already the default. Each component lists
       what it uses in its own `imports` array.
-- [ ] Bootstrap with `bootstrapApplication(App, appConfig)` and functional providers (`provideZonelessChangeDetection`, `provideRouter`, `provideHttpClient`,
-      `provideClientHydration`).
+- [ ] Bootstrap with `bootstrapApplication(App, appConfig)` and functional providers (`provideRouter`, `provideHttpClient`, `provideClientHydration`); no
+      `provideZoneChangeDetection` and no `zone.js` polyfill in a new app — `provideZonelessChangeDetection()` only while upgrading a v20 app.
 - [ ] `angularCompilerOptions` has `strictTemplates`, `strictInjectionParameters`, `strictInputAccessModifiers`, `strictStandalone`, and `typeCheckHostBindings`
       on.
 - [ ] `angular-eslint` runs (`recommended` + `template/recommended` + `template/accessibility`), with `prefer-standalone`,
@@ -139,7 +139,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] No manual `.subscribe()` without `takeUntilDestroyed()` (in an injection context or passed a `DestroyRef`) or the `async` pipe.
 - [ ] `HttpClient` is called from a repository, not a component (`architecture-and-design`, patterns); server state is cached with a cache library, not a
       hand-rolled `BehaviorSubject` store (`architecture-and-design`, state-and-data).
-- [ ] `resource()` / `rxResource()` / `httpResource()` are avoided while experimental — `toSignal()` or a cache library.
+- [ ] A component-level server read is a `resource()` / `httpResource()` (stable since v22); `toSignal()` for a non-resource stream; a cache library once
+      several components need dedup and invalidation of the same data.
 - [ ] Transport errors are handled in one functional interceptor (status → domain error, backoff retry for an idempotent call); one top-level `ErrorHandler`
       reports and shows a fallback (`architecture-and-design`, frontend-practices).
 
@@ -164,13 +165,13 @@ reviewing. Each group links to its `references/` file for rationale and examples
 ### rendering-ssr → `references/rendering-ssr.md`
 
 - [ ] Zoneless-ready: the view is driven by signals or the `async` pipe, never a change-detection side effect.
-- [ ] DOM measurement and imperative DOM work go in `afterNextRender()` / `afterRender()`, not `ngAfterViewInit`; DOM changes go through `Renderer2` or a
+- [ ] DOM measurement and imperative DOM work go in `afterNextRender()` / `afterEveryRender()`, not `ngAfterViewInit`; DOM changes go through `Renderer2` or a
       binding, not `ElementRef.nativeElement` + `document`.
 - [ ] No `window` / `document` / `localStorage` in a constructor or field initializer — guarded with `afterNextRender` or `isPlatformBrowser`.
 - [ ] `provideClientHydration()` for an SSR app; `NgOptimizedImage` (`ngSrc`) with explicit `width` / `height` or `fill`.
 - [ ] No `bypassSecurityTrust*` on anything a user or an API supplied (`architecture-and-design`, security).
 - [ ] Focus and live-change announcement use the CDK a11y tools (`FocusTrap`, `FocusMonitor`, `LiveAnnouncer`); full lens: `accessibility`.
-- [ ] Until the app is zoneless, a high-frequency listener (`scroll`, `mousemove`, `rAF`) runs inside `NgZone.runOutsideAngular`.
+- [ ] In an app still on Zone.js, a high-frequency listener (`scroll`, `mousemove`, `rAF`) runs inside `NgZone.runOutsideAngular`.
 
 ### testing → `references/testing.md`
 
@@ -195,12 +196,13 @@ This skill is Angular framework rules. It does not cover:
 - Language rules (see `core-typescript`) or framework-neutral architecture (see `architecture-and-design`).
 - Deep RxJS operator design, and store libraries (NgRx, NGXS) — use the state tiers in `architecture-and-design`, state-and-data, and reach for a store only
   when they call for one.
-- Nx or monorepo setup, Angular Material theming, `@angular/animations`, and i18n.
+- Nx or monorepo setup, Angular Material theming, and `@angular/animations`. Styling is `styling-and-design-tokens`; i18n (`@angular/localize` policy) is
+  `i18n-and-localization`; loading and interaction cost is `web-performance`.
 - Accessibility depth — CDK a11y usage is noted where it fits, but focus management, ARIA, and a11y testing live in `accessibility`.
 - Angular versions before standalone components and block control flow. For a legacy app, migrate first (the Migrate mode above).
 - Other frameworks — `react` and `vue` are the sibling skills; every rule here is Angular-specific.
 
-Zoneless change detection is stabilizing. The rules here keep code zoneless-ready without requiring the provider.
+Zoneless change detection is stable and the default from v21. The rules here keep an app still on Zone.js zoneless-ready.
 
 ---
 

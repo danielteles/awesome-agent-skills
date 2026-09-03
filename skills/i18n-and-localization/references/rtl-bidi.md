@@ -17,7 +17,7 @@ and a `❌ / ✅` example — it adds no rule the Ruleset does not state.
 - **`dir="auto"` for unknown content.** A comment, a display name, a search query — you do not know
   its direction at build time. `dir="auto"` lets the browser detect it per value.
 - **Mirror the directional icons only.** Back/forward arrows, "send", undo/redo, list bullets, and
-  breadcrum chevrons flip. A logo, a checkmark, a play button, and a clock do not.
+  breadcrumb chevrons flip. A logo, a checkmark, a play button, and a clock do not.
 
 ```html
 <!-- ❌ physical properties, raw interpolation, arrow never mirrors -->

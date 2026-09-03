@@ -11,9 +11,10 @@ reasoning and a `❌ / ✅` example — it adds no rule the Ruleset does not sta
   `isLink`) allow sixteen combinations, most nonsensical, and the component needs precedence rules
   for `isPrimary && isDanger`. One `variant` union has exactly the valid values and the type checker
   enforces it.
-- **Name for intent, consistently.** A handler is `on<Event>`; a boolean reads as a state
-  (`disabled`, not `enabled={false}`); the same concept has the same name across the library
-  (`onChange` everywhere, not `onChange` here and `onUpdate` there).
+- **Name for intent, consistently.** A handler follows the framework's event convention —
+  `on<Event>` in React, no `on` prefix on an Angular output, `update:x` for a Vue model; a boolean
+  reads as a state (`disabled`, not `enabled={false}`); the same concept has the same name across
+  the library (`onChange` everywhere, not `onChange` here and `onUpdate` there).
 - **Do not leak internals.** A prop typed as the component's private `InternalRowModel` couples
   every caller to a shape that should be free to change. Export a deliberate public type.
 - **No god object.** A single `config={{ ... }}` prop is an un-typed, un-discoverable API. Real

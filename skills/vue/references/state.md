@@ -19,9 +19,10 @@ The tiers, cheapest first (`architecture-and-design`, state-and-data):
 - **Server data is not store state.** Caching, deduping, revalidation, and loading/error status are
   what a query library gives you; a `ref` or a Pinia field holding fetch results reimplements all
   of it badly and goes stale.
-- **Pinia stores mutate through actions.** Setup-syntax store, `state`/getters exposed `readonly`
-  or as computeds, writes via actions. A component doing `store.$state = ...` or mutating a nested
-  field defeats devtools tracking and any subscription logic.
+- **Pinia stores mutate through actions.** Setup-syntax store, derived values as `computed`,
+  writes through actions or one `$patch`. Pinia allows `store.count = 5` and `$subscribe` still
+  sees it, so this is house style, not a Pinia rule: one write path keeps every mutation named,
+  greppable, and visible to `$onAction`, where a scattered direct write is none of those.
 - **URL-owned state stays in the URL.** A shareable, reloadable filter belongs in the query string,
   not a store that resets on refresh.
 

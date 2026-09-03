@@ -24,8 +24,8 @@ example — it adds no rule the Ruleset does not state.
 ```ts
 // ❌ destructured reactive — count and inc are no longer reactive
 const state = reactive({ count: 0 });
-const { count } = state;
-function inc() { count++; } // mutates a local number; template never updates
+let { count } = state; // a plain number — the reactive link is gone
+function inc() { count++; } // mutates the local copy; the template never updates
 
 // ✅ ref, or toRefs if a reactive group is really wanted
 const count = ref(0);

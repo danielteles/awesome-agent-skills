@@ -6,8 +6,9 @@ example — it adds no rule the Ruleset does not state.
 - **Key on a stable id.** Vue uses `:key` to match old and new nodes. An array-index key means that
   when the list reorders or an item is removed, Vue keeps the wrong DOM node and its state — a
   half-typed input, a checked box — attached to the wrong data.
-- **Never `v-if` with `v-for` on one element.** `v-for` has higher priority, so the `v-if` is
-  evaluated per item on every render even for items you meant to skip. Filter in a `computed`, or
+- **Never `v-if` with `v-for` on one element.** In Vue 3 `v-if` has higher priority than `v-for`,
+  so `v-if="row.active"` runs before `row` exists — a reference error, not a filter (Vue 2 had the
+  opposite order, which is why the pattern survives in migrated code). Filter in a `computed`, or
   move the `v-if` to a wrapping `<template>`.
 - **Keep template expressions trivial.** A binding is re-evaluated on every render. Anything past a
   property read or a single call — a filter, a sort, a format — belongs in a `computed` so it is

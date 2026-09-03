@@ -21,14 +21,15 @@
 // Warnings (do not fail): a reference file no SKILL.md points to; a SKILL.md with no
 // references pointers; a file over its soft token budget.
 //
-// No dependencies. Run with `node bin/validate-skills.mjs` or `npm test`.
+// No dependencies. Run with `node bin/validate-skills.mjs` or `npm test`. `SKILLS_DIR=<dir>`
+// points it at another skills root; test/validate-skills.test.mjs uses that.
 
 import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
-import { join, dirname } from 'node:path';
+import { join, dirname, resolve, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
-const skillsDir = join(repoRoot, 'skills');
+const skillsDir = process.env.SKILLS_DIR ? resolve(process.env.SKILLS_DIR) : join(repoRoot, 'skills');
 
 const NAME_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const REF_RE = /`references\/([A-Za-z0-9._-]+\.md)`/g;
@@ -47,7 +48,7 @@ const warnings = [];
 const rows = [];
 
 const budget = (path, kind) => {
-  const rel = path.slice(repoRoot.length + 1);
+  const rel = relative(dirname(skillsDir), path);
   const tokens = estimateTokens(readFileSync(path, 'utf8'));
   const [warn, fail] = BUDGET[kind];
   rows.push({ path: rel, tokens, kind });
