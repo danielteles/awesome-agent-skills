@@ -42,7 +42,7 @@ Pick the mode that matches the task. Do the steps in order.
 
 | Mode | Steps |
 |---|---|
-| **Review** — run a full review of a diff | 1. Classify each changed file and pick the skills that apply (`routing`). 2. Apply them in order: `core-typescript` → `architecture-and-design` → the framework skill → the lenses → this skill's checks. 3. Collect every skill's findings in its own Output Format. 4. De-duplicate across skills (`dedup`). 5. Merge into one list — grouped by file, `must-fix` before `consider` within each file, ascending line order within each severity (`merging`). 6. Write the summary line and hand off. |
+| **Review** — run a full review of a diff | 1. Classify each changed file and pick the skills that apply (`routing`). 2. Apply them in order: `core-typescript` → `architecture-and-design` → the framework skill → the lenses → this skill's checks. 3. Collect every skill's findings in its own Output Format. 4. De-duplicate across skills (`dedup`). 5. Merge into one list — grouped by file, `must-fix` before `consider` within each file, ascending line order within each severity (`merging`). 6. Write the summary line and hand off. Do not invent findings. |
 | **Scope** — decide which skills a change needs | 1. Classify the changed files (`routing`). 2. List the skills that apply and why, and the ones that do not. 3. Flag any gap — a changed concern with no skill loaded to cover it. Do not do the full review. |
 
 ### Output Format

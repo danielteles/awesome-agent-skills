@@ -89,9 +89,11 @@ One validator guards this — `node bin/validate-skills.mjs` (aliased as
 `npm test`), run on every PR by
 [`.github/workflows/check-skills.yml`](.github/workflows/check-skills.yml). It
 checks the frontmatter (`name`, `description` length, `license`, `metadata`),
-the 500-line body cap, every `references/` pointer, the topic slugs and
-sibling-skill names named in prose, the reference-file header, the worked
-example, and the per-file token budgets. The validator has its own tests under
+the 500-line body cap, the title Kind and the four top-level sections, the
+Builds-on note and the Review row, every `references/` pointer and that each
+reference file is named for its group, the topic slugs and sibling-skill names
+named in prose, the reference-file header, the worked example, and the
+per-file token budgets. The validator has its own tests under
 [`test/`](test/).
 
 ---

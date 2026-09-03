@@ -104,8 +104,9 @@ The finding line is fixed. Copy it verbatim:
 <severity> · <topic> · <file>:<line> — <what is wrong>. <the fix as an action>.
 ```
 
-- `<severity>` is `must-fix` (breaks a rule in this skill, or the build / a lint
-  rule) or `consider` (safe, but a rule prefers another form).
+- `<severity>` is `must-fix` when the breach changes behavior, correctness,
+  accessibility, or the build (or trips a lint rule), and `consider` when only the
+  shape is wrong — the code works as it is, but a rule prefers another form.
 - `<topic>` is a Ruleset topic slug.
 
 A skill may append one bracketed tag per finding for an external standard it
@@ -168,6 +169,9 @@ least three topics.
   routes a diff to the skills above and merges their findings. A new skill is
   added to its `routing` and `dedup` rules and reference tables, and to the
   Limits of any existing skill that used to defer that concern to nothing.
+- Some concerns are outside the set on purpose — animation choreography, backend
+  and infrastructure design, native mobile. A skill's Limits may say so; no skill
+  has to own them.
 
 ### No tool, vendor, or model names
 
@@ -208,9 +212,11 @@ a check comes with a case that fails without it; run
 `node --test test/*.test.mjs` on its own while editing the validator.
 
 `bin/validate-skills.mjs` enforces the whole contract above — frontmatter keys,
-the name regex, the description limit, the 500-line body cap, every
-`references/` pointer, topic slugs, sibling-skill names, the reference-file
-header, the worked example, and the token budgets. `bin/sync-readme.mjs --check`
+the name regex, the description limit, the 500-line body cap, the title Kind,
+the four top-level sections in order, the Builds-on note (and its exact base
+form), the Review row's closing sentence, every `references/` pointer and that
+each reference file is named for its group, topic slugs, sibling-skill names,
+the reference-file header, the worked example, and the token budgets. `bin/sync-readme.mjs --check`
 fails if the README Skills table or structure tree is out of date; run
 `node bin/sync-readme.mjs` (no flag) to regenerate them. `markdownlint-cli2`
 (config in `.markdownlint-cli2.jsonc`) enforces one rule — a 160-character
