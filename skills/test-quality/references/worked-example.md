@@ -47,7 +47,7 @@ must-fix · assertions · cart.test.ts:22 — the `try/catch` asserts only that 
 must-fix · structure-and-naming · cart.test.ts:7 — "test add" restates the method. Name the outcome: "adds a line item to an empty cart".
 must-fix · structure-and-naming · cart.test.ts:12 — "total" plus the `for` loop mixes two concerns and re-implements the code. Name it "subtracts a percentage coupon from the subtotal" and drop the loop.
 consider · test-data · cart.test.ts:8 — `id`, `price`, and `qty` are all `1`, so a swapped argument still passes. Use distinct values via a `makeLineItem({ price: 10, qty: 2 })` builder.
-consider · core-typescript · cart.test.ts:4 — `cart: any` drops type checking on the subject and forces the `as any` casts below. Type it `Cart`.
+consider · unsafe-types · cart.test.ts:4 — `cart: any` drops type checking on the subject and forces the `as any` casts below. Type it `Cart`. (core-typescript)
 ```
 
 The same behaviors, tested well:

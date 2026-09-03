@@ -33,19 +33,30 @@ src/
 - **Enforce it with a linter** (`eslint-plugin-boundaries`, Nx module boundaries). A boundary rule that is not enforced is not kept.
 
 ```javascript
-// .eslintrc.js boundary rule concept
-{
-  "rules": {
-    "boundaries/element-types": [
-      2,
-      {
-        "default": "disallow",
-        "rules": [
-          { "from": "features", "allow": ["shared", ["features", { "featureName": "${from.featureName}" }]] },
-          { "from": "shared", "allow": ["shared"] }
-        ]
-      }
-    ]
-  }
-}
+// eslint.config.js — boundary rule concept (flat config)
+import boundaries from 'eslint-plugin-boundaries';
+
+export default [
+  {
+    plugins: { boundaries },
+    settings: {
+      'boundaries/elements': [
+        { type: 'features', pattern: 'src/features/*', capture: ['featureName'] },
+        { type: 'shared', pattern: 'src/shared/*' },
+      ],
+    },
+    rules: {
+      'boundaries/element-types': [
+        'error',
+        {
+          default: 'disallow',
+          rules: [
+            { from: 'features', allow: ['shared', ['features', { featureName: '${from.featureName}' }]] },
+            { from: 'shared', allow: ['shared'] },
+          ],
+        },
+      ],
+    },
+  },
+];
 ```

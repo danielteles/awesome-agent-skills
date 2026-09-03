@@ -9,8 +9,9 @@ The rules are in the `angular` Ruleset (`rxjs` group). This file is the reasonin
 - **`HttpClient` from a repository, not a component** (`architecture-and-design`, patterns) — the component depends on a domain interface, not the transport.
   **Cache server state with a cache library**, not a hand-rolled `BehaviorSubject` store (`architecture-and-design`, state-and-data); caching, refetch, and
   staleness are solved there.
-- **`resource()` / `rxResource()` / `httpResource()` are experimental** — prefer `toSignal()` or a cache library until they stabilize; building on an
-  experimental API costs a rewrite later.
+- **`resource()` / `httpResource()` for a component-level read** (stable since v22) — a signal-driven request with `value()`, `isLoading()`, and `error()`
+  built in, reloaded when its `params` signal changes; `rxResource()` wraps an Observable loader. `toSignal()` stays for a plain stream; a cache library
+  earns its place once several components share the data and need dedup and invalidation.
 - **Transport errors in one functional interceptor** — map status codes to domain errors, retry an idempotent call with backoff — not a `catchError` in every
   call. **One top-level `ErrorHandler`** for anything that reaches it: report, then show a fallback (`architecture-and-design`, frontend-practices).
 

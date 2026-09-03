@@ -6,7 +6,7 @@ description: >-
   Authoring Practices Guide. Semantic HTML and structure, accessible names and
   ARIA, keyboard and focus, forms, perceivable content (text alternatives,
   contrast, motion, zoom), live regions and SPA route announcements, a11y
-  testing. Composes with `react` and `angular` for the framework mechanism. Use
+  testing. Composes with `react`, `angular`, and `vue` for the framework mechanism. Use
   it when the user says "accessibility", "a11y", "WCAG", "ARIA", "screen
   reader", "keyboard navigation", "focus", "contrast", "axe", "landmark", or
   "WAI".
@@ -22,8 +22,8 @@ The accessibility review lens for web UI, grounded in the W3C Web Accessibility 
 The target is **WCAG 2.2, conformance level AA** — the technical bar behind EN 301 549, the ADA,
 Section 508, and the European Accessibility Act.
 
-> **Builds on.** `architecture-and-design`, and `react` or `angular` for the framework mechanism
-> behind each rule. The Ruleset below is complete on its own; load these when you need the design
+> **Builds on.** `architecture-and-design`, and `react`, `angular`, or `vue` for the framework
+> mechanism behind each rule. The Ruleset below is complete on its own; load these when you need the design
 > rationale or the framework API, not by default. If a named skill is not loaded, apply that layer
 > from general knowledge and do not block.
 

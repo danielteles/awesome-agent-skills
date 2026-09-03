@@ -19,6 +19,7 @@ an example — it adds no rule the Ruleset does not state.
   | A design or layering decision | `architecture-and-design` |
   | A type, `any`, narrowing, or syntax point | `core-typescript` |
   | What a test asserts or fakes | `test-quality` |
+  | A locator, a wait, or suite isolation in an e2e spec | `e2e-testing` |
 
 - **Credit the other skill.** The kept finding says "…also flagged by `react`" so the author sees
   it fails on two axes and is not tempted to fix only one.

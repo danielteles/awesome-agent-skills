@@ -40,7 +40,7 @@ Pick the mode that matches the task. Do the steps in order.
 |---|---|
 | **Generate** — write a new component or hook | 1. Keep render pure; type the props (`purity`). 2. Before you write a `useEffect`, check `effects` — most do not need one. 3. Derive state during render; reset with `key` (`state`). 4. Run the Ruleset as a checklist. Fix each fail before you hand off. |
 | **Review** — check a pull request or a diff | 1. Run the Ruleset against the diff. 2. Write one finding per fail, in the Output Format below. 3. Order the findings: `must-fix` first, then `consider`. 4. If nothing fails, say so in one line. Do not invent findings. |
-| **Migrate** — modernize legacy React | 1. Run the React 19 types codemod, then the `forwardRef` and `<Context.Provider>` codemods. 2. Turn on `eslint-plugin-react-hooks` (v5) and fix every warning. 3. Adopt the React Compiler; then delete hand-written `useMemo` / `useCallback` that only guarded referential identity. 4. One change kind per commit. Keep the tests green. |
+| **Migrate** — modernize legacy React | 1. Run the React 19 types codemod, then the `forwardRef` and `<Context.Provider>` codemods. 2. Turn on `eslint-plugin-react-hooks` (v6 or later, `recommended`) and fix every warning. 3. Adopt the React Compiler; then delete hand-written `useMemo` / `useCallback` that only guarded referential identity. 4. One change kind per commit. Keep the tests green. |
 
 ### Output Format
 
@@ -77,7 +77,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] One component per file, file name matching the component; no `import React` just for JSX (`"jsx": "react-jsx"`).
 - [ ] A semantic element (`button`, `nav`, `label`) over a `div` with a handler; every control has an accessible name; `useId()` for label / `aria-*` ids, never
       as a list key.
-- [ ] `eslint-plugin-react` and `eslint-plugin-react-hooks` (v5) are on and every warning fixed, not disabled.
+- [ ] `eslint-plugin-react` and `eslint-plugin-react-hooks` (v6 or later, `recommended`, which includes the React Compiler rules) are on and every
+      warning fixed, not disabled.
 
 ### hooks → `references/hooks.md`
 
@@ -156,7 +157,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] No server-only module (db client, secret, `fs`) is reachable from a `'use client'` file; `server-only` enforces it.
 - [ ] Data fetching happens in the Server Component or loader, and the result is passed down.
 
-### rendering → `references/performance.md`
+### rendering → `references/rendering.md`
 
 - [ ] The React Compiler is on; where it is not, `memo` / `useMemo` / `useCallback` appear only on a path measured with the Profiler.
 - [ ] No fresh object / array / function built in render and passed to a memoized child.
@@ -191,7 +192,7 @@ This skill is React framework rules. It does not cover:
   interaction cost is `web-performance`.
 - Other frameworks — `angular` and `vue` are the sibling skills; every rule here is React-specific.
 
-The React Compiler is on a release track. The rules here assume you adopt it; where you have not, the `rendering` rules on manual memoization apply.
+The React Compiler is stable (1.0). The rules here assume you adopt it; where you have not, the `rendering` rules on manual memoization apply.
 
 ---
 

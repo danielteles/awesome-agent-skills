@@ -7,12 +7,13 @@ config blocks.
   `imports` array. Do not write `standalone: true` where it is already the default.
 - **`bootstrapApplication(App, appConfig)` in `main.ts`** — one entry point, one provider list. Configure with functional providers: they are tree-shakable and
   typed, with no module graph.
+- **Zoneless is the default from v21.** Leave `zone.js` out of the polyfills and do not add `provideZoneChangeDetection`; `provideZonelessChangeDetection()`
+  is only for a v20 app opting in ahead of the upgrade.
 
 ```ts
 // main.ts
 bootstrapApplication(App, {
   providers: [
-    provideZonelessChangeDetection(),
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideClientHydration(),

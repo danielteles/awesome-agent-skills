@@ -5,7 +5,7 @@ description: >-
   compiler strictness, banning unsafe types, inference and `satisfies`,
   discriminated unions and branded ids, narrowing, generics, utility types,
   nullability, async, errors as `unknown`, module and language hygiene. The base
-  skill that `react`, `angular`, and `architecture-and-design` build on. Use it
+  skill that `react`, `angular`, `vue`, and `architecture-and-design` build on. Use it
   when writing, reviewing, or refactoring TypeScript, setting up `tsconfig.json`,
   or when the user says "TypeScript", "tsconfig", "strict mode", "type error",
   "any", "generics", "type safety", "utility types", "discriminated union", or
@@ -18,7 +18,7 @@ metadata:
 
 # Core TypeScript Conventions — Base Engineering Skill
 
-The language-level TypeScript rules for every project, framework or not. `react` and `angular`
+The language-level TypeScript rules for every project, framework or not. `react`, `angular`, and `vue`
 extend it; `architecture-and-design` composes with it. Every rule assumes the compiler runs in
 `strict` mode (`compiler-config`). Examples are plain TypeScript, no framework.
 
@@ -154,7 +154,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 This skill is language-level TypeScript. It does not cover:
 
 - Architecture, layering, state management, and component design — see `architecture-and-design`.
-- Framework APIs and patterns — see `react` and `angular`.
+- Framework APIs and patterns — see `react`, `angular`, and `vue`.
 - Build tooling, bundlers, and monorepo setup beyond the `tsconfig` baseline in `compiler-config`.
 - Runtime schema libraries (Zod, Valibot) — named where relevant, not taught here.
 
@@ -168,4 +168,4 @@ This skill composes with:
 
 - **`architecture-and-design`** — the design layer. On a shared topic (discriminated unions, branded ids) it decides the design and this skill decides the
   syntax.
-- **`react`** / **`angular`** — extend this skill with their framework's specifics. On a language-point conflict, this skill wins.
+- **`react`** / **`angular`** / **`vue`** — extend this skill with their framework's specifics. On a language-point conflict, this skill wins.

@@ -89,7 +89,7 @@ result. Each group links to its `references/` file for rationale and an example.
 - [ ] The finding is kept from the skill that owns that decision: `accessibility` for an a11y requirement, the framework skill for its API,
       `styling-and-design-tokens` for a CSS value, `web-performance` for a budget, `i18n-and-localization` for a translatable string or a locale format,
       `component-api-design` for a props contract, `architecture-and-design` for a design call, `core-typescript` for a type or syntax point, `test-quality`
-      for what a test asserts.
+      for what a test asserts, `e2e-testing` for a locator, wait, or suite-isolation issue in an e2e spec.
 - [ ] The kept finding names the other skill that also flagged it, so the author sees it matters on two axes.
 - [ ] Two findings on the same line for *different* issues are both kept.
 - [ ] A genuine conflict — two skills prescribing incompatible fixes — is surfaced explicitly with the recommended resolution, not silently resolved.

@@ -31,6 +31,15 @@ move independently; this file tracks the repository as a whole.
   rule matches its reference (file, then severity, then line); invented findings
   removed from worked examples; the original skills' Limits name the lens that
   owns each concern they defer.
+- Currency and contract pass: `angular` adopts `resource()` / `httpResource()`
+  (stable in v22), `afterEveryRender()`, and zoneless-by-default; `react` targets
+  `eslint-plugin-react-hooks` v6+ with the Compiler rules and calls the Compiler
+  stable; `architecture-and-design` is a Base Engineering Skill, scopes
+  normalization to a client store, and uses ESLint flat config;
+  `component-api-design` handler naming follows each framework's convention;
+  `vue` corrects the Pinia write-path rationale; `frontend-code-review` routes e2e
+  specs by folder and de-duplicates with `e2e-testing`; every skill names `vue`
+  beside `react` and `angular`.
 
 ### Structure and docs
 

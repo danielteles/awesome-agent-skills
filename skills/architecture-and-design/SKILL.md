@@ -17,17 +17,18 @@ metadata:
   version: "1.0"
 ---
 
-# Architecture and Design — Frontend Engineering Skill
+# Architecture and Design — Base Engineering Skill
 
 Framework-neutral architecture standards, design principles, and structure patterns for web
 applications in TypeScript. The principles hold for React, Angular, Vue, and any component-based
 framework. Code examples use React/TSX for one concrete syntax; each principle has an equivalent in
 an Angular template or a Vue SFC.
 
-> **Builds on.** `core-typescript` (language syntax). In a React or Angular codebase, `react` or
-> `angular` give the framework form and `accessibility` the UI lens. The Ruleset below is complete
-> on its own; load a companion skill when the task turns on its layer, not by default. If a named
-> skill is not loaded, apply that layer from general knowledge and do not block.
+> **Builds on.** `core-typescript` (language syntax). On a shared topic this skill decides the
+> design and `core-typescript` decides the syntax. `react`, `angular`, or `vue` gives the framework
+> form and `accessibility` the UI lens. The Ruleset below is complete on its own; load a companion
+> skill when the task turns on its layer, not by default. If a named skill is not loaded, apply that
+> layer from general knowledge and do not block.
 
 This SKILL.md is self-sufficient — the **Ruleset** below is the complete, enforceable list, and
 nothing here depends on a `references/` file being read. Each `references/<topic>.md` holds the
@@ -131,7 +132,7 @@ decides the syntax.
 
 - [ ] State is colocated in the component that uses it; lifted only when a second component needs it.
 - [ ] A value that can be computed from props or other state is derived, not stored.
-- [ ] A server collection is normalized: each entity stored once, keyed by id.
+- [ ] A server collection held in a client store is normalized — each entity once, keyed by id; data in a query cache stays as fetched.
 - [ ] Each state kind sits in its tier: server-cache library / URL params / a small store or context / the component.
 - [ ] Context holds only low-frequency values; a fast-changing value goes in a store with selectors, not a wide context.
 - [ ] Server data goes through a cache library keyed by its inputs — not fetched in an effect into local state.
@@ -149,7 +150,6 @@ decides the syntax.
 - [ ] Each independent region has its own error boundary and fallback, not only the app root.
 - [ ] A stale async result is cancelled or ignored (`AbortController` or an ignore flag).
 - [ ] A caught error is sent to a tracker with the source map, the release tag, and session context.
-- [ ] Core Web Vitals (LCP, INP, CLS) are measured in the field with RUM, not only Lighthouse.
 - [ ] No `console.log` ships; logging goes through one structured logger.
 - [ ] A semantic element over a `div` with a handler; every input and icon-only control labelled. Full lens: `accessibility`.
 
@@ -215,10 +215,10 @@ This skill covers frontend architecture and design. It does not cover:
 - Backend, database, or infrastructure design.
 - Distributed system architecture: microservices, event-driven backends, message brokers, sagas, distributed consistency. `ddd` covers tactical
   patterns inside one app, not strategic or cross-service design; `micro-frontends` covers the frontend split only.
-- Styling, tokens, and CSS architecture beyond the note in `frontend-practices` — `styling-and-design-tokens`.
+- Styling, tokens, and CSS architecture — `styling-and-design-tokens`.
 - Accessibility beyond "use a semantic element and a label". Focus management, ARIA, live regions, keyboard operability, and a11y testing live in
   `accessibility`.
-- Deep performance profiling and bundle analysis — `web-performance`.
+- Performance budgets, Core Web Vitals, and bundle analysis — `web-performance`.
 - A reusable component's public API (`component-api-design`) and internationalization (`i18n-and-localization`).
 - CI configuration, dependency bots, release tooling, and monorepo setup.
 - Framework-specific rules: Rules of Hooks, `useMemo` / `useCallback` policy, Angular change detection and signals, Vue reactivity caveats. These live in the
