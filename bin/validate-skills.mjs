@@ -7,6 +7,11 @@
 //     hyphens), `description` (<= 1024 chars), `license: CC-BY-4.0`, and `metadata`
 //     with `author` and `version`;
 //   - SKILL.md body is under 500 lines;
+//   - the title is `# <Title> — <Kind>` with Kind one of the four allowed values; the
+//     top-level sections are exactly How to Use This Skill / Ruleset / Limits / References, in
+//     that order; a `> **Builds on.**` note exists (a base skill's is the exact contract line);
+//     the `**Review**` row ends its steps with "Do not invent findings.";
+//   - every Ruleset group `### <slug> → references/<file>` names a file called `<slug>.md`;
 //   - every `references/<file>.md` pointer in SKILL.md resolves to a real file;
 //   - every topic slug listed in the Output Format ("Ruleset topic slug (`a`, `b`, …)")
 //     is a real `### <slug> → …` Ruleset group;
@@ -35,6 +40,10 @@ const NAME_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const REF_RE = /`references\/([A-Za-z0-9._-]+\.md)`/g;
 const MAX_BODY_LINES = 500;
 const MAX_DESCRIPTION = 1024;
+const KINDS = ['Base Engineering Skill', 'Framework Skill', 'Review Skill', 'Engineering Skill'];
+const SECTIONS = ['How to Use This Skill', 'Ruleset', 'Limits', 'References'];
+const BASE_BUILDS_ON = '> **Builds on.** Nothing — this is a base skill.';
+const REVIEW_CLOSER = 'Do not invent findings.';
 // [warn, fail] token budgets. SKILL.md loads in full on every trigger; a reference
 // loads one at a time, on demand.
 const BUDGET = { skill: [3800, 4300], reference: [1400, 2000] };
@@ -127,9 +136,45 @@ for (const skill of [...skillSet].sort()) {
     errors.push(`${rel}/SKILL.md: ${lineCount} lines, must be under ${MAX_BODY_LINES}`);
   }
 
-  // Ruleset topic slugs: `### <slug> → \`references/<file>.md\``
+  // Title: `# <Title> — <Kind>`, Kind from the allowed list.
+  const title = body.match(/^#\s+(.+)$/m);
+  if (!title) {
+    errors.push(`${rel}/SKILL.md: no \`# <Title> — <Kind>\` heading`);
+  } else {
+    const kind = title[1].split(' — ').pop().trim();
+    if (!KINDS.includes(kind)) errors.push(`${rel}/SKILL.md: title Kind "${kind}" is not one of: ${KINDS.join(' / ')}`);
+  }
+
+  // Top-level sections: exactly the four, in order.
+  const sections = [...body.matchAll(/^##\s+(.+?)\s*$/gm)].map((m) => m[1]);
+  if (sections.join('|') !== SECTIONS.join('|')) {
+    errors.push(`${rel}/SKILL.md: top-level sections are [${sections.join(', ')}]; must be exactly [${SECTIONS.join(', ')}]`);
+  }
+
+  // Builds-on note: present; a base skill's is the exact contract line.
+  const buildsOn = body.match(/^>\s+\*\*Builds on\.\*\*.*$/m);
+  if (!buildsOn) {
+    errors.push(`${rel}/SKILL.md: missing the \`> **Builds on.**\` note`);
+  } else if (/\bNothing\b/.test(buildsOn[0]) && buildsOn[0].trim() !== BASE_BUILDS_ON) {
+    errors.push(`${rel}/SKILL.md: a base skill's Builds-on note must be exactly "${BASE_BUILDS_ON}"`);
+  }
+
+  // Review row: present, and its steps end with the standard closing sentence.
+  const reviewRow = body.match(/^\|\s*\*\*Review\*\*.*$/m);
+  if (!reviewRow) {
+    errors.push(`${rel}/SKILL.md: How to Use This Skill has no \`**Review**\` row`);
+  } else if (!reviewRow[0].includes(REVIEW_CLOSER)) {
+    errors.push(`${rel}/SKILL.md: the Review row must end its steps with "${REVIEW_CLOSER}"`);
+  }
+
+  // Ruleset topic slugs: `### <slug> → \`references/<file>.md\`` — the file is named for the slug.
   const groupSlugs = new Set();
-  for (const m of body.matchAll(/^###\s+([a-z0-9-]+)\s+→\s+`references\/[^`]+`/gm)) groupSlugs.add(m[1]);
+  for (const m of body.matchAll(/^###\s+([a-z0-9-]+)\s+→\s+`references\/([^`]+)`/gm)) {
+    groupSlugs.add(m[1]);
+    if (m[2] !== `${m[1]}.md`) {
+      errors.push(`${rel}/SKILL.md: group \`${m[1]}\` points at references/${m[2]}; the file must be named references/${m[1]}.md`);
+    }
+  }
 
   // Output Format enumeration: "Ruleset topic slug (`a`, `b`, `c`, …)"
   const enumMatch = body.match(/Ruleset topic slug\s*\(([^)]*)\)/);

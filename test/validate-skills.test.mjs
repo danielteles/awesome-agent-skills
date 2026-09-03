@@ -21,6 +21,11 @@ const skillMd = ({
   outputTopics = topics,
   siblings = [],
   extraBody = '',
+  kind = 'Engineering Skill',
+  buildsOn = 'Nothing — this is a base skill.',
+  reviewRow = '| **Review** — check a diff | 1. Run the Ruleset. 2. If nothing fails, say so in one line. Do not invent findings. |',
+  rulesetBlock,
+  extraSection = '',
 }) => `---
 name: ${name}
 description: >-
@@ -29,17 +34,17 @@ ${license}
 ${metadata}
 ---
 
-# ${name} — Engineering Skill
+# ${name} — ${kind}
 
 Intro.
 
-> **Builds on.** Nothing — this is a base skill.
+> **Builds on.** ${buildsOn}
 
 ## How to Use This Skill
 
 | Mode | Steps |
 |---|---|
-| **Review** — check a diff | 1. Run the Ruleset. |
+${reviewRow}
 
 ### Output Format
 
@@ -47,12 +52,12 @@ Intro.
 
 ## Ruleset
 
-${topics.map((t) => `### ${t} → \`references/${t}.md\`\n\n- [ ] A rule.`).join('\n\n')}
+${rulesetBlock ?? topics.map((t) => `### ${t} → \`references/${t}.md\`\n\n- [ ] A rule.`).join('\n\n')}
 
 ## Limits
 
 - Nothing.
-
+${extraSection}
 ## References
 
 ${siblings.map((s) => `- **\`${s}\`** — a sibling.`).join('\n')}
@@ -152,6 +157,56 @@ test('fails when SKILL.md reaches 500 lines', (t) => {
   const { status, out } = run(r);
   assert.equal(status, 1);
   assert.match(out, /lines, must be under 500/);
+});
+
+test('fails when the title Kind is not an allowed value', (t) => {
+  const r = root(t);
+  writeSkill(r, 'good-skill', { frontmatter: { kind: 'Frontend Engineering Skill' } });
+  const { status, out } = run(r);
+  assert.equal(status, 1);
+  assert.match(out, /title Kind "Frontend Engineering Skill" is not one of/);
+});
+
+test('fails on an extra top-level section', (t) => {
+  const r = root(t);
+  writeSkill(r, 'good-skill', { frontmatter: { extraSection: '\n## The targets\n\n- A table.\n' } });
+  const { status, out } = run(r);
+  assert.equal(status, 1);
+  assert.match(out, /top-level sections are \[How to Use This Skill, Ruleset, Limits, The targets, References\]/);
+});
+
+test('fails when a base skill\'s Builds-on note is not the exact contract line', (t) => {
+  const r = root(t);
+  writeSkill(r, 'good-skill', { frontmatter: { buildsOn: 'Nothing — this is the base skill.' } });
+  const { status, out } = run(r);
+  assert.equal(status, 1);
+  assert.match(out, /Builds-on note must be exactly/);
+});
+
+test('passes when a non-base Builds-on note names siblings', (t) => {
+  const r = root(t);
+  writeSkill(r, 'good-skill', { frontmatter: { buildsOn: '`other-skill` (the base). If it is not loaded, do not block.' } });
+  const { status, out } = run(r);
+  assert.equal(status, 0, out);
+});
+
+test('fails when the Review row lacks the closing sentence', (t) => {
+  const r = root(t);
+  writeSkill(r, 'good-skill', { frontmatter: { reviewRow: '| **Review** — check a diff | 1. Run the Ruleset. |' } });
+  const { status, out } = run(r);
+  assert.equal(status, 1);
+  assert.match(out, /Review row must end its steps with "Do not invent findings\."/);
+});
+
+test('fails when a Ruleset group points at a file not named for its slug', (t) => {
+  const r = root(t);
+  writeSkill(r, 'good-skill', {
+    frontmatter: { rulesetBlock: '### alpha → `references/performance.md`\n\n- [ ] A rule.' },
+    refs: { alpha: refMd('good-skill', 'alpha'), performance: refMd('good-skill', 'alpha') },
+  });
+  const { status, out } = run(r);
+  assert.equal(status, 1);
+  assert.match(out, /group `alpha` points at references\/performance\.md; the file must be named references\/alpha\.md/);
 });
 
 test('fails when a Ruleset group points at a reference that does not exist', (t) => {

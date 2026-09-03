@@ -14,5 +14,5 @@
     }
   },
   "globs": ["skills/**/*.md", "templates/**/*.md", "*.md"],
-  "ignores": ["ROADMAP-NOTES.md", "node_modules"]
+  "ignores": ["node_modules"]
 }

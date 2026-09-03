@@ -59,6 +59,8 @@ move independently; this file tracks the repository as a whole.
 - Frontmatter carries `license: CC-BY-4.0` and `metadata` (`author`, `version`).
 - Builds-on notes are tool-neutral and state a fallback when a sibling skill is
   not loaded.
+- CONTRIBUTING sharpens `must-fix` / `consider` (behavior versus shape) and names
+  the concerns the set leaves out on purpose.
 - README reworked for discoverability — tagline, badges, quick start, a
   "which skills for which task" matrix — with the Skills table and structure
   tree generated from frontmatter.
@@ -71,7 +73,10 @@ move independently; this file tracks the repository as a whole.
 - `bin/validate-skills.mjs` — one validator: frontmatter keys, name regex,
   description length, the 500-line body cap, every `references/` pointer, topic
   slugs, sibling-skill names, the reference-file header, the worked example, and
-  the per-file token budgets.
+  the per-file token budgets. It also checks the title Kind, the four top-level
+  sections, the Builds-on note and its base form, the Review row's closing
+  sentence, and that each reference file is named for its group — the gaps the
+  review pass caught by hand.
 - `bin/sync-readme.mjs` — regenerates the README Skills table and structure tree;
   `--check` runs in `npm test`.
 - `bin/bump-version.mjs` — bump a skill's `metadata.version`.
