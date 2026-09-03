@@ -51,7 +51,7 @@ Pick the mode that matches the task. Do the steps in order.
 | Mode | Steps |
 |---|---|
 | **Generate** — build a component or page | 1. Reach for the native element first. 2. Give every control an accessible name. 3. Confirm the keyboard path and a visible focus indicator. 4. Run the axe checks. 5. Run the Ruleset as a checklist. Fix each fail before you hand off. |
-| **Review** — check a pull request or a diff | 1. Run the Ruleset against the diff. 2. Write one finding per fail, in the Output Format below; add the WCAG success criterion where it sharpens the point. 3. Order the findings: `must-fix` first, then `consider`. 4. If nothing fails, say so in one line. |
+| **Review** — check a pull request or a diff | 1. Run the Ruleset against the diff. 2. Write one finding per fail, in the Output Format below; add the WCAG success criterion where it sharpens the point. 3. Order the findings: `must-fix` first, then `consider`. 4. If nothing fails, say so in one line. Do not invent findings. |
 | **Audit** — assess an existing surface | 1. Run the automated checks (axe-core). They catch about 30 to 40 percent. 2. Walk every critical path with the keyboard only. 3. Run a screen reader over the critical flows (NVDA or JAWS with Chrome, VoiceOver with Safari). 4. Map each finding to a WCAG 2.2 AA criterion. |
 
 Triage first for the failures that dominate real sites, in this order: low-contrast text, missing
@@ -116,8 +116,8 @@ code.
       follow). [2.4.3, 1.3.2]
 - [ ] Every swipe / pinch / path gesture and every drag-and-drop has a single-pointer alternative. [2.5.1, 2.5.7]
 - [ ] Every time limit warns before it expires and can be extended or turned off. [2.2.1]
-- [ ] A visible focus indicator, styled with `:focus-visible`, at 3:1 contrast; any `outline: none` has an equal-or-better replacement; a sticky header or
-      footer never covers the focused element. [2.4.7, 1.4.11, 2.4.11]
+- [ ] A visible focus indicator, styled with `:focus-visible`, at 3:1 contrast; any `outline: none` has an equal-or-better replacement. [2.4.7, 1.4.11]
+- [ ] A sticky header or footer never covers the focused element. [2.4.11]
 - [ ] A "skip to main content" link is the first focusable element, visually hidden until focused (not `display: none`). [2.4.1]
 - [ ] A client-side route change moves focus to the new view (its `<h1>`, or a `tabindex="-1"` container); a dialog traps focus and restores it to the trigger
       on close.
@@ -164,8 +164,8 @@ code.
 
 ### testing → `references/testing.md`
 
-- [ ] Automated checks run in CI: `axe-core`, plus `eslint-plugin-jsx-a11y` (React) or the `angular-eslint` template accessibility rules (Angular) — they catch
-      roughly a third.
+- [ ] Automated checks run in CI: `axe-core`, plus `eslint-plugin-jsx-a11y` (React), the `angular-eslint` template accessibility rules (Angular), or
+      `eslint-plugin-vuejs-accessibility` (Vue) — they catch roughly a third.
 - [ ] Every critical path is walked with the keyboard only (Tab, Shift+Tab, Enter, Space, arrows, Esc).
 - [ ] Critical flows are run through a screen reader — NVDA or JAWS with Chrome, VoiceOver with Safari — a widget tested in both browse and forms/focus mode.
 - [ ] Tested at 400% browser zoom and with the OS text size increased, not only at 200%. [1.4.10]
@@ -181,9 +181,12 @@ This skill covers the accessibility of a web UI. It does not cover:
 
 - ATAG (authoring tools) or UAAG (browsers) — the WAI standards for tool and user-agent makers, not app authors.
 - Native mobile accessibility (iOS `UIAccessibility`, Android accessibility APIs) and document accessibility (PDF, Office).
-- Legal advice. WCAG 2.2 AA is the technical bar behind EN 301 549, the ADA, Section 508, and the EAA; conformance strategy and legal risk are for counsel.
+- Legal advice — conformance strategy and legal risk are for counsel.
 - WCAG level AAA criteria beyond AA, and the in-progress WCAG 3 and cognitive-accessibility (COGA) work — track them, do not build to a draft. WCAG 3 is likely
   to replace the 4.5:1 contrast ratio with a perceptual model (APCA); the 2.2 numbers stay the requirement until it does.
+- The CSS that meets a perceptual requirement — contrast token pairs, `prefers-reduced-motion`, forced-colors, `rem` type — `styling-and-design-tokens`.
+- Setting `lang` and `dir` from the locale and isolating bidi text — `i18n-and-localization`; this skill owns what `lang` and language-of-parts must be.
+- The framework mechanism behind each rule (`useId`, refs, portals; the CDK a11y package; SFC templates) — `react` / `angular` / `vue`.
 
 ---
 
@@ -195,7 +198,7 @@ This skill composes with:
   testing to this skill.
 - **`react`** — the React mechanism: `useId`, ref-based focus, `createPortal`, primitive libraries (Radix, React Aria).
 - **`angular`** — the Angular mechanism: the CDK `a11y` package (`cdkTrapFocus`, `FocusMonitor`, `LiveAnnouncer`) and the `template/accessibility` lint rules.
-- **`vue`** — the Vue mechanism: semantic SFC templates, `useId()`, and primitive libraries (Radix Vue, Headless UI).
+- **`vue`** — the Vue mechanism: semantic SFC templates, `useId()`, and primitive libraries (Reka UI, Headless UI).
 - **`styling-and-design-tokens`** — positions the tokens and queries (contrast pairs per theme, `prefers-reduced-motion`, forced-colors, `rem`-based type)
   that satisfy this skill's perceivable rules; this skill decides the requirement, that skill decides the CSS.
 - **`i18n-and-localization`** — sets `lang` and `dir` from the locale and isolates bidi text; this skill owns what `lang` and language-of-parts must be.

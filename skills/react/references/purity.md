@@ -45,6 +45,5 @@ conditional hooks, broken dependency arrays, and state set during render — non
 
 ## Accessibility
 
-A `<div onClick>` has no role, no keyboard behavior, and no focusability; a screen reader and the Tab key both skip it. Reach for `<button>` / `<a href>` /
-`<label>` first, give every control an accessible name, and use `useId()` for the id that ties a `<label>` (or `aria-describedby`) to its field — it is stable
-across server and client render, which a hand-made id is not. Full lens: the `accessibility` skill.
+Element choice and accessible names are the `accessibility` skill's rules. React's own mechanism is `useId()`: the id that ties a `<label>` (or
+`aria-describedby`) to its field is stable across server and client render, which a hand-made id is not — and it is never a list key.

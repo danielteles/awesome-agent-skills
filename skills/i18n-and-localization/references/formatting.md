@@ -18,6 +18,11 @@ reasoning and a `❌ / ✅` example — it adds no rule the Ruleset does not sta
   everywhere but English.
 - **Sort with `Intl.Collator`.** The default sort compares UTF-16 code units, so `ä` sorts after
   `z` and `Z` before `a`. `Intl.Collator(locale)` sorts the way that locale expects.
+- **Count and cut by grapheme.** `.length` counts UTF-16 code units, so an emoji is 2 and a Hindi
+  syllable can be 3, and `slice` can cut one in half. `Intl.Segmenter` walks grapheme clusters (and
+  words, for a word count).
+- **Names of languages and regions have an API too.** `Intl.DisplayNames` gives "Deutsch" or
+  "Allemagne" in the active locale; a hand-written map is wrong the moment a locale is added.
 
 ```ts
 // ❌ manual date, separator-naive number, locale-less toLocaleString, hand-joined list
@@ -31,4 +36,6 @@ new Intl.DateTimeFormat(locale, { dateStyle: 'medium', timeZone: tz }).format(da
 new Intl.NumberFormat(locale, { style: 'currency', currency: 'USD' }).format(cents / 100);
 new Intl.NumberFormat(locale).format(amount);
 new Intl.ListFormat(locale, { type: 'conjunction' }).format(users.map((u) => u.name));
+[...new Intl.Segmenter(locale, { granularity: 'grapheme' }).segment(title)].length; // not title.length
+new Intl.DisplayNames(locale, { type: 'language' }).of('de'); // "German" / "Deutsch" / "Allemand"
 ```

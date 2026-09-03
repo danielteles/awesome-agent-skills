@@ -4,7 +4,7 @@ description: >-
   Modern Angular conventions for writing, reviewing, refactoring, or migrating
   Angular: standalone components, `OnPush` and signals, `input()` / `output()` /
   `model()`, `@if` / `@for` / `@switch` control flow, `inject()` and functional
-  providers, functional guards and interceptors, typed reactive forms, lazy
+  providers, functional guards and interceptors, Signal Forms and typed reactive forms, lazy
   routing, zoneless-ready change detection and SSR, testing by role. Builds on
   `core-typescript` and `architecture-and-design`. Use it when the user mentions
   Angular, signals, `computed`, `effect`, standalone, `OnPush`, control flow,
@@ -82,12 +82,14 @@ reviewing. Each group links to its `references/` file for rationale and examples
 ### components → `references/components.md`
 
 - [ ] `ChangeDetectionStrategy.OnPush` on every component.
-- [ ] Dependencies come from `inject()`, not constructor parameters; injected members, inputs, outputs, and queries are grouped at the top; every
-      Angular-assigned member is `readonly`; a template-only member is `protected`.
+- [ ] Dependencies come from `inject()`, not constructor parameters.
+- [ ] Injected members, inputs, outputs, and queries are grouped at the top of the class.
+- [ ] Every Angular-assigned member (`input()`, `model()`, `output()`, a query) is `readonly`; a template-only member is `protected`.
 - [ ] One component / directive / service per file, named for the class (the current style guide drops the `.component` suffix — match the codebase if it still
       uses it).
-- [ ] A single project selector prefix; an attribute selector for a directive; each lifecycle hook is kept short and implements its interface (`OnInit`,
-      `OnDestroy`); host bindings and listeners go in the `host` object, not `@HostBinding` / `@HostListener`.
+- [ ] Selectors carry the single project prefix; a directive uses an attribute selector.
+- [ ] Each lifecycle hook is kept short and implements its interface (`OnInit`, `OnDestroy`).
+- [ ] Host bindings and listeners go in the `host` object, not `@HostBinding` / `@HostListener`.
 - [ ] An event handler is named for the action (`saveDraft()`), not the event (`onClick()`).
 - [ ] Cross-cutting behavior is a `hostDirective`, not a base class or copy-paste.
 - [ ] No `::ng-deep`; `ViewEncapsulation.None` only in a clearly-named global file; a child-piercing override is scoped with `:has()`.
@@ -109,7 +111,6 @@ reviewing. Each group links to its `references/` file for rationale and examples
       decorators.
 - [ ] An input is read as a call (`this.name()`); `input.required<T>()` over an optional input plus a `?` guard; a two-way value is written with
       `this.value.set(...)`.
-- [ ] Route params are bound to inputs with `withComponentInputBinding()` (see `routing`).
 
 ### templates → `references/templates.md`
 
@@ -117,10 +118,9 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] No method call in a binding — a `computed()` or a pure pipe; any expression past a property read or one pipe is moved into a `computed()`; `@let` for a
       value read more than once.
 - [ ] `@defer` with an `on` trigger around a heavy or below-the-fold section.
-- [ ] `[class.x]` / `[style.x.px]` over `NgClass` / `NgStyle`; an Observable is shown via the `async` pipe or `toSignal()`, never `.subscribe()` in the class
-      for display data.
-- [ ] A reusable component takes content via `<ng-content>` + named slots, a `TemplateRef` input + `*ngTemplateOutlet`, or `NgComponentOutlet` — not a pile of
-      boolean config props (`architecture-and-design`, solid — OCP).
+- [ ] `[class.x]` / `[style.x.px]` over `NgClass` / `NgStyle`.
+- [ ] Caller-supplied content comes through `<ng-content>` + named slots, a `TemplateRef` input + `*ngTemplateOutlet`, or `NgComponentOutlet`; the
+      slot-vs-prop decision is `component-api-design`, slots-vs-config.
 - [ ] A custom pipe is pure, standalone, typed, and does no I/O.
 
 ### dependency-injection → `references/dependency-injection.md`
@@ -146,8 +146,9 @@ reviewing. Each group links to its `references/` file for rationale and examples
 
 ### forms → `references/forms.md`
 
-- [ ] Reactive, typed forms (`new FormControl<string>('', { nonNullable: true })`) for anything past a single field; template-driven only for a trivial single
-      input.
+- [ ] A new form in a signal-based component uses Signal Forms (stable since v22); reactive forms where the codebase is already built on them; template-driven
+      only for a trivial single input.
+- [ ] A reactive form is typed (`new FormControl<string>('', { nonNullable: true })`); no untyped `FormGroup` or `FormControl`.
 - [ ] Validators are built from the same schema as the domain model (`architecture-and-design`, forms).
 - [ ] `invalid` / `dirty` / error text are derived from form state, not copied into signals.
 - [ ] A control a mode does not render is `disable({ emitEvent: false })`d, not `@if`-hidden.
@@ -159,7 +160,6 @@ reviewing. Each group links to its `references/` file for rationale and examples
       structure).
 - [ ] A feature-only service is scoped in the route's `providers` array, not `providedIn: 'root'`.
 - [ ] Route params, query params, and data are bound to inputs with `withComponentInputBinding()`.
-- [ ] A route guard is a functional `CanActivateFn` using `inject()`.
 - [ ] Filters, the current tab, and pagination are kept in the URL (`architecture-and-design`, state-and-data).
 
 ### rendering-ssr → `references/rendering-ssr.md`

@@ -102,6 +102,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
       `@media (prefers-color-scheme: dark)`); component rules never branch on the theme.
 - [ ] `color-scheme` is declared so native controls, scrollbars, and the canvas follow the theme.
 - [ ] Both an automatic path (`prefers-color-scheme`) and a persisted user override (an attribute on `<html>`) exist, and the override wins in both directions.
+- [ ] Where the theme axis is only light / dark, each token is one `light-dark()` declaration under `color-scheme: light dark`, and the user override sets
+      `color-scheme` on the root scope instead of redefining tokens.
 - [ ] The active theme is applied before first paint — an inline script or an SSR attribute — so there is no theme flash.
 - [ ] Forced-colors mode is handled: no meaning carried only by `background-image`, `forced-color-adjust` used deliberately, checked under
       `@media (forced-colors: active)` (thresholds: `accessibility`, perceivable).
@@ -157,6 +159,8 @@ This skill is CSS architecture and design tokens. It does not cover:
 - Animation choreography, JS animation libraries, SVG authoring, and icon-system design.
 - The internals of a specific CSS framework or CSS-in-JS library — the choice between approaches is here; each library's API is its own.
 - CSS build tooling (PostCSS plugins, bundler config) beyond the `@layer` and token setup.
+- CSS delivery cost — critical CSS, unused CSS, `font-display`, and font loading — `web-performance`; `methodology` only asks that unused CSS is removable
+  at build.
 
 This skill states how the CSS is organized. It is not a substitute for viewing the rendered result at real widths, themes, and zoom levels.
 

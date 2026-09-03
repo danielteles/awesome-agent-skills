@@ -33,6 +33,8 @@ must-fix · architecture · price-card.module.css:7 — `!important` on the shad
 must-fix · architecture · price-card.module.css:13 — `.card .title` is a descendant chain. Use a single scoped class, `.title` or `.card__title`.
 must-fix · tokens · price-card.module.css:2 — raw `#ffffff` for the surface. Read a semantic token: `background: var(--color-surface)`.
 must-fix · tokens · price-card.module.css:4 — raw `20px` padding. Use a spacing-scale token: `padding: var(--space-5)`.
+must-fix · tokens · price-card.module.css:5 — raw `8px` radius. Use a radius-scale token: `border-radius: var(--radius-md)`.
+must-fix · tokens · price-card.module.css:7 — the shadow is a raw value. Use a shadow token: `box-shadow: var(--shadow-sm)`.
 must-fix · tokens · price-card.module.css:8 — `z-index: 9999` is ad-hoc. Add `--z-card` to the z-index scale and use `z-index: var(--z-card)`.
 must-fix · theming · price-card.module.css:11 — the component branches on `[data-theme="dark"]`. Redefine `--color-surface` / `--color-text` on the theme scope and keep `.card` theme-agnostic.
 must-fix · responsive-layout · price-card.module.css:6 — fixed `width: 360px`. Use `max-inline-size: 22rem` with `width: 100%`.

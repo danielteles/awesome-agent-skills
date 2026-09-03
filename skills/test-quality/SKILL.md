@@ -42,8 +42,8 @@ Pick the mode that matches the task. Do the steps in order.
 
 | Mode | Steps |
 |---|---|
-| **Write** — add tests for new or changed code | 1. For each public behavior, name the scenario and the expected result (`structure-and-naming`). 2. Arrange through the public API, act in one call, assert on the observable result (`behavior-not-implementation`, `assertions`). 3. Build inputs with a builder; fake only what `test-doubles` allows. 4. Run the Ruleset as a checklist. Fix each fail before you hand off. |
-| **Review** — check the tests in a pull request | 1. Run the Ruleset against the test diff. 2. Write one finding per fail, in the Output Format below. 3. Order the findings: `must-fix` first, then `consider`. 4. If nothing fails, say so in one line. Do not invent findings. 5. For a fix, name the rule and the change — do not rewrite the author's test in silence. |
+| **Write** — add tests for new or changed code | 1. For each public behavior, name the scenario and the expected result (`structure-and-naming`). 2. Arrange through the public API, act in one call, assert on the observable result (`behavior-not-implementation`, `assertions`). 3. Build inputs with a builder; fake only what `test-doubles` allows. 4. Run each new test red once — against the unfixed code or a deliberately broken line — before trusting the green. 5. Run the Ruleset as a checklist. Fix each fail before you hand off. |
+| **Review** — check the tests in a pull request | 1. Run the Ruleset against the test diff. 2. Write one finding per fail, in the Output Format below. 3. Order the findings: `must-fix` first, then `consider`. 4. If nothing fails, say so in one line. Do not invent findings. |
 | **Triage** — fix a weak, brittle, or flaky test | 1. Name why it is bad: asserts on internals, no real assertion, order-dependent, non-deterministic (`determinism`). 2. Change the test, not the code under test — unless the test found a real bug. 3. Quarantine a flake immediately; fix it within the sprint, not with a CI retry. |
 | **Characterize** — add tests to untested code before changing it | 1. Write tests that pin the code's *current* observable behavior, quirks included — do not fix bugs yet. 2. Run them green against the unchanged code; this is the safety net. 3. Refactor or fix behind the net, updating a characterization test only when you deliberately change that behavior. |
 
@@ -75,6 +75,7 @@ shared fixture trades away maintainability. Every rule below follows from protec
 
 - Name the Ruleset topic when you enforce a rule.
 - State the reason, not only the rule. "This passes even when `total()` rejects" beats "await the promise".
+- Name the rule and the change; do not rewrite the author's test in silence.
 - A test exists to catch a regression a user would feel. A test that breaks on a rename and never on a behavior change is a cost, not an asset — say so.
 - When a test and the code disagree, find out which is right before changing either.
 
@@ -118,7 +119,6 @@ reviewing. Each group links to its `references/` file for rationale and examples
       promise resolves.
 - [ ] A snapshot is small, stable, and reviewed on every change — never a large auto-generated blob accepted unread. An inline snapshot for a short value is
       fine; a serialized component tree is not an assertion.
-- [ ] The test has been seen to fail — run it red against the unfixed code (or a deliberately broken line) before trusting the green.
 
 ### structure-and-naming → `references/structure-and-naming.md`
 
@@ -158,17 +158,14 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] Clock and randomness are controlled (fake timers, a seeded RNG, an injected `now()`).
 - [ ] No dependence on real network, wall-clock date, locale, or timezone; the timezone is pinned in test config.
 - [ ] Tests pass in any order and in parallel — no shared mutable file, DB row, or global.
-- [ ] A flaky test is quarantined on the first flake and fixed within the sprint — never left retrying in CI as the steady state.
 - [ ] Cleanup is in `afterEach` and runs even when the test fails.
 
 ### coverage → `references/coverage.md`
 
 - [ ] Coverage is read as a map of what is *unverified*, not a score to hit — a line counts only if an assertion depends on it.
-- [ ] Enforced on the lines a change touches, not a global percentage.
 - [ ] Branches and boundaries are tested, not only the happy path that lifts the line count.
 - [ ] Critical logic (money, auth, permissions, migrations) is checked at its boundaries and, where it pays, mutation-tested.
 - [ ] No test written only to raise the number; a test with no assertion, a tautological one, a duplicate, or one covering deleted code is removed.
-- [ ] Every bug fix ships with a test that fails before the fix and passes after.
 
 ---
 

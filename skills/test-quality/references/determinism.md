@@ -69,9 +69,3 @@ beforeAll(() => { cart = new Cart(); });
 let cart: Cart;
 beforeEach(() => { cart = new Cart(); });
 ```
-
-## Flakes
-
-Quarantine a flaky test on the first flake (skip it, tracked with a ticket) and fix it inside the
-sprint. A blanket `retries: 2` in CI is a way to stop noticing flakes, and a flake is often a real
-race in the product code.

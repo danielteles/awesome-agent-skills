@@ -75,9 +75,10 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] `<script setup lang="ts">` for a new component; no Options API and no `export default defineComponent({ ... })` with an options object.
 - [ ] `defineProps` and `defineEmits` are typed with a type argument, not a runtime object; `defineModel` for two-way binding instead of a `modelValue` prop
       plus an `update:modelValue` emit.
+- [ ] Prop defaults use reactive props destructure (`const { size = 'md' } = defineProps<Props>()`, Vue 3.5), not `withDefaults`.
 - [ ] One component per `.vue` file, `PascalCase` name matching the file; a `name` is set (or inferred) for the devtools and `<KeepAlive>`.
 - [ ] `defineOptions` for component options that are not props (e.g. `inheritAttrs: false`), not a second `<script>` block where avoidable.
-- [ ] Content is taken through named slots and scoped slots, not a growing list of boolean config props (`architecture-and-design`, solid — OCP).
+- [ ] Caller-supplied content comes through named and scoped slots; the slot-vs-prop decision is `component-api-design`, slots-vs-config.
 - [ ] `<style scoped>` (or CSS Modules); a child-piercing rule uses `:deep()` deliberately, never an unscoped global leak from a component file.
 
 ### reactivity → `references/reactivity.md`
@@ -106,7 +107,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] `v-if` and `v-for` are never on the same element; the `v-if` moves to a `<template>` wrapper or into a `computed` filtered list.
 - [ ] No non-trivial expression in a binding — anything past a property read or one call goes into a `computed`.
 - [ ] `v-html` is used only on sanitized or trusted content (`architecture-and-design`, security).
-- [ ] A semantic element (`button`, `nav`, `label`) over a `div` with `@click`; every control has an accessible name (`accessibility`).
+- [ ] Element choice and accessible names follow `accessibility`; `useId()` supplies a stable label / `aria-*` id across server and client.
 - [ ] `v-once` / `v-memo` appear only on a list row or subtree measured to be a render cost, not by default.
 
 ### state → `references/state.md`
@@ -135,7 +136,8 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] A component with a top-level `await` in `setup` is rendered inside `<Suspense>` with a fallback and an error boundary (`onErrorCaptured` or a wrapper).
 - [ ] Route components and heavy below-the-fold components are code-split with `defineAsyncComponent` / the router's lazy import.
 - [ ] `<KeepAlive>` is scoped to a small `:include` list, not wrapped around a whole router view by default.
-- [ ] A list past a few hundred rows is virtualized; a fresh object / array / function is not created in the template and passed to a memoized child.
+- [ ] A list past a few hundred rows is virtualized; no object / array / function literal is created in the template as a child prop — a new identity
+      re-renders the child on every parent render, so it is hoisted or a `computed`.
 - [ ] A deep `watch` over a large structure, and a `watchEffect` that re-runs too often, are replaced with a targeted `watch` on the specific field.
 
 ### server → `references/server.md`
@@ -154,7 +156,7 @@ reviewing. Each group links to its `references/` file for rationale and examples
       component internals or a CSS selector on `wrapper`.
 - [ ] Interaction is driven by `@testing-library/user-event` (awaited), and assertions are on rendered output — not on `emitted()` call counts or `vm` state as
       a stand-in for behavior.
-- [ ] The network is mocked with MSW at the boundary, not by stubbing `fetch` or a composable.
+- [ ] No stubbed `fetch` or mocked composable stands in for data; the boundary rule (MSW) is `test-quality`, test-doubles.
 - [ ] Async updates are awaited (`await nextTick()` / `flushPromises()` / `findBy*`) before the assertion.
 - [ ] A composable is tested through a host component that uses it; mounting-to-test in isolation only when there is no component.
 - [ ] Teleported content (modal, tooltip) is queried through `screen` / `document`, not the mounted wrapper.

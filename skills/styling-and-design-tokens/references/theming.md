@@ -13,6 +13,9 @@ reasoning and `❌ / ✅` examples — it adds no rule the Ruleset does not stat
   that sticks. An attribute on `<html>` that a small script sets from storage, with matching
   `:root[data-theme="dark"]` / `[data-theme="light"]` blocks, lets the choice win over the OS in
   both directions.
+- **`light-dark()` collapses the two blocks.** With `color-scheme: light dark` on the root, `--color-surface: light-dark(var(--white), var(--gray-900))`
+  resolves per scheme in one declaration, and the user override only needs `:root[data-theme="dark"] { color-scheme: dark }` — no second token block
+  to keep in sync. Use it when the only theme axis is light / dark; a brand or density axis still redefines tokens on a scope.
 - **No flash.** If the theme is applied by React after hydration, the first paint is the wrong
   theme and it visibly flips. Set the attribute in a blocking inline script in `<head>`, or from the
   server.
@@ -34,4 +37,9 @@ reasoning and `❌ / ✅` examples — it adds no rule the Ruleset does not stat
 }
 
 .card { background: var(--color-surface); color: var(--color-text); }
+
+/* ✅ light-dark(): one declaration per token; the override only sets color-scheme */
+:root { color-scheme: light dark; --color-surface: light-dark(var(--white), var(--gray-900)); }
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
 ```

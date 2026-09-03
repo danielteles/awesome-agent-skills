@@ -40,6 +40,14 @@ move independently; this file tracks the repository as a whole.
   `vue` corrects the Pinia write-path rationale; `frontend-code-review` routes e2e
   specs by folder and de-duplicates with `e2e-testing`; every skill names `vue`
   beside `react` and `angular`.
+- De-duplication and gaps: one owner per shared rule (slots vs props →
+  `component-api-design`; MSW at the boundary → `test-quality`; flake quarantine,
+  coverage-on-diff, and bug-fix tests → `architecture-and-design`; `??` / `any` /
+  parameter shape → `core-typescript`), with the framework skills pointing instead
+  of restating; `erasableSyntaxOnly` in `core-typescript`; Signal Forms in
+  `angular`; reactive props destructure in `vue`; `light-dark()` in
+  `styling-and-design-tokens`; `Intl.Segmenter` and `Intl.DisplayNames` in
+  `i18n-and-localization`; bundled Ruleset boxes split; worked examples completed.
 
 ### Structure and docs
 

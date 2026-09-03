@@ -3,7 +3,7 @@
 The rules are in the `accessibility` Ruleset (`testing` group). This file is the reasoning.
 
 - **Automated checks in CI** — `axe-core` (Playwright or Jest integration), `eslint-plugin-jsx-a11y` for React, the `angular-eslint` template accessibility
-  rules for Angular. They are cheap and catch roughly a third of issues before review, but no more than a third.
+  rules for Angular, `eslint-plugin-vuejs-accessibility` for Vue. They are cheap and catch roughly a third of issues before review, but no more than a third.
 - **A keyboard pass on every critical path** — Tab, Shift+Tab, Enter, Space, arrows, Esc. A linter cannot fully verify keyboard operability or focus order.
 - **A screen-reader pass on the critical flows** — NVDA or JAWS with Chrome, and VoiceOver with Safari; these are the pairings real users run (WebAIM Screen
   Reader Survey). Test a widget in *both* browse mode and forms/focus mode — it can work in one and fail in the other.

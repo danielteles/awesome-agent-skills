@@ -39,6 +39,7 @@ Output:
 
 ```
 must-fix · components · user-menu.component.ts:1 — no `changeDetection`. Add `ChangeDetectionStrategy.OnPush`.
+must-fix · components · user-menu.component.ts:2 — selector `user-menu` has no project prefix. Use `app-user-menu`.
 must-fix · inputs-outputs · user-menu.component.ts:10 — `@Input()` decorator. Use `user = input.required<User>()` and read it as `user()`.
 must-fix · inputs-outputs · user-menu.component.ts:11 — `@Output() EventEmitter`. Use `signOut = output<void>()`.
 must-fix · components · user-menu.component.ts:14 — constructor injection. Use `private readonly auth = inject(AuthService)`.
@@ -47,5 +48,5 @@ must-fix · templates · user-menu.component.ts:4 — `*ngIf`. Use `@if (user();
 must-fix · templates · user-menu.component.ts:5 — `fullName()` is a method call in a binding. Make it a `computed()`.
 consider · signals · user-menu.component.ts:12 — `items` is state set from a stream. Hold it as `toSignal(this.auth.getSession()...)`.
 consider · components · user-menu.component.ts:24 — `onClick` is named for the event. Name it for the action, or emit inline in the template.
-consider · components · user-menu.component.ts — the file is `user-menu.component.ts`; the current style guide uses `user-menu.ts`. Match the codebase.
+consider · components · user-menu.component.ts:9 — the file is `user-menu.component.ts`; the current style guide uses `user-menu.ts`. Match the codebase.
 ```

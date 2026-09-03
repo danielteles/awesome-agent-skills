@@ -107,6 +107,9 @@ reviewing. Each group links to its `references/` file for rationale and examples
 - [ ] Server-rendered formatted values are produced with the request's locale and time zone, not the server's, and match what the client would render (no
       hydration mismatch).
 - [ ] Collation-sensitive sorting of user-visible lists uses `Intl.Collator`, not the default code-unit sort.
+- [ ] String length, truncation, and character counts use `Intl.Segmenter` (grapheme clusters), never `.length` / `slice`, which split surrogate pairs and
+      combining marks.
+- [ ] Language, region, and currency names shown to the user (a locale switcher) come from `Intl.DisplayNames`, not a hand-written map.
 
 ### rtl-bidi → `references/rtl-bidi.md`
 

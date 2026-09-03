@@ -78,8 +78,8 @@ result. Each group links to its `references/` file for rationale and an example.
       `i18n-and-localization`; a change to loading, bundling, or rendering to `web-performance`; a shared or library component's props to
       `component-api-design`; a test file to `test-quality`, an e2e spec to `e2e-testing`; a cross-cutting or structural change to
       `architecture-and-design`.
-- [ ] Skills are applied base-first: `core-typescript`, then `architecture-and-design`, then the one framework skill, then the lenses, then this skill's own
-      checks.
+- [ ] Skills are applied base-first: `core-typescript`, then `architecture-and-design`, then the one framework skill (with `component-api-design` for a
+      shared component), then the lenses, then this skill's own checks.
 - [ ] Only the framework skill for the codebase runs — not `react` and `angular` and `vue` on the same file.
 - [ ] A concern the diff clearly touches with no skill available to cover it is reported as a `routing` gap, not silently skipped.
 
@@ -89,7 +89,8 @@ result. Each group links to its `references/` file for rationale and an example.
 - [ ] The finding is kept from the skill that owns that decision: `accessibility` for an a11y requirement, the framework skill for its API,
       `styling-and-design-tokens` for a CSS value, `web-performance` for a budget, `i18n-and-localization` for a translatable string or a locale format,
       `component-api-design` for a props contract, `architecture-and-design` for a design call, `core-typescript` for a type or syntax point, `test-quality`
-      for what a test asserts, `e2e-testing` for a locator, wait, or suite-isolation issue in an e2e spec.
+      for what a test asserts, `e2e-testing` for a locator, wait, or suite-isolation issue in an e2e spec; a physical CSS property in a directional layout
+      is `i18n-and-localization`'s requirement and `styling-and-design-tokens`'s fix.
 - [ ] The kept finding names the other skill that also flagged it, so the author sees it matters on two axes.
 - [ ] Two findings on the same line for *different* issues are both kept.
 - [ ] A genuine conflict — two skills prescribing incompatible fixes — is surfaced explicitly with the recommended resolution, not silently resolved.

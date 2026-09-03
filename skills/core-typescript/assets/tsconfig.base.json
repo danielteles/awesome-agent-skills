@@ -17,6 +17,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "verbatimModuleSyntax": true,
+    "erasableSyntaxOnly": true,
 
     // --- practical defaults from the reference file ---
     "forceConsistentCasingInFileNames": true,
